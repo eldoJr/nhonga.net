@@ -1,1 +1,1 @@
-// molecules components
+export { tabcontent } from './tabcontent';
