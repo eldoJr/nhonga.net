@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
@@ -6,6 +6,8 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg';
   onClick?: () => void;
   className?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export const button = ({ 
@@ -13,15 +15,17 @@ export const button = ({
   variant = 'primary', 
   size = 'md', 
   onClick, 
-  className = '' 
+  className = '',
+  disabled = false,
+  type = 'button'
 }: ButtonProps) => {
-  const baseClasses = 'font-montserrat font-medium rounded-lg transition-colors';
+  const baseClasses = 'font-montserrat font-medium rounded-md transition-colors';
   
   const variants = {
-    primary: 'bg-primary hover:bg-nhonga-600 text-white',
-    secondary: 'bg-secondary hover:bg-nhonga-800 text-white',
-    ghost: 'bg-transparent hover:bg-nhonga-50 text-nhonga-700',
-    outline: 'border border-nhonga-300 hover:border-nhonga-500 text-nhonga-700 hover:bg-nhonga-50'
+    primary: 'bg-primary hover:bg-nhonga-600 text-white disabled:opacity-50 disabled:cursor-not-allowed',
+    secondary: 'bg-secondary hover:bg-nhonga-800 text-white disabled:opacity-50 disabled:cursor-not-allowed',
+    ghost: 'bg-transparent hover:bg-nhonga-50 text-nhonga-700 disabled:opacity-50 disabled:cursor-not-allowed',
+    outline: 'border border-nhonga-300 hover:border-nhonga-500 text-nhonga-700 hover:bg-nhonga-50 disabled:opacity-50 disabled:cursor-not-allowed'
   };
   
   const sizes = {
@@ -32,7 +36,9 @@ export const button = ({
   
   return (
     <button
+      type={type}
       onClick={onClick}
+      disabled={disabled}
       className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {children}
