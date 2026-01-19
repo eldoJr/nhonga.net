@@ -5,24 +5,31 @@ import { generateOtp } from "./otpService.js";
 import { sendOtpEmail } from "./emailService.js";
 
 export const register = async ({ firstName, lastName, email, phone, username, password, accountType }) => {
-    // Verificar se username já existe
-    if (username) {
-        const existingUser = await prisma.user.findUnique({ where: { username } });
-        if (existingUser) throw new Error("Nome de usuário já existe");
+    try {
+        // Verificar se username já existe
+        if (username) {
+            console.log('Checking username:', username);
+            const existingUser = await prisma.user.findUnique({ where: { username } });
+            if (existingUser) throw new Error("Nome de usuário já existe");
+        }
+
+        const passwordHash = await hashPassword(password);
+        console.log('Creating user with data:', { email, phone, username, accountType });
+
+        const user = await prisma.user.create({
+            data: { email, phone, username, passwordHash, accountType },
+        });
+
+        const otp = await generateOtp({ userId: user.id, email, phone });
+
+        if (email) await sendOtpEmail(email, otp, firstName);
+        // SMS → integração futura
+
+        return { message: "OTP enviado", userId: user.id, firstName, lastName };
+    } catch (error) {
+        console.error('Register error:', error);
+        throw error;
     }
-
-    const passwordHash = await hashPassword(password);
-
-    const user = await prisma.user.create({
-        data: { email, phone, username, passwordHash, accountType },
-    });
-
-    const otp = await generateOtp({ userId: user.id, email, phone });
-
-    if (email) await sendOtpEmail(email, otp);
-    // SMS → integração futura
-
-    return { message: "OTP enviado", userId: user.id, firstName, lastName };
 };
 
 export const verifyOtp = async ({ email, phone, otp, firstName, lastName }) => {
@@ -54,7 +61,6 @@ export const verifyOtp = async ({ email, phone, otp, firstName, lastName }) => {
                 userId: user.id,
                 firstName,
                 lastName,
-                fullName: `${firstName} ${lastName}`,
             },
         });
     }

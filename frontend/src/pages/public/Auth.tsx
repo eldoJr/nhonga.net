@@ -3,13 +3,14 @@ import { Eye, EyeOff, ArrowLeft, User, Building2, Briefcase } from 'lucide-react
 import logo from '/src/assets/icons/logo.png';
 import { Input } from '../../components/atoms/input';
 import { button as Button } from '../../components/atoms/button';
+import { authAPI } from '../../services/api';
 
 interface AuthProps {
   initialView?: 'login' | 'register';
 }
 
 export const Auth = ({ initialView = 'login' }: AuthProps) => {
-  const [view, setView] = useState<'login' | 'register' | 'username' | 'accountType'>(initialView);
+  const [view, setView] = useState<'login' | 'register' | 'username' | 'accountType' | 'otp'>(initialView);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loginData, setLoginData] = useState({ email: '', password: '' });
@@ -17,18 +18,117 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: ''
   });
   const [username, setUsername] = useState('');
   const [accountType, setAccountType] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [tempData, setTempData] = useState<any>(null);
+  const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
 
-  const handleSubmit = async (action: () => void) => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    action();
-    setIsLoading(false);
+    setError('');
+    
+    try {
+      const result = await authAPI.login({
+        identifier: loginData.email,
+        password: loginData.password,
+      });
+      
+      localStorage.setItem('accessToken', result.accessToken);
+      localStorage.setItem('refreshToken', result.refreshToken);
+      
+      // Redirect to dashboard
+      window.location.href = '/';
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    
+    if (registerData.password !== registerData.confirmPassword) {
+      setError('As palavras-passe não coincidem');
+      return;
+    }
+    
+    setView('username');
+  };
+
+  const handleCompleteRegistration = async () => {
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      const result = await authAPI.register({
+        firstName: registerData.firstName,
+        lastName: registerData.lastName,
+        email: registerData.email,
+        phone: registerData.phone ? `258${registerData.phone}` : undefined,
+        username: username,
+        password: registerData.password,
+        accountType: accountType.toUpperCase(),
+      });
+      
+      setTempData({ firstName: registerData.firstName, lastName: registerData.lastName, email: registerData.email });
+      alert('Conta criada! Verifique o console do servidor para o código OTP.');
+      setView('otp');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      await authAPI.verifyOtp({
+        email: tempData?.email,
+        otp: otpCode.join(''),
+        firstName: tempData?.firstName,
+        lastName: tempData?.lastName,
+      });
+      
+      alert('Conta verificada com sucesso! Pode fazer login.');
+      setView('login');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleOtpChange = (index: number, value: string) => {
+    if (value.length > 1) return;
+    
+    const newOtp = [...otpCode];
+    newOtp[index] = value;
+    setOtpCode(newOtp);
+    
+    // Auto focus next input
+    if (value && index < 5) {
+      const nextInput = document.getElementById(`otp-${index + 1}`);
+      nextInput?.focus();
+    }
+  };
+
+  const handleOtpKeyDown = (index: number, e: React.KeyboardEvent) => {
+    if (e.key === 'Backspace' && !otpCode[index] && index > 0) {
+      const prevInput = document.getElementById(`otp-${index - 1}`);
+      prevInput?.focus();
+    }
   };
 
   const generateSuggestions = () => {
@@ -123,7 +223,12 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
                 <div className="flex-1 h-px bg-gray-300"></div>
               </div>
 
-              <form className="space-y-3">
+              <form className="space-y-3" onSubmit={handleLogin}>
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
                 <Input
                   label="Email"
                   type="email"
@@ -207,7 +312,12 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
                 <div className="flex-1 h-px bg-gray-300"></div>
               </div>
 
-              <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); setView('username'); }}>
+              <form className="space-y-3" onSubmit={handleRegister}>
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
                 <Input
                   label="Nome"
                   type="text"
@@ -234,6 +344,28 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
                   onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
                   required
                 />
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Contacto</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <span className="text-lg">🇲🇿</span>
+                      <span className="ml-2 text-sm text-gray-600">+258</span>
+                    </div>
+                    <input
+                      type="tel"
+                      placeholder="123456789"
+                      value={registerData.phone}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/\D/g, '').slice(0, 9);
+                        setRegisterData({ ...registerData, phone: value });
+                      }}
+                      className="w-full pl-20 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      required
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Apenas 9 dígitos</p>
+                </div>
 
                 <Input
                   label="Palavra-passe"
@@ -337,7 +469,7 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
                   </div>
                 </div>
 
-                <Button type="submit" variant="secondary" size="sm" className={`w-full ${isLoading ? '!bg-transparent' : ''}`} onClick={() => handleSubmit(() => setView('accountType'))} disabled={isLoading}>
+                <Button type="submit" variant="secondary" size="sm" className={`w-full ${isLoading ? '!bg-transparent' : ''}`} onClick={() => setView('accountType')} disabled={isLoading}>
                   {isLoading ? (
                     <span className="flex items-center justify-center gap-1.5">
                       <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
@@ -360,6 +492,66 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
                 </button>
               </p>
             </>
+          ) : view === 'otp' ? (
+            <>
+              <h1 className="text-xl font-gt-walsheim font-bold text-gray-800 mb-6">Verificar Conta</h1>
+              <p className="text-sm text-gray-600 mb-6">
+                Introduza o código de verificação enviado para {tempData?.email}
+              </p>
+
+              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleVerifyOtp(); }}>
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
+                
+                <div className="space-y-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Código de Verificação
+                  </label>
+                  <div className="flex justify-center gap-3">
+                    {otpCode.map((digit, index) => (
+                      <input
+                        key={index}
+                        id={`otp-${index}`}
+                        type="text"
+                        maxLength={1}
+                        value={digit}
+                        onChange={(e) => handleOtpChange(index, e.target.value)}
+                        onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                        className="w-12 h-12 text-center text-lg font-semibold border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-xs text-gray-500 text-center">
+                    Verifique o console do servidor para o código
+                  </p>
+                </div>
+
+                <Button type="submit" variant="secondary" size="sm" className={`w-full ${isLoading ? '!bg-transparent' : ''}`} disabled={isLoading || otpCode.some(digit => !digit)}>
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-1.5">
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '100ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '200ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '400ms' }}></span>
+                    </span>
+                  ) : 'Verificar Conta'}
+                </Button>
+              </form>
+
+              <p className="text-center text-xs text-gray-600 mt-6">
+                <button
+                  onClick={() => setView('login')}
+                  className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1"
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  Voltar ao Login
+                </button>
+              </p>
+            </>
           ) : (
             <>
               <h1 className="text-xl font-gt-walsheim font-bold text-gray-800 mb-6">Selecione o tipo de conta</h1>
@@ -368,6 +560,11 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
               </p>
 
               <div className="space-y-3">
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={() => setAccountType('professional')}
@@ -439,6 +636,54 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
                     </div>
                   </div>
                 </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAccountType('student')}
+                  className={`group w-full p-6 rounded-2xl text-left transition-all duration-300 backdrop-blur-sm relative overflow-hidden ${
+                    accountType === 'student' 
+                      ? 'bg-gradient-to-br from-nhonga-500/25 to-nhonga-600/35 border-2 border-nhonga-500 shadow-xl shadow-nhonga-500/25 scale-[1.02]' 
+                      : 'bg-white/70 border-2 border-gray-200/80 hover:bg-white/90 hover:border-nhonga-400 hover:shadow-lg hover:scale-[1.01]'
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className={`p-3 rounded-xl transition-all ${
+                      accountType === 'student'
+                        ? 'bg-nhonga-500 text-white shadow-lg shadow-nhonga-500/30'
+                        : 'bg-gray-100 text-gray-600 group-hover:bg-nhonga-100 group-hover:text-nhonga-600'
+                    }`}>
+                      <User className="w-6 h-6" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-gray-800 mb-2 text-lg">Estudante</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">Para estudantes em busca de oportunidades acadêmicas</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAccountType('nhonguista')}
+                  className={`group w-full p-6 rounded-2xl text-left transition-all duration-300 backdrop-blur-sm relative overflow-hidden ${
+                    accountType === 'nhonguista' 
+                      ? 'bg-gradient-to-br from-nhonga-500/25 to-nhonga-600/35 border-2 border-nhonga-500 shadow-xl shadow-nhonga-500/25 scale-[1.02]' 
+                      : 'bg-white/70 border-2 border-gray-200/80 hover:bg-white/90 hover:border-nhonga-400 hover:shadow-lg hover:scale-[1.01]'
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className={`p-3 rounded-xl transition-all ${
+                      accountType === 'nhonguista'
+                        ? 'bg-nhonga-500 text-white shadow-lg shadow-nhonga-500/30'
+                        : 'bg-gray-100 text-gray-600 group-hover:bg-nhonga-100 group-hover:text-nhonga-600'
+                    }`}>
+                      <User className="w-6 h-6" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-gray-800 mb-2 text-lg">Nhonguista</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">Membro especial da comunidade nhonga.net</p>
+                    </div>
+                  </div>
+                </button>
               </div>
 
               <Button 
@@ -446,7 +691,7 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
                 size="sm" 
                 className={`w-full mt-6 ${isLoading ? '!bg-transparent' : ''}`}
                 disabled={!accountType || isLoading}
-                onClick={() => handleSubmit(() => { /* Handle final submission */ })}
+                onClick={() => handleCompleteRegistration()}
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-1.5">

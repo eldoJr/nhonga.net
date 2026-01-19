@@ -1,18 +1,31 @@
 import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
+import { getOtpEmailTemplate } from "../../utils/emailTemplate.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: process.env.SMTP_HOST || "smtp.gmail.com",
+    port: process.env.SMTP_PORT || 587,
+    secure: false,
     auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
+        user: process.env.SMTP_USER || process.env.MAIL_USER,
+        pass: process.env.SMTP_PASS || process.env.MAIL_PASS,
     },
 });
 
-export const sendOtpEmail = async (to, otp) => {
-    await transporter.sendMail({
-        from: "nhonga.net",
+export const sendOtpEmail = async (to, otp, firstName) => {
+    const mailOptions = {
+        from: {
+            name: process.env.FROM_NAME || 'nhonga.net',
+            address: process.env.FROM_EMAIL || process.env.SMTP_USER || process.env.MAIL_USER,
+        },
         to,
-        subject: "Código de verificação",
-        text: `O seu código é: ${otp} (expira em 10 minutos)`,
-    });
+        subject: `${otp} é o seu código de verificação - nhonga.net`,
+        html: getOtpEmailTemplate(firstName, otp)
+    };
+
+    await transporter.sendMail(mailOptions);
 };

@@ -22,9 +22,12 @@ export const login = async (req, res, next) => {
         res
             .cookie("refreshToken", tokens.refreshToken, {
                 httpOnly: true,
-                secure: true,
+                secure: process.env.NODE_ENV === 'production',
             })
-            .json({ accessToken: tokens.accessToken });
+            .json({ 
+                accessToken: tokens.accessToken,
+                refreshToken: tokens.refreshToken 
+            });
     } catch (e) {
         next(e);
     }
