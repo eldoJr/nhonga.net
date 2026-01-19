@@ -1,8 +1,8 @@
 import { prisma } from "../../config/db.js";
 import { hashPassword, comparePassword } from "../../utils/password.js";
 import { signAccessToken, signRefreshToken } from "../../utils/jwt.js";
-import { generateOtp } from "./otp.service.js";
-import { sendOtpEmail } from "./email.service.js";
+import { generateOtp } from "./otpService.js";
+import { sendOtpEmail } from "./emailService.js";
 
 export const register = async ({ email, phone, password, accountType }) => {
     const passwordHash = await hashPassword(password);
