@@ -4,11 +4,20 @@ import { Home } from './components/templates/Home';
 import { Publicacoes } from './components/templates/Publicacoes';
 import { SobreNos } from './components/templates/SobreNos';
 import { Auth } from './pages/public/Auth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [activePage, setActivePage] = useState('home');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const renderContent = () => {
     if (activePage === 'login') return <Auth initialView="login" />;
@@ -34,11 +43,15 @@ function App() {
     <div className="min-h-screen bg-white">
       {activePage !== 'login' && activePage !== 'register' && (
         <>
-          <TopHeader activeTab={activeTab} setActiveTab={setActiveTab} onTabClick={handleTabNavigation} />
-          <Header activePage={activePage} setActivePage={handlePageChange} />
+          <div className={`transition-all duration-300 ${isScrolled ? 'h-0 overflow-hidden' : 'h-auto'}`}>
+            <TopHeader activeTab={activeTab} setActiveTab={setActiveTab} onTabClick={handleTabNavigation} />
+          </div>
+          <div className={`${isScrolled ? 'fixed top-0 left-0 right-0 z-50' : ''}`}>
+            <Header activePage={activePage} setActivePage={handlePageChange} />
+          </div>
         </>
       )}
-      <main>
+      <main className={isScrolled ? 'pt-14' : ''}>
         {renderContent()}
       </main>
       {activePage !== 'login' && activePage !== 'register' && footer()}

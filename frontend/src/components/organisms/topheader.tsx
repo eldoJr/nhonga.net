@@ -31,6 +31,7 @@ export const TopHeader = ({ activeTab, setActiveTab, onTabClick }: TopHeaderProp
                     ? 'text-white bg-nhonga-900 border-nhonga-500'
                     : 'text-nhonga-400 hover:text-nhonga-200 hover:bg-nhonga-900/50 border-transparent'
                 }`}
+                style={{ fontFamily: 'IBM Plex Sans, sans-serif' }}
               >
                 {tab.label}
               </button>
