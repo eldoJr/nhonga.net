@@ -1,4 +1,4 @@
-import { TopHeader, Header, footer } from './components/organisms';
+import { TopHeader, Header } from './components/organisms';
 import { tabcontent as TabContent } from './components/molecules';
 import { Home } from './components/templates/Home';
 import { Publicacoes } from './components/templates/Publicacoes';
@@ -51,10 +51,10 @@ function App() {
           </div>
         </>
       )}
-      <main className={isScrolled ? 'pt-14' : ''}>
+      <main className={isScrolled ? 'pt-12' : ''}>
         {renderContent()}
       </main>
-      {activePage !== 'login' && activePage !== 'register' && footer()}
+      {/* {activePage !== 'login' && activePage !== 'register' && footer()} */}
     </div>
   )
 }
