@@ -4,6 +4,7 @@ import logo from '/src/assets/icons/logo.png';
 import logoWhite from '/src/assets/images/logo-w.png';
 import { HeaderDropdown } from '../molecules';
 import { useTheme } from '../../contexts/ThemeContext';
+import { NhongaAI } from './nhongaai';
 
 interface HeaderProps {
   activePage: string;
@@ -15,6 +16,7 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
   const { theme, setTheme, effectiveTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleNavClick = (page: string) => {
     setActivePage(page);
@@ -85,7 +87,7 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
             
             {/* Search Input */}
             {isSearchOpen && (
-              <div className="flex-1 flex items-center bg-gray-100 dark:bg-nhonga-900 h-8 px-3 gap-2">
+              <div className="flex-1 max-w-3xl flex items-center bg-gray-100 dark:bg-nhonga-900 h-10 px-3 gap-2">
                 <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="16" height="16" viewBox="0 0 32 32" className="text-gray-500 dark:text-nhonga-150">
                   <path d="M29,27.5859l-7.5521-7.5521a11.0177,11.0177,0,1,0-1.4141,1.4141L27.5859,29ZM4,13a9,9,0,1,1,9,9A9.01,9.01,0,0,1,4,13Z"></path>
                 </svg>
@@ -95,7 +97,7 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   autoFocus
-                  className="flex-1 text-sm border-none outline-none bg-transparent text-gray-900 dark:text-nhonga-150 placeholder:text-gray-500 dark:placeholder:text-nhonga-400"
+                  className="w-[768px] text-sm border-none outline-none bg-transparent text-gray-900 dark:text-nhonga-150 placeholder:text-gray-500 dark:placeholder:text-nhonga-400"
                   style={{ fontFamily: 'IBM Plex Sans, sans-serif' }}
                 />
                 {searchValue && (
@@ -114,10 +116,12 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
                 <path d="M29,27.5859l-7.5521-7.5521a11.0177,11.0177,0,1,0-1.4141,1.4141L27.5859,29ZM4,13a9,9,0,1,1,9,9A9.01,9.01,0,0,1,4,13Z"></path>
               </svg>
             </button>
-            <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="20" height="20" viewBox="0 0 32 32" className="text-gray-600 dark:text-nhonga-150">
-              <path d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"></path>
-              <path d="M8 10H24V12H8zM8 16H18V18H8z"></path>
-            </svg>
+            <button onClick={() => setIsChatOpen(!isChatOpen)} className="p-2 hover:bg-gray-100 dark:hover:bg-nhonga-900 transition-colors rounded">
+              <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="20" height="20" viewBox="0 0 32 32" className="text-gray-600 dark:text-nhonga-150">
+                <path d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"></path>
+                <path d="M8 10H24V12H8zM8 16H18V18H8z"></path>
+              </svg>
+            </button>
             <HeaderDropdown
               trigger={
                 <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="20" height="20" viewBox="0 0 32 32" className="text-gray-600 dark:text-nhonga-150">
@@ -199,6 +203,8 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
           </div>
         )}
       </div>
+      
+      <NhongaAI isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </header>
   );
 };

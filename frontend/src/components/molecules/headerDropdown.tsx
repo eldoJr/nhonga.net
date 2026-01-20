@@ -34,16 +34,16 @@ export const HeaderDropdown = ({ trigger, items, align = 'right' }: HeaderDropdo
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-2 transition-colors ${
-          isOpen ? 'bg-gray-100' : 'hover:bg-gray-100'
+        className={`p-2 transition-colors rounded ${
+          isOpen ? 'bg-gray-100 dark:bg-nhonga-900' : 'hover:bg-gray-100 dark:hover:bg-nhonga-900'
         }`}
       >
         {trigger}
       </button>
       {isOpen && (
-        <div className={`absolute top-full w-40 bg-white border border-gray-200 shadow-lg z-50 ${
+        <div className={`absolute top-full w-40 bg-white dark:bg-nhonga-900 border border-gray-200 dark:border-nhonga-700 shadow-lg z-50 ${
           align === 'left' ? '-left-2' : '-right-2'
-        }`} style={{ marginTop: '6px' }}>
+        }`} style={{ marginTop: '4px' }}>
           {items.map((item, index) => (
             <div key={index} className="relative"
               onMouseEnter={() => item.subItems && setHoveredIndex(index)}
@@ -56,24 +56,24 @@ export const HeaderDropdown = ({ trigger, items, align = 'right' }: HeaderDropdo
                     setIsOpen(false);
                   }
                 }}
-                className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-between gap-3"
+                className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-nhonga-150 hover:bg-gray-50 dark:hover:bg-nhonga-800 transition-colors flex items-center justify-between gap-3"
                 style={{ fontFamily: 'IBM Plex Sans, sans-serif' }}
               >
                 <div className="flex items-center gap-3">
-                  {item.icon && <span className="text-gray-600">{item.icon}</span>}
+                  {item.icon && <span className="text-gray-600 dark:text-nhonga-300">{item.icon}</span>}
                   <div className="flex flex-col">
                     <span>{item.label}</span>
-                    {item.subtitle && <span className="text-xs text-gray-500">{item.subtitle}</span>}
+                    {item.subtitle && <span className="text-xs text-gray-500 dark:text-nhonga-400">{item.subtitle}</span>}
                   </div>
                 </div>
                 {item.hasChevron && (
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-gray-400">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-gray-400 dark:text-nhonga-400">
                     <path d="M10 8L6 4L6 12Z" fill="currentColor"/>
                   </svg>
                 )}
               </button>
               {item.subItems && hoveredIndex === index && (
-                <div className="absolute right-full top-0 w-32 bg-white border border-gray-200 shadow-lg z-50" style={{ marginRight: '2px' }}>
+                <div className="absolute right-full top-0 w-32 bg-white dark:bg-nhonga-900 border border-gray-200 dark:border-nhonga-700 shadow-lg z-50" style={{ marginRight: '2px' }}>
                   {item.subItems.map((subItem, subIndex) => (
                     <button
                       key={subIndex}
@@ -82,7 +82,7 @@ export const HeaderDropdown = ({ trigger, items, align = 'right' }: HeaderDropdo
                         setIsOpen(false);
                         setHoveredIndex(null);
                       }}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-between"
+                      className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-nhonga-150 hover:bg-gray-50 dark:hover:bg-nhonga-800 transition-colors flex items-center justify-between"
                       style={{ fontFamily: 'IBM Plex Sans, sans-serif' }}
                     >
                       <span>{subItem.label}</span>
