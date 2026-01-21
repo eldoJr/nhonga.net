@@ -4,12 +4,15 @@ import logo from '/src/assets/icons/logo.png';
 import { Input } from '../../components/atoms/input';
 import { button as Button } from '../../components/atoms/button';
 import { authAPI } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface AuthProps {
   initialView?: 'login' | 'register';
+  onLoginSuccess?: () => void;
 }
 
-export const Auth = ({ initialView = 'login' }: AuthProps) => {
+export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
+  const { login } = useAuth();
   const [view, setView] = useState<'login' | 'register' | 'username' | 'accountType' | 'otp' | 'forgotPassword'>(initialView);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -36,16 +39,14 @@ export const Auth = ({ initialView = 'login' }: AuthProps) => {
     setError('');
     
     try {
-      const result = await authAPI.login({
-        identifier: loginData.email,
-        password: loginData.password,
-      });
+      await login(loginData.email, loginData.password);
       
-      localStorage.setItem('accessToken', result.accessToken);
-      localStorage.setItem('refreshToken', result.refreshToken);
-      
-      // Redirect to dashboard
-      window.location.href = '/';
+      // Redirect to publicacoes page
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      } else {
+        window.location.href = '/publicacoes';
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {

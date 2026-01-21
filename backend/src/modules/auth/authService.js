@@ -73,19 +73,36 @@ export const verifyOtp = async ({ email, phone, otp, firstName, lastName }) => {
 };
 
 export const login = async ({ identifier, password }) => {
-    const user = await prisma.user.findFirst({
-        where: {
-            OR: [{ email: identifier }, { phone: identifier }, { username: identifier }],
-        },
-    });
+    try {
+        const user = await prisma.user.findFirst({
+            where: {
+                OR: [{ email: identifier }, { phone: identifier }, { username: identifier }],
+            },
+            include: { profile: true },
+        });
 
-    if (!user || !user.isVerified) throw new Error("Credenciais inválidas");
+        if (!user || !user.isVerified) throw new Error("Credenciais inválidas");
 
-    const valid = await comparePassword(password, user.passwordHash);
-    if (!valid) throw new Error("Credenciais inválidas");
+        const valid = await comparePassword(password, user.passwordHash);
+        if (!valid) throw new Error("Credenciais inválidas");
 
-    return {
-        accessToken: signAccessToken({ sub: user.id, role: user.role }),
-        refreshToken: signRefreshToken({ sub: user.id }),
-    };
+        const tokenPayload = {
+            sub: user.id,
+            userId: user.id,
+            email: user.email,
+            username: user.username,
+            accountType: user.accountType,
+            firstName: user.profile?.firstName || '',
+            lastName: user.profile?.lastName || '',
+            role: user.role
+        };
+
+        return {
+            accessToken: signAccessToken(tokenPayload),
+            refreshToken: signRefreshToken({ sub: user.id }),
+        };
+    } catch (error) {
+        console.error('Login error:', error);
+        throw error;
+    }
 };

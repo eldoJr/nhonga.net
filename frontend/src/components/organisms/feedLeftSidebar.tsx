@@ -1,6 +1,9 @@
 import { Home, Briefcase, Users, GraduationCap, Bell, Bookmark, MessageCircle, MapPin } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const feedLeftSidebar = () => {
+  const { user } = useAuth();
+  
   const menuItems = [
     { icon: Home, label: 'Início', active: true },
     { icon: MessageCircle, label: 'Mensagens', count: 5 },
@@ -24,7 +27,7 @@ export const feedLeftSidebar = () => {
               className="w-20 h-20 rounded-full border-4 border-white"
             />
           </div>
-          <h3 className="font-bold text-nhonga-900 font-heading">Eldo António Macuácua</h3>
+          <h3 className="font-bold text-nhonga-900 font-heading">{user ? `${user.firstName} ${user.lastName}` : 'Usuário'}</h3>
           <p className="text-sm text-nhonga-600 font-body mb-1">🕵️Web Dev | AI-ML Enthusiast. 🎓 IT Graduand @ Parul University</p>
           <div className="flex items-center gap-1 text-xs text-nhonga-500 font-body">
             <MapPin className="w-3 h-3" />

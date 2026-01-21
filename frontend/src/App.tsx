@@ -5,12 +5,15 @@ import { Publicacoes } from './components/templates/Publicacoes';
 import { SobreNos } from './components/templates/SobreNos';
 import { Auth } from './pages/public/Auth';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { useState, useEffect } from 'react';
 
-function App() {
+function AppContent() {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [activePage, setActivePage] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,9 +24,13 @@ function App() {
   }, []);
 
   const renderContent = () => {
-    if (activePage === 'login') return <Auth initialView="login" />;
+    if (activePage === 'login') return <Auth initialView="login" onLoginSuccess={() => setActivePage('publicacoes')} />;
     if (activePage === 'register') return <Auth initialView="register" />;
-    if (activePage === 'publicacoes') return <Publicacoes />;
+    if (activePage === 'publicacoes') return (
+      <ProtectedRoute>
+        <Publicacoes />
+      </ProtectedRoute>
+    );
     if (activePage === 'sobre') return <SobreNos />;
     if (activePage === 'home') return <Home />;
     return <TabContent activeTab={activeTab || ''} />;
@@ -59,7 +66,14 @@ function App() {
       {/* {activePage !== 'login' && activePage !== 'register' && footer()} */}
       </div>
     </ThemeProvider>
-  )
+  );
+}
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
 }
 
 export default App

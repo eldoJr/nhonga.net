@@ -10,7 +10,7 @@ export const getOtpEmailTemplate = (firstName, otpCode) => {
     <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px;">
             <div style="text-align: center; padding: 20px 0; border-bottom: 2px solid #007bff;">
-                <img src="https://seu-dominio.com/logo-nhonga.png" alt="nhonga.net" style="height: 50px; margin-bottom: 10px;">
+                <h1 style="color: #007bff; margin: 0; font-size: 28px;">nhonga.net</h1>
                 <p style="color: #666; margin: 5px 0 0 0;">Conectando Talentos em Moçambique</p>
             </div>
             
