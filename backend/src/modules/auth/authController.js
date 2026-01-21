@@ -32,3 +32,27 @@ export const login = async (req, res, next) => {
         next(e);
     }
 };
+
+export const forgotPassword = async (req, res, next) => {
+    try {
+        res.json(await AuthService.forgotPassword(req.body));
+    } catch (e) {
+        next(e);
+    }
+};
+
+export const verifyResetOtp = async (req, res, next) => {
+    try {
+        res.json(await AuthService.verifyResetOtp(req.body));
+    } catch (e) {
+        next(e);
+    }
+};
+
+export const resetPassword = async (req, res, next) => {
+    try {
+        res.json(await AuthService.resetPassword(req.body));
+    } catch (e) {
+        next(e);
+    }
+};

@@ -13,7 +13,7 @@ interface AuthProps {
 
 export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
   const { login } = useAuth();
-  const [view, setView] = useState<'login' | 'register' | 'username' | 'accountType' | 'otp' | 'forgotPassword'>(initialView);
+  const [view, setView] = useState<'login' | 'register' | 'username' | 'accountType' | 'otp' | 'forgotPassword' | 'resetOtp' | 'resetPassword'>(initialView);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loginData, setLoginData] = useState({ email: '', password: '' });
@@ -32,6 +32,9 @@ export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
   const [tempData, setTempData] = useState<any>(null);
   const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
   const [resetEmail, setResetEmail] = useState('');
+  const [resetToken, setResetToken] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,16 +120,16 @@ export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
     newOtp[index] = value;
     setOtpCode(newOtp);
     
-    // Auto focus next input
+    // Auto focus next input - works for both regular OTP and reset OTP
     if (value && index < 5) {
-      const nextInput = document.getElementById(`otp-${index + 1}`);
+      const nextInput = document.getElementById(`otp-${index + 1}`) || document.getElementById(`reset-otp-${index + 1}`);
       nextInput?.focus();
     }
   };
 
   const handleOtpKeyDown = (index: number, e: React.KeyboardEvent) => {
     if (e.key === 'Backspace' && !otpCode[index] && index > 0) {
-      const prevInput = document.getElementById(`otp-${index - 1}`);
+      const prevInput = document.getElementById(`otp-${index - 1}`) || document.getElementById(`reset-otp-${index - 1}`);
       prevInput?.focus();
     }
   };
@@ -290,7 +293,21 @@ export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
                 Introduza o seu email e enviaremos um link para redefinir a sua palavra-passe.
               </p>
 
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setIsLoading(true); setTimeout(() => { setIsLoading(false); setError(''); alert('Link enviado para ' + resetEmail); }, 1500); }}>
+              <form className="space-y-4" onSubmit={async (e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                setError('');
+                
+                try {
+                  await authAPI.forgotPassword({ email: resetEmail });
+                  setTempData({ email: resetEmail });
+                  setView('resetOtp');
+                } catch (err: any) {
+                  setError(err.message);
+                } finally {
+                  setIsLoading(false);
+                }
+              }}>
                 {error && <p className="text-xs text-red-600">{error}</p>}
                 
                 <Input
@@ -322,6 +339,168 @@ export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
                 >
                   <ArrowLeft className="w-3 h-3" />
                   Voltar ao Login
+                </button>
+              </p>
+            </>
+          ) : view === 'resetOtp' ? (
+            <>
+              <h1 className="text-xl font-gt-walsheim font-bold text-gray-800 mb-6">Verificar Código</h1>
+              <p className="text-sm text-gray-600 mb-6">
+                Introduza o código de verificação enviado para {tempData?.email}
+              </p>
+
+              <form className="space-y-4" onSubmit={async (e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                setError('');
+                
+                try {
+                  await authAPI.verifyResetOtp({
+                    email: tempData?.email,
+                    otp: otpCode.join('')
+                  });
+                  setView('resetPassword');
+                } catch (err: any) {
+                  setError(err.message);
+                } finally {
+                  setIsLoading(false);
+                }
+              }}>
+                {error && <p className="text-xs text-red-600">{error}</p>}
+                
+                <div className="space-y-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Código de Verificação
+                  </label>
+                  <div className="flex justify-center gap-3">
+                    {otpCode.map((digit, index) => (
+                      <input
+                        key={index}
+                        id={`reset-otp-${index}`}
+                        type="text"
+                        maxLength={1}
+                        value={digit}
+                        onChange={(e) => handleOtpChange(index, e.target.value)}
+                        onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                        className="w-12 h-12 text-center text-lg font-semibold border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <Button type="submit" variant="secondary" size="sm" className={`w-full ${isLoading ? '!bg-transparent' : ''}`} disabled={isLoading || otpCode.some(digit => !digit)}>
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-1.5">
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '100ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '200ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '400ms' }}></span>
+                    </span>
+                  ) : 'Verificar Código'}
+                </Button>
+              </form>
+
+              <p className="text-center text-xs text-gray-600 mt-6">
+                <button
+                  onClick={() => setView('forgotPassword')}
+                  className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1"
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  Voltar
+                </button>
+              </p>
+            </>
+          ) : view === 'resetPassword' ? (
+            <>
+              <h1 className="text-xl font-gt-walsheim font-bold text-gray-800 mb-6">Nova Palavra-passe</h1>
+              <p className="text-sm text-gray-600 mb-6">
+                Defina a sua nova palavra-passe para {tempData?.email}
+              </p>
+
+              <form className="space-y-4" onSubmit={async (e) => {
+                e.preventDefault();
+                setError('');
+                
+                if (newPassword !== confirmNewPassword) {
+                  setError('As palavras-passe não coincidem');
+                  return;
+                }
+                
+                setIsLoading(true);
+                
+                try {
+                  await authAPI.resetPassword({
+                    email: tempData?.email,
+                    token: otpCode.join(''),
+                    newPassword: newPassword
+                  });
+                  alert('Palavra-passe alterada com sucesso!');
+                  setView('login');
+                } catch (err: any) {
+                  setError(err.message);
+                } finally {
+                  setIsLoading(false);
+                }
+              }}>
+                {error && <p className="text-xs text-red-600">{error}</p>}
+                
+                <Input
+                  label="Nova Palavra-passe"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Mínimo 8 caracteres"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                  icon={
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  }
+                />
+
+                <Input
+                  label="Confirmar Nova Palavra-passe"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="Repita a nova palavra-passe"
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                  required
+                  icon={
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="hover:text-gray-600"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  }
+                />
+
+                <Button type="submit" variant="secondary" size="sm" className={`w-full ${isLoading ? '!bg-transparent' : ''}`} disabled={isLoading}>
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-1.5">
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '100ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '200ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                      <span className="w-2 h-2 bg-nhonga-500 rounded-full animate-bounce" style={{ animationDelay: '400ms' }}></span>
+                    </span>
+                  ) : 'Alterar Palavra-passe'}
+                </Button>
+              </form>
+
+              <p className="text-center text-xs text-gray-600 mt-6">
+                <button
+                  onClick={() => setView('resetOtp')}
+                  className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1"
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  Voltar
                 </button>
               </p>
             </>

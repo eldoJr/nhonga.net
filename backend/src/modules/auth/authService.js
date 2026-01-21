@@ -2,7 +2,7 @@ import { prisma } from "../../config/db.js";
 import { hashPassword, comparePassword } from "../../utils/password.js";
 import { signAccessToken, signRefreshToken } from "../../utils/jwt.js";
 import { generateOtp } from "./otpService.js";
-import { sendOtpEmail } from "./emailService.js";
+import { sendOtpEmail, sendPasswordResetEmail } from "./emailService.js";
 
 export const register = async ({ firstName, lastName, email, phone, username, password, accountType }) => {
     try {
@@ -103,6 +103,82 @@ export const login = async ({ identifier, password }) => {
         };
     } catch (error) {
         console.error('Login error:', error);
+        throw error;
+    }
+};
+
+export const forgotPassword = async ({ email }) => {
+    try {
+        const user = await prisma.user.findUnique({ 
+            where: { email },
+            include: { profile: true }
+        });
+        
+        if (!user) {
+            return { message: "Se o email existir, receberá um código de verificação" };
+        }
+        
+        const resetToken = await generateOtp({ userId: user.id, email });
+        
+        await sendPasswordResetEmail(email, resetToken, user.profile?.firstName || 'Usuário');
+        
+        return { message: "Código de verificação enviado para o seu email" };
+    } catch (error) {
+        console.error('Forgot password error:', error);
+        throw new Error("Erro ao processar solicitação");
+    }
+};
+
+export const verifyResetOtp = async ({ email, otp }) => {
+    try {
+        const record = await prisma.otpVerification.findFirst({
+            where: {
+                email,
+                expiresAt: { gt: new Date() },
+            },
+            orderBy: { createdAt: "desc" },
+        });
+        
+        if (!record) throw new Error("Código inválido ou expirado");
+        
+        const valid = await comparePassword(otp, record.otpHash);
+        if (!valid) throw new Error("Código incorreto");
+        
+        return { message: "Código verificado com sucesso" };
+    } catch (error) {
+        console.error('Verify reset OTP error:', error);
+        throw error;
+    }
+};
+
+export const resetPassword = async ({ email, token, newPassword }) => {
+    try {
+        const record = await prisma.otpVerification.findFirst({
+            where: {
+                email,
+                expiresAt: { gt: new Date() },
+            },
+            orderBy: { createdAt: "desc" },
+        });
+        
+        if (!record) throw new Error("Token inválido ou expirado");
+        
+        const valid = await comparePassword(token, record.otpHash);
+        if (!valid) throw new Error("Token incorreto");
+        
+        const passwordHash = await hashPassword(newPassword);
+        await prisma.user.update({
+            where: { id: record.userId },
+            data: { passwordHash },
+        });
+        
+        await prisma.otpVerification.deleteMany({
+            where: { userId: record.userId },
+        });
+        
+        return { message: "Palavra-passe alterada com sucesso" };
+    } catch (error) {
+        console.error('Reset password error:', error);
         throw error;
     }
 };

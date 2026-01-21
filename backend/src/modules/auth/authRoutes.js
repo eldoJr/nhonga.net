@@ -6,6 +6,9 @@ const router = Router();
 router.post("/register", AuthController.register);
 router.post("/verify-otp", AuthController.verifyOtp);
 router.post("/login", AuthController.login);
+router.post("/forgot-password", AuthController.forgotPassword);
+router.post("/verify-reset-otp", AuthController.verifyResetOtp);
+router.post("/reset-password", AuthController.resetPassword);
 
 // Rota de teste
 router.get("/test", (req, res) => {
