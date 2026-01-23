@@ -93,8 +93,10 @@ export const heroSection = () => {
 
   return (
     <>
-      <div className="bg-white dark:bg-nhonga-950 py-12 transition-colors">
-        <div className="max-w-4xl mx-auto px-4">
+      <div className="relative bg-white dark:bg-nhonga-950 py-12 transition-colors overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-2xl" style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(106, 229, 137, 0.15) 0%, rgba(106, 229, 137, 0.05) 40%, transparent 70%)' }}></div>
+        <div className="absolute inset-0 dark:block hidden dark:backdrop-blur-2xl dark:border-t dark:border-nhonga-700/20" style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(86, 190, 112, 0.2) 0%, rgba(26, 72, 38, 0.5) 40%, rgba(6, 33, 13, 1) 80%), radial-gradient(circle at 0% 100%, rgba(195, 245, 208, 0.08) 0%, transparent 25%)' }}></div>
+        <div className="relative max-w-4xl mx-auto px-4">
         {/* Main Search Bar */}
         <div className="relative mb-12">
           <div className="flex items-center bg-white dark:bg-nhonga-900 rounded-2xl shadow-lg border-2 border-primary dark:border-nhonga-600">
