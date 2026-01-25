@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 
 const tabs = [
+  { id: 'home', label: 'Para si' },
   { id: 'empregos', label: 'Empregos' },
   { id: 'servicos', label: 'Serviços' },
   { id: 'networking', label: 'Networking' },
@@ -10,33 +11,33 @@ const tabs = [
 interface TopHeaderProps {
   activeTab: string | null;
   setActiveTab: (tab: string | null) => void;
-  onTabClick: () => void;
+  onTabClick: (tabId: string) => void;
 }
 
 export const TopHeader = ({ activeTab, setActiveTab, onTabClick }: TopHeaderProps) => {
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
-    onTabClick();
+    onTabClick(tabId);
   };
   return (
-    <div className="bg-nhonga-1000 dark:bg-nhonga-1000 border-b border-nhonga-200 dark:border-nhonga-800 transition-colors">
-      <div className="w-full px-4">
+    <div className="bg-black border-b border-gray-800 transition-colors">
+      <div className="max-w-[1400px] mx-auto px-8">
         <div className="flex items-end text-xs">
           {tabs.map((tab, index) => (
             <div key={tab.id} className="flex items-center">
               <button
                 onClick={() => handleTabClick(tab.id)}
-                className={`px-3 py-1.5 border-b-2 transition-all duration-200 font-medium text-xs ${
+                className={`px-3 py-1.5 border-b-2 transition-all duration-200 text-xs text-white ${
                   activeTab === tab.id
-                    ? 'text-white bg-nhonga-900 border-nhonga-500'
-                    : 'text-nhonga-300 hover:text-white hover:bg-nhonga-900/50 border-transparent'
+                    ? 'font-bold bg-gray-900 border-nhonga-500'
+                    : 'font-normal hover:bg-gray-900/50 border-transparent'
                 }`}
-                style={{ fontFamily: 'IBM Plex Sans, sans-serif' }}
+                style={{ fontFamily: 'Source Sans Pro, sans-serif' }}
               >
                 {tab.label}
               </button>
               {index < tabs.length - 1 && (
-                <ChevronRight className="w-3 h-3 text-nhonga-500 mx-1 mb-1" />
+                <ChevronRight className="w-3 h-3 text-gray-600 mx-1 mb-1" />
               )}
             </div>
           ))}

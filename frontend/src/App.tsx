@@ -10,7 +10,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { useState, useEffect } from 'react';
 
 function AppContent() {
-  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string | null>('home');
   const [activePage, setActivePage] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const { isAuthenticated } = useAuth();
@@ -39,12 +39,18 @@ function AppContent() {
   const handlePageChange = (page: string) => {
     setActivePage(page);
     if (page === 'home') {
+      setActiveTab('home');
+    } else {
       setActiveTab(null);
     }
   };
 
-  const handleTabNavigation = () => {
-    setActivePage('tabs');
+  const handleTabNavigation = (tabId: string) => {
+    if (tabId === 'home') {
+      setActivePage('home');
+    } else {
+      setActivePage('tabs');
+    }
   };
 
   return (

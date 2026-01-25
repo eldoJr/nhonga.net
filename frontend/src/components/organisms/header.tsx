@@ -25,7 +25,7 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
 
   return (
     <header className="bg-white dark:bg-nhonga-950 border-b border-gray-200 dark:border-nhonga-800 shadow-sm transition-colors">
-      <div className="w-full px-4">
+      <div className="max-w-[1400px] mx-auto px-8">
         <div className="flex items-center justify-between h-10">
           {/* Logo */}
           <div className="flex items-center space-x-4">
@@ -40,20 +40,6 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
             {/* Desktop Navigation */}
             {!isSearchOpen && (
               <nav className="hidden md:flex items-center space-x-8">
-              <button 
-                onClick={() => handleNavClick('home')}
-                className={`text-xs font-bold transition-all duration-200 relative ${
-                  activePage === 'home'
-                    ? 'text-primary'
-                    : 'text-gray-700 dark:text-nhonga-150 hover:text-primary group'
-                }`}
-                style={{ fontFamily: 'IBM Plex Sans, sans-serif' }}
-              >
-                Home
-                <span className={`absolute -bottom-3 left-0 h-0.5 bg-primary transition-all duration-200 ${
-                  activePage === 'home' ? 'w-full' : 'w-0 group-hover:w-full'
-                }`}></span>
-              </button>
               <button 
                 onClick={() => handleNavClick('publicacoes')}
                 className={`text-xs font-bold transition-all duration-200 relative ${
@@ -170,14 +156,6 @@ export const Header = ({ activePage, setActivePage }: HeaderProps) => {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 dark:border-nhonga-800 py-2 animate-in slide-in-from-top-2 duration-200">
             <nav className="flex flex-col space-y-2">
-              <button 
-                onClick={() => handleNavClick('home')}
-                className={`text-sm px-2 py-1 rounded text-left transition-colors ${
-                  activePage === 'home' ? 'font-bold text-primary' : 'text-gray-600 dark:text-nhonga-150 hover:bg-gray-50 dark:hover:bg-nhonga-900 hover:text-primary'
-                }`}
-              >
-                Home
-              </button>
               <button 
                 onClick={() => handleNavClick('publicacoes')}
                 className={`text-sm px-2 py-1 rounded text-left transition-colors ${
