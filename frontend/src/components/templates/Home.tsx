@@ -3,6 +3,8 @@ import { ValueProposition } from '../layout/ValueProposition';
 import { SocialProof } from '../layout/SocialProof';
 import { CaseStudies } from '../layout/CaseStudies';
 import { DataDrivenCTA } from '../layout/DataDrivenCTA';
+import { SearchDiscovery } from '../layout/SearchDiscovery';
+import { Testimonials } from '../layout/Testimonials';
 
 export const Home = () => {
   return (
@@ -12,6 +14,8 @@ export const Home = () => {
       <ValueProposition />
       <CaseStudies />
       <DataDrivenCTA />
+      <SearchDiscovery />
+      <Testimonials />
     </div>
   );
 };
