@@ -6,12 +6,12 @@ export const CaseStudies = () => {
 
   const cases = [
     {
-      company: 'Vodacom Moçambique',
+      company: 'Vodacom',
       description: 'A Vodacom utilizou a nhonga.net para recrutar 150+ profissionais de tecnologia em 6 meses, reduzindo o tempo de contratação em 40% e conectando-se com talentos qualificados em todo Moçambique.',
       logo: 'https://www.freelogovectors.net/wp-content/uploads/2024/01/vodacom-logo-freelogovectors.net_.png',
     },
     {
-      company: 'Universidade Eduardo Mondlane',
+      company: 'UEM',
       description: 'A UEM expandiu seu alcance académico através da plataforma, divulgando bolsas de estudo e programas de investigação para mais de 5.000 estudantes, aumentando as candidaturas em 65%.',
       logo: 'https://project.hupedcare.com/images/partners/UEM.png',
     },
@@ -28,16 +28,16 @@ export const CaseStudies = () => {
   ];
 
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-16">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-5xl font-bold text-gray-900 mb-4 font-heading">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2 font-heading">
           Negócios mais inteligentes. Impacto real.
         </h2>
-        <p className="text-lg text-gray-600 mb-12 font-body">
+        <p className="text-base text-gray-600 mb-10 font-body">
           Descubra como empresas e instituições moçambicanas transformaram seus processos com a nhonga.net
         </p>
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-4">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          <div className="space-y-2">
             {cases.map((caseStudy, index) => (
               <div
                 key={caseStudy.company}
@@ -47,25 +47,25 @@ export const CaseStudies = () => {
               >
                 <button
                   onClick={() => setOpenIndex(index)}
-                  className="w-full text-left p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full text-left p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
                 >
-                  <h3 className="text-xl font-bold text-gray-900 font-heading">
+                  <h3 className="text-lg font-bold text-gray-900 font-heading">
                     {caseStudy.company}
                   </h3>
                   {openIndex === index ? (
-                    <ChevronUp className="w-6 h-6 text-nhonga-600" />
+                    <ChevronUp className="w-5 h-5 text-nhonga-600" />
                   ) : (
-                    <ChevronDown className="w-6 h-6 text-gray-400" />
+                    <ChevronDown className="w-5 h-5 text-gray-400" />
                   )}
                 </button>
                 {openIndex === index && (
-                  <div className="px-6 pb-6 space-y-4">
-                    <p className="text-gray-700 font-body leading-relaxed">
+                  <div className="px-4 pb-4 space-y-3">
+                    <p className="text-sm text-gray-700 font-body leading-relaxed">
                       {caseStudy.description}
                     </p>
                     <a
                       href="#"
-                      className="inline-flex items-center gap-2 text-nhonga-600 font-semibold hover:text-nhonga-700 transition-colors"
+                      className="inline-flex items-center gap-2 text-sm text-nhonga-600 font-semibold hover:text-nhonga-700 transition-colors"
                     >
                       Ler o caso de estudo
                       <ArrowRight className="w-4 h-4" />
@@ -75,11 +75,11 @@ export const CaseStudies = () => {
               </div>
             ))}
           </div>
-          <div className="lg:sticky lg:top-24 flex items-center justify-center bg-gray-50 rounded-2xl p-12 min-h-[400px]">
+          <div className="lg:sticky lg:top-24 flex items-center justify-center bg-gray-50 rounded-xl p-8 min-h-[300px]">
             <img
               src={cases[openIndex].logo}
               alt={cases[openIndex].company}
-              className="max-w-full max-h-[300px] w-auto h-auto object-contain"
+              className="max-w-full max-h-[200px] w-auto h-auto object-contain"
             />
           </div>
         </div>
