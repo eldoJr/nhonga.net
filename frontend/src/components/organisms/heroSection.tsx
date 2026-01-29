@@ -1,6 +1,6 @@
 import { Briefcase, Users, GraduationCap } from 'lucide-react';
-import { useState } from 'react';
-import { FeatureCard } from '../molecules/FeatureCard';
+import { useState, useEffect, useRef } from 'react';
+import { FeatureCard } from '../molecules/featureCard';
 
 const features = [
   {
@@ -31,14 +31,29 @@ const features = [
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.scrollWidth / features.length;
+      const newSlide = Math.round(scrollLeft / cardWidth);
+      setCurrentSlide(newSlide);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleFeatureClick = (index: number) => {
     console.log(`Feature ${index} clicked`);
   };
 
   const scrollToSlide = (index: number) => {
-    setCurrentSlide(index);
-    const container = document.querySelector('.carousel-container');
+    const container = containerRef.current;
     if (container) {
       const scrollAmount = (container.scrollWidth / features.length) * index;
       container.scrollTo({ left: scrollAmount, behavior: 'smooth' });
@@ -46,26 +61,23 @@ export const HeroSection = () => {
   };
 
   return (
-    <div className="relative bg-white dark:bg-nhonga-950 py-4 transition-colors overflow-hidden">
+    <div className="relative bg-gradient-to-b from-gray-50 to-white dark:from-nhonga-950 dark:to-nhonga-900 py-12 transition-colors overflow-hidden">
       <div className="relative max-w-[1400px] mx-auto px-8">
         {/* Carousel Container */}
-        <div className="relative mb-8">
-          {/* Left blur gradient */}
-          <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-r from-white dark:from-nhonga-950 to-transparent z-10 pointer-events-none"></div>
-          {/* Right blur gradient */}
-          <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-gradient-to-l from-white dark:from-nhonga-950 to-transparent z-10 pointer-events-none"></div>
-          
-          <div className="carousel-container overflow-x-auto overflow-y-hidden scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="relative mb-6">
+          <div 
+            ref={containerRef}
+            className="carousel-container overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory scroll-smooth" 
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
             <style>{`
               .scrollbar-hide::-webkit-scrollbar {
                 display: none;
               }
             `}</style>
-            <div 
-              className="flex gap-6"
-            >
+            <div className="flex gap-6">
               {features.map((feature, index) => (
-                <div key={index} className="w-[calc(50%-12px)] min-w-[calc(50%-12px)] flex-shrink-0">
+                <div key={index} className="w-[calc(50%-12px)] min-w-[calc(50%-12px)] flex-shrink-0 snap-start">
                   <FeatureCard
                     icon={feature.icon}
                     title={feature.title}
@@ -82,15 +94,15 @@ export const HeroSection = () => {
         </div>
 
         {/* Navigation Dots */}
-        <div className="flex gap-3">
+        <div className="flex justify-center gap-2">
           {features.map((_, index) => (
             <button
               key={index}
               onClick={() => scrollToSlide(index)}
-              className={`transition-all duration-300 rounded-md ${
+              className={`transition-all duration-300 rounded-full ${
                 currentSlide === index
-                  ? 'w-12 h-3 bg-nhonga-600 dark:bg-nhonga-500'
-                  : 'w-3 h-3 bg-nhonga-300 dark:bg-nhonga-700 hover:bg-nhonga-400 dark:hover:bg-nhonga-600'
+                  ? 'w-8 h-2 bg-nhonga-600 dark:bg-nhonga-400'
+                  : 'w-2 h-2 bg-gray-300 dark:bg-nhonga-700 hover:bg-nhonga-400 dark:hover:bg-nhonga-500'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
