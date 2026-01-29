@@ -1,10 +1,10 @@
 import { Facebook, Twitter, Linkedin, Mail, Phone, MapPin, Instagram } from 'lucide-react';
 import logo from '/src/assets/icons/logo.png';
 
-export const footer = () => {
+export const Footer = () => {
   return (
     <footer className="bg-nhonga-1000 text-white py-8">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-6">
           {/* Brand Section */}
           <div className="lg:col-span-1">

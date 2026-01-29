@@ -5,6 +5,9 @@ import { CaseStudies } from '../layout/CaseStudies';
 import { DataDrivenCTA } from '../layout/DataDrivenCTA';
 import { SearchDiscovery } from '../layout/SearchDiscovery';
 import { Testimonials } from '../layout/Testimonials';
+import { FAQ } from '../layout/FAQ';
+import { Newsletter } from '../layout/Newsletter';
+import { Footer } from '../organisms/footer';
 
 export const Home = () => {
   return (
@@ -16,6 +19,9 @@ export const Home = () => {
       <DataDrivenCTA />
       <SearchDiscovery />
       <Testimonials />
+      <FAQ />
+      <Newsletter />
+      <Footer />
     </div>
   );
 };
