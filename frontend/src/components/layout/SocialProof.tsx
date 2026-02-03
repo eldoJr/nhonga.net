@@ -1,6 +1,6 @@
 export const SocialProof = () => {
   const partners = [
-    { name: 'Universidade Eduardo Mondlane', logo: "https://project.hupedcare.com/images/partners/UEM.png" },
+    { name: 'Universidade Eduardo Mondlane', logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjp6tSxyp4oMzQ12JYsCXgYfb8BX4a9VYxaA&s" },
     { name: 'Vodacom Moçambique', logo: "https://www.freelogovectors.net/wp-content/uploads/2024/01/vodacom-logo-freelogovectors.net_.png" },
     { name: 'Banco BCI', logo: "https://play-lh.googleusercontent.com/7DTF6em3QwWVmoXMMMIEkAkAOyyD9e4evBI5VMtwWTXcRtt02lnw-7m5KbdQDJXlWw=w600-h300-pc0xffffff-pd" },
     { name: 'Mozal', logo: "https://upload.wikimedia.org/wikipedia/commons/0/00/Mozal_logo.png" },
