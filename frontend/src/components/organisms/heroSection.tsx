@@ -1,4 +1,4 @@
-import { Briefcase, Users, GraduationCap, Building2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Briefcase, Users, GraduationCap, Building2, ArrowRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 
 const cards = [
@@ -45,93 +45,157 @@ export const HeroSection = () => {
   const translateX = -(activeIndex * (CARD_WIDTH + GAP));
 
   return (
-    <section className="bg-gradient-to-br from-nhonga-900 via-nhonga-800 to-nhonga-900 dark:from-nhonga-950 dark:to-nhonga-900 py-16 md:py-20 overflow-hidden">
-      <div className="max-w-[1920px] mx-auto">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-16">
-          {/* Left Content */}
-          <div className="flex-shrink-0 lg:w-96 px-6 md:px-12 lg:px-16">
-            <h1 className="text-3xl md:text-4xl font-bold text-nhonga-400 mb-4 md:mb-6 leading-tight">
-              Conecte Talentos e Oportunidades
-            </h1>
-            <p className="text-gray-300 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
-              A plataforma que une profissionais, empresas e oportunidades em Moçambique.
-            </p>
+    <div style={{ backgroundColor: '#102D36' }}>
+      {/* Main Section */}
+      <section className="py-16 md:py-24 pb-16 md:pb-20 overflow-visible relative rounded-b-[120px] shadow-[0_8px_30px_rgba(0,0,0,0.3)]" style={{ background: 'linear-gradient(to bottom, #001219 0%, #001219 70%, #0a2a33 100%)' }}>
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 relative z-10">
+          {/* Announcement Badge */}
+          <div className="flex justify-center mb-8">
             <a 
-              href="/sobre"
-              className="inline-flex items-center gap-2 text-white font-semibold hover:text-nhonga-400 transition-colors group focus:outline-none focus:ring-2 focus:ring-nhonga-400 focus:ring-offset-2 focus:ring-offset-nhonga-900 rounded px-1"
+              href="/novidades"
+              className="inline-flex items-center gap-3 px-4 py-2 bg-nhonga-800/50 hover:bg-nhonga-800 border border-nhonga-700 rounded-full transition-all group"
             >
-              Saiba Mais
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span className="px-2 py-0.5 bg-nhonga-400 text-nhonga-950 text-xs font-bold rounded uppercase">
+                Novo
+              </span>
+              <span className="text-gray-300 text-sm">
+                Plataforma de oportunidades agora disponível
+              </span>
+              <ArrowRight className="w-4 h-4 text-nhonga-400 group-hover:translate-x-1 transition-transform" />
             </a>
-            
-            {/* Dots Navigation */}
-            <div className="flex items-center gap-1.5 mt-8 md:mt-12">
-              {cards.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goTo(index)}
-                  className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-nhonga-300 ${
-                    activeIndex === index
-                      ? 'w-6 h-1.5 bg-nhonga-400'
-                      : 'w-1.5 h-1.5 bg-nhonga-600 hover:bg-nhonga-500'
-                  }`}
-                  aria-label={`Ir para slide ${index + 1}`}
-                  aria-current={activeIndex === index}
-                />
-              ))}
-            </div>
           </div>
 
-          {/* Cards Carousel - Full Bleed Right */}
-          <div className="flex-1 -mr-6 md:-mr-12 lg:-mr-16 min-w-0 relative">
-            {/* Arrow Controls - Outside viewport */}
-            <button
-              onClick={prev}
-              className="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-nhonga-400 hover:bg-nhonga-300 items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-nhonga-300 shadow-lg"
-              aria-label="Slide anterior"
-            >
-              <ChevronLeft className="w-5 h-5 text-nhonga-900" />
-            </button>
+          {/* Main Heading */}
+          <div className="text-center mb-10">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
+              Uma plataforma.
+            </h1>
+            <h2 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-nhonga-400 to-green-400 bg-clip-text text-transparent leading-tight">
+              Infinitas oportunidades.
+            </h2>
+          </div>
 
-            <button
-              onClick={next}
-              className="hidden lg:flex absolute right-20 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-nhonga-400 hover:bg-nhonga-300 items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-nhonga-300 shadow-lg"
-              aria-label="Próximo slide"
-            >
-              <ChevronRight className="w-5 h-5 text-nhonga-900" />
-            </button>
+          {/* Description */}
+          <p className="text-center text-gray-300 text-lg md:text-xl mb-10 max-w-3xl mx-auto">
+            Conecte talentos, empresas e oportunidades em Moçambique numa única plataforma integrada.
+          </p>
 
-            {/* Carousel Viewport */}
-            <div className="overflow-hidden" role="region" aria-label="Carousel de oportunidades">
-              {/* Carousel Track */}
-              <div 
-                className="flex gap-6 transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(${translateX}px)` }}
+          {/* CTA Buttons */}
+          <div className="flex flex-col items-center justify-center gap-3 mb-6 max-w-md mx-auto">
+            <a
+              href="/cadastro"
+              className="w-full px-8 py-4 bg-nhonga-400 hover:bg-nhonga-300 text-nhonga-950 font-bold rounded-lg transition-all shadow-lg hover:shadow-xl text-center"
+            >
+              Começar Agora
+            </a>
+            <button
+              className="w-full px-8 py-4 bg-[#0a1f26] hover:bg-[#0d2730] border border-[#1a3d47] text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group"
+            >
+              <Sparkles className="w-5 h-5 text-nhonga-400" />
+              Explorar Plataforma
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+
+          {/* Footer Note */}
+          <p className="text-center text-sm text-gray-400">
+            Junte-se a milhares de profissionais e empresas.{' '}
+            <a href="/sobre" className="text-nhonga-400 hover:underline">
+              Saiba mais sobre a nhonga.net
+            </a>
+          </p>
+        </div>
+      </section>
+
+      {/* Hero Section with Carousel */}
+      <section className="pt-8 md:pt-12 pb-16 md:pb-20 overflow-hidden relative">
+        <div className="max-w-[1920px] mx-auto relative z-10">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-16">
+            {/* Left Content */}
+            <div className="flex-shrink-0 lg:w-96 px-6 md:px-12 lg:px-16">
+              <h1 className="text-3xl md:text-4xl font-bold text-nhonga-400 mb-4 md:mb-6 leading-tight">
+                Conecte Talentos e Oportunidades
+              </h1>
+              <p className="text-gray-300 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
+                A plataforma que une profissionais, empresas e oportunidades em Moçambique.
+              </p>
+              <a 
+                href="/sobre"
+                className="inline-flex items-center gap-2 text-white font-semibold hover:text-nhonga-400 transition-colors group focus:outline-none focus:ring-2 focus:ring-nhonga-400 focus:ring-offset-2 focus:ring-offset-nhonga-900 rounded px-1"
               >
-                {cards.map((card, index) => (
-                  <article
+                Saiba Mais
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </a>
+              
+              {/* Dots Navigation */}
+              <div className="flex items-center gap-1.5 mt-8 md:mt-12">
+                {cards.map((_, index) => (
+                  <button
                     key={index}
-                    className={`w-[380px] flex-shrink-0 bg-white dark:bg-nhonga-800 rounded-2xl p-7 shadow-xl transition-all duration-300 ${
-                      index === activeIndex ? 'scale-100 opacity-100' : 'scale-95 opacity-70'
+                    onClick={() => goTo(index)}
+                    className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-nhonga-300 ${
+                      activeIndex === index
+                        ? 'w-6 h-1.5 bg-nhonga-400'
+                        : 'w-1.5 h-1.5 bg-nhonga-600 hover:bg-nhonga-500'
                     }`}
-                  >
-                    <div className="text-nhonga-600 dark:text-nhonga-400 mb-4">{card.icon}</div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{card.title}</h3>
-                    <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">{card.description}</p>
-                    <a 
-                      href={card.href}
-                      className="inline-flex items-center gap-2 text-nhonga-600 dark:text-nhonga-400 font-semibold hover:gap-3 transition-all group focus:outline-none focus:ring-2 focus:ring-nhonga-500 rounded px-1"
-                    >
-                      {card.link}
-                      <ArrowRight className="w-4 h-4" />
-                    </a>
-                  </article>
+                    aria-label={`Ir para slide ${index + 1}`}
+                    aria-current={activeIndex === index}
+                  />
                 ))}
+              </div>
+            </div>
+
+            {/* Cards Carousel - Full Bleed Right */}
+            <div className="flex-1 -mr-6 md:-mr-12 lg:-mr-16 min-w-0 relative">
+              {/* Arrow Controls - Outside viewport */}
+              <button
+                onClick={prev}
+                className="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-nhonga-400 hover:bg-nhonga-300 items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-nhonga-300 shadow-lg"
+                aria-label="Slide anterior"
+              >
+                <ChevronLeft className="w-5 h-5 text-nhonga-900" />
+              </button>
+
+              <button
+                onClick={next}
+                className="hidden lg:flex absolute right-20 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-nhonga-400 hover:bg-nhonga-300 items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-nhonga-300 shadow-lg"
+                aria-label="Próximo slide"
+              >
+                <ChevronRight className="w-5 h-5 text-nhonga-900" />
+              </button>
+
+              {/* Carousel Viewport */}
+              <div className="overflow-hidden" role="region" aria-label="Carousel de oportunidades">
+                {/* Carousel Track */}
+                <div 
+                  className="flex gap-6 transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(${translateX}px)` }}
+                >
+                  {cards.map((card, index) => (
+                    <article
+                      key={index}
+                      className={`w-[380px] flex-shrink-0 bg-white dark:bg-nhonga-800 rounded-2xl p-7 shadow-xl transition-all duration-300 ${
+                        index === activeIndex ? 'scale-100 opacity-100' : 'scale-95 opacity-70'
+                      }`}
+                    >
+                      <div className="text-nhonga-600 dark:text-nhonga-400 mb-4">{card.icon}</div>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{card.title}</h3>
+                      <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">{card.description}</p>
+                      <a 
+                        href={card.href}
+                        className="inline-flex items-center gap-2 text-nhonga-600 dark:text-nhonga-400 font-semibold hover:gap-3 transition-all group focus:outline-none focus:ring-2 focus:ring-nhonga-500 rounded px-1"
+                      >
+                        {card.link}
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
