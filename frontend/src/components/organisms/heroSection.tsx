@@ -1,114 +1,137 @@
-import { Briefcase, Users, GraduationCap } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
-import { FeatureCard } from '../molecules/featureCard';
+import { Briefcase, Users, GraduationCap, Building2, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 
-const features = [
+const cards = [
   {
-    icon: <Briefcase className="w-8 h-8" />,
-    title: 'Encontre o Emprego Ideal',
-    description: 'Aceda a milhares de oportunidades de emprego em Moçambique. Conecte-se com as melhores empresas e construa a carreira dos seus sonhos.',
-    buttonText: 'Explorar Vagas',
-    variant: 'primary' as const,
-    image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&auto=format&fit=crop'
+    title: 'Oportunidades de Emprego',
+    description: 'Aceda a milhares de vagas em Moçambique e conecte-se com as melhores empresas do país.',
+    link: 'Explorar Vagas',
+    icon: <Briefcase className="w-6 h-6" />,
+    href: '/vagas'
   },
   {
-    icon: <Users className="w-8 h-8" />,
-    title: 'Conecte-se com Profissionais',
-    description: 'Expanda a sua rede profissional. Encontre parceiros de negócio, mentores e oportunidades de colaboração em todo o país.',
-    buttonText: 'Começar Networking',
-    variant: 'secondary' as const,
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop'
+    title: 'Rede Profissional',
+    description: 'Expanda sua rede, encontre mentores e descubra oportunidades de colaboração.',
+    link: 'Começar Networking',
+    icon: <Users className="w-6 h-6" />,
+    href: '/rede'
   },
   {
-    icon: <GraduationCap className="w-8 h-8" />,
-    title: 'Desenvolva suas Competências',
-    description: 'Descubra bolsas de estudo, cursos online e programas de formação. Invista no seu futuro e alcance novos patamares profissionais.',
-    buttonText: 'Ver Oportunidades',
-    variant: 'tertiary' as const,
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop'
+    title: 'Desenvolvimento de Carreira',
+    description: 'Descubra bolsas de estudo, cursos online e programas de formação profissional.',
+    link: 'Ver Oportunidades',
+    icon: <GraduationCap className="w-6 h-6" />,
+    href: '/formacao'
+  },
+  {
+    title: 'Marketplace de Serviços',
+    description: 'Conecte-se com prestadores de serviços e empresas para projetos e parcerias.',
+    link: 'Explorar Serviços',
+    icon: <Building2 className="w-6 h-6" />,
+    href: '/servicos'
   }
 ];
 
+const CARD_WIDTH = 380;
+const GAP = 24;
+
 export const HeroSection = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+  const next = () => setActiveIndex((activeIndex + 1) % cards.length);
+  const prev = () => setActiveIndex((activeIndex - 1 + cards.length) % cards.length);
+  const goTo = (index: number) => setActiveIndex(index);
 
-    const handleScroll = () => {
-      const scrollLeft = container.scrollLeft;
-      const cardWidth = container.scrollWidth / features.length;
-      const newSlide = Math.round(scrollLeft / cardWidth);
-      setCurrentSlide(newSlide);
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleFeatureClick = (index: number) => {
-    console.log(`Feature ${index} clicked`);
-  };
-
-  const scrollToSlide = (index: number) => {
-    const container = containerRef.current;
-    if (container) {
-      const scrollAmount = (container.scrollWidth / features.length) * index;
-      container.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
+  const translateX = -(activeIndex * (CARD_WIDTH + GAP));
 
   return (
-    <div className="relative bg-gradient-to-b from-gray-50 to-white dark:from-nhonga-950 dark:to-nhonga-900 py-12 transition-colors overflow-hidden">
-      <div className="relative max-w-[1400px] mx-auto px-8">
-        {/* Carousel Container */}
-        <div className="relative mb-6">
-          <div 
-            ref={containerRef}
-            className="carousel-container overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory scroll-smooth" 
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            <style>{`
-              .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-              }
-            `}</style>
-            <div className="flex gap-6">
-              {features.map((feature, index) => (
-                <div key={index} className="w-[calc(50%-12px)] min-w-[calc(50%-12px)] flex-shrink-0 snap-start">
-                  <FeatureCard
-                    icon={feature.icon}
-                    title={feature.title}
-                    description={feature.description}
-                    buttonText={feature.buttonText}
-                    onButtonClick={() => handleFeatureClick(index)}
-                    variant={feature.variant}
-                    image={feature.image}
-                  />
-                </div>
+    <section className="bg-gradient-to-br from-nhonga-900 via-nhonga-800 to-nhonga-900 dark:from-nhonga-950 dark:to-nhonga-900 py-16 md:py-20 overflow-hidden">
+      <div className="max-w-[1920px] mx-auto">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-16">
+          {/* Left Content */}
+          <div className="flex-shrink-0 lg:w-96 px-6 md:px-12 lg:px-16">
+            <h1 className="text-3xl md:text-4xl font-bold text-nhonga-400 mb-4 md:mb-6 leading-tight">
+              Conecte Talentos e Oportunidades
+            </h1>
+            <p className="text-gray-300 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
+              A plataforma que une profissionais, empresas e oportunidades em Moçambique.
+            </p>
+            <a 
+              href="/sobre"
+              className="inline-flex items-center gap-2 text-white font-semibold hover:text-nhonga-400 transition-colors group focus:outline-none focus:ring-2 focus:ring-nhonga-400 focus:ring-offset-2 focus:ring-offset-nhonga-900 rounded px-1"
+            >
+              Saiba Mais
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            
+            {/* Dots Navigation */}
+            <div className="flex items-center gap-1.5 mt-8 md:mt-12">
+              {cards.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goTo(index)}
+                  className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-nhonga-300 ${
+                    activeIndex === index
+                      ? 'w-6 h-1.5 bg-nhonga-400'
+                      : 'w-1.5 h-1.5 bg-nhonga-600 hover:bg-nhonga-500'
+                  }`}
+                  aria-label={`Ir para slide ${index + 1}`}
+                  aria-current={activeIndex === index}
+                />
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Navigation Dots */}
-        <div className="flex justify-center gap-2">
-          {features.map((_, index) => (
+          {/* Cards Carousel - Full Bleed Right */}
+          <div className="flex-1 -mr-6 md:-mr-12 lg:-mr-16 min-w-0 relative">
+            {/* Arrow Controls - Outside viewport */}
             <button
-              key={index}
-              onClick={() => scrollToSlide(index)}
-              className={`transition-all duration-300 rounded-full ${
-                currentSlide === index
-                  ? 'w-8 h-2 bg-nhonga-600 dark:bg-nhonga-400'
-                  : 'w-2 h-2 bg-gray-300 dark:bg-nhonga-700 hover:bg-nhonga-400 dark:hover:bg-nhonga-500'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+              onClick={prev}
+              className="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-nhonga-400 hover:bg-nhonga-300 items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-nhonga-300 shadow-lg"
+              aria-label="Slide anterior"
+            >
+              <ChevronLeft className="w-5 h-5 text-nhonga-900" />
+            </button>
+
+            <button
+              onClick={next}
+              className="hidden lg:flex absolute right-20 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-nhonga-400 hover:bg-nhonga-300 items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-nhonga-300 shadow-lg"
+              aria-label="Próximo slide"
+            >
+              <ChevronRight className="w-5 h-5 text-nhonga-900" />
+            </button>
+
+            {/* Carousel Viewport */}
+            <div className="overflow-hidden" role="region" aria-label="Carousel de oportunidades">
+              {/* Carousel Track */}
+              <div 
+                className="flex gap-6 transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(${translateX}px)` }}
+              >
+                {cards.map((card, index) => (
+                  <article
+                    key={index}
+                    className={`w-[380px] flex-shrink-0 bg-white dark:bg-nhonga-800 rounded-2xl p-7 shadow-xl transition-all duration-300 ${
+                      index === activeIndex ? 'scale-100 opacity-100' : 'scale-95 opacity-70'
+                    }`}
+                  >
+                    <div className="text-nhonga-600 dark:text-nhonga-400 mb-4">{card.icon}</div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{card.title}</h3>
+                    <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">{card.description}</p>
+                    <a 
+                      href={card.href}
+                      className="inline-flex items-center gap-2 text-nhonga-600 dark:text-nhonga-400 font-semibold hover:gap-3 transition-all group focus:outline-none focus:ring-2 focus:ring-nhonga-500 rounded px-1"
+                    >
+                      {card.link}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

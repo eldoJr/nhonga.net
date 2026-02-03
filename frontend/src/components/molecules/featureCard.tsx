@@ -14,41 +14,31 @@ interface FeatureCardProps {
 
 export const FeatureCard = ({ icon, title, description, buttonText, onButtonClick, variant, image }: FeatureCardProps) => {
   const variants = {
-    primary: 'bg-gradient-to-br from-nhonga-950 via-nhonga-900 to-nhonga-950 text-white',
-    secondary: 'bg-gradient-to-br from-blue-700 via-blue-600 to-blue-700 text-white',
-    tertiary: 'bg-gradient-to-br from-nhonga-700 via-nhonga-600 to-nhonga-700 text-white'
+    primary: 'from-nhonga-900 to-nhonga-800',
+    secondary: 'from-blue-600 to-blue-700',
+    tertiary: 'from-nhonga-600 to-nhonga-700'
   };
 
   return (
-    <div className={`${variants[variant]} rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-3xl hover:scale-[1.01] h-[320px] flex`}>
-      <div className="flex-1 p-10 flex flex-col justify-between">
+    <div className={`bg-gradient-to-br ${variants[variant]} text-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow h-72 flex`}>
+      <div className="flex-1 p-7 flex flex-col justify-between">
         <div>
-          <div className="mb-6 text-white">
-            {icon}
-          </div>
-          <h3 className="text-3xl font-bold mb-4 font-heading leading-tight">
-            {title}
-          </h3>
-          <p className="text-base mb-8 font-body leading-relaxed opacity-95">
-            {description}
-          </p>
+          <div className="mb-3">{icon}</div>
+          <h3 className="text-2xl font-bold mb-2.5 leading-tight">{title}</h3>
+          <p className="text-sm opacity-90 leading-relaxed">{description}</p>
         </div>
         <Button
           variant="secondary"
           size="lg"
           onClick={onButtonClick}
-          className="font-heading bg-white text-gray-900 hover:bg-gray-100 w-fit px-6 py-3 rounded-lg font-semibold shadow-md flex items-center gap-2"
+          className="bg-white text-gray-900 hover:bg-gray-50 active:bg-gray-100 transition-colors w-fit px-5 py-2.5 rounded-md font-semibold text-sm flex items-center gap-2 shadow-sm"
         >
           {buttonText}
-          <ArrowRight className="w-5 h-5" />
+          <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
-      <div className="w-2/5 relative overflow-hidden rounded-r-3xl">
-        <img 
-          src={image} 
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+      <div className="w-2/5 relative">
+        <img src={image} alt={title} className="w-full h-full object-cover" />
       </div>
     </div>
   );
