@@ -13,6 +13,7 @@ function AppContent() {
   const [activeTab, setActiveTab] = useState<string | null>('home');
   const [activePage, setActivePage] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isTopHeaderVisible, setIsTopHeaderVisible] = useState(false);
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -58,12 +59,17 @@ function AppContent() {
       <div className="min-h-screen bg-white dark:bg-nhonga-1000 transition-colors">
       {activePage !== 'login' && activePage !== 'register' && (
         <>
-          <div className={`transition-all duration-300 ${isScrolled ? 'h-0 overflow-hidden' : 'h-auto'}`}>
+          <div className={`transition-all duration-300 ease-out ${!isTopHeaderVisible || isScrolled ? 'max-h-0 opacity-0' : 'max-h-20 opacity-100'} overflow-hidden`}>
             <TopHeader activeTab={activeTab} setActiveTab={setActiveTab} onTabClick={handleTabNavigation} />
           </div>
-          <div className={`${isScrolled ? 'fixed top-0 left-0 right-0 z-50' : ''}`}>
-            <Header activePage={activePage} setActivePage={handlePageChange} />
+          <div className={`transition-all duration-300 ease-out ${isScrolled ? 'fixed top-0 left-0 right-0 z-50 shadow-lg' : 'relative'}`}>
+            <Header activePage={activePage} setActivePage={handlePageChange} toggleTopHeader={() => setIsTopHeaderVisible(!isTopHeaderVisible)} isTopHeaderVisible={isTopHeaderVisible} isScrolled={isScrolled} />
           </div>
+          {isScrolled && isTopHeaderVisible && (
+            <div className="fixed top-10 left-0 right-0 z-40 transition-all duration-300 ease-out">
+              <TopHeader activeTab={activeTab} setActiveTab={setActiveTab} onTabClick={handleTabNavigation} />
+            </div>
+          )}
         </>
       )}
       <main className={isScrolled ? 'pt-12' : ''}>

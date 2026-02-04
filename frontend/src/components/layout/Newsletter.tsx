@@ -5,31 +5,12 @@ export const Newsletter = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-2xl font-bold mb-6 font-heading">Mantenha-se conectado</h2>
-            <div className="bg-gradient-to-br from-blue-600 to-cyan-400 p-10 relative overflow-hidden">
-              <div className="absolute inset-0">
-                <svg className="w-full h-full" viewBox="0 0 400 300" fill="none">
-                  <line x1="50" y1="150" x2="350" y2="150" stroke="white" strokeWidth="2" opacity="0.3"/>
-                  <line x1="100" y1="100" x2="300" y2="200" stroke="white" strokeWidth="2" opacity="0.3"/>
-                  <line x1="100" y1="200" x2="300" y2="100" stroke="white" strokeWidth="2" opacity="0.3"/>
-                  <circle cx="100" cy="100" r="3" fill="white"/>
-                  <circle cx="200" cy="80" r="3" fill="white"/>
-                  <circle cx="300" cy="100" r="3" fill="white"/>
-                  <circle cx="150" cy="150" r="3" fill="white"/>
-                  <circle cx="250" cy="150" r="3" fill="white"/>
-                  <circle cx="100" cy="200" r="3" fill="white"/>
-                  <circle cx="200" cy="220" r="3" fill="white"/>
-                  <circle cx="300" cy="200" r="3" fill="white"/>
-                  <circle cx="50" cy="150" r="4" fill="white"/>
-                  <circle cx="350" cy="150" r="4" fill="white"/>
-                </svg>
-              </div>
-              <div className="relative flex items-center justify-center h-64">
-                <svg className="w-32 h-32" viewBox="0 0 120 120" fill="none">
-                  <ellipse cx="60" cy="60" rx="50" ry="30" stroke="white" strokeWidth="3"/>
-                  <circle cx="60" cy="60" r="20" fill="white" opacity="0.2"/>
-                  <path d="M 35 60 Q 47.5 50 60 60 Q 72.5 70 85 60" stroke="white" strokeWidth="3" fill="none"/>
-                </svg>
-              </div>
+            <div>
+              <img 
+                src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera_assets.s3.amazonaws.com/images/04f290c8baa586175eff911ee952c6a4.png?auto=format%2Ccompress&dpr=2&w=541&h=379" 
+                alt="Newsletter" 
+                className="w-full h-auto object-cover rounded-lg"
+              />
             </div>
           </div>
 

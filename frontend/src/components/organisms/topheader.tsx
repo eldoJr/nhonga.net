@@ -20,17 +20,17 @@ export const TopHeader = ({ activeTab, setActiveTab, onTabClick }: TopHeaderProp
     onTabClick(tabId);
   };
   return (
-    <div className="bg-black border-b border-gray-800 transition-colors">
+    <div className="border-b border-gray-700 transition-colors" style={{ backgroundColor: '#102D36' }}>
       <div className="max-w-[1400px] mx-auto px-8">
         <div className="flex items-end text-xs">
           {tabs.map((tab, index) => (
             <div key={tab.id} className="flex items-center">
               <button
                 onClick={() => handleTabClick(tab.id)}
-                className={`px-3 py-1.5 border-b-2 transition-all duration-200 text-xs text-white ${
+                className={`px-3 py-1.5 border-b-2 transition-all duration-200 text-xs ${
                   activeTab === tab.id
-                    ? 'font-bold bg-gray-900 border-nhonga-500'
-                    : 'font-normal hover:bg-gray-900/50 border-transparent'
+                    ? 'font-bold bg-nhonga-800 border-nhonga-500 text-white'
+                    : 'font-normal hover:bg-nhonga-800/50 border-transparent text-gray-300'
                 }`}
                 style={{ fontFamily: 'Source Sans Pro, sans-serif' }}
               >
