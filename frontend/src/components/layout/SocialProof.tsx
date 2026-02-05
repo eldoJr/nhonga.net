@@ -9,12 +9,12 @@ export const SocialProof = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-white dark:bg-[#102D36] py-16">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-left text-2xl font-semibold text-gray-700 mb-4 font-heading">
+        <h2 className="text-left text-2xl font-semibold text-gray-700 dark:text-white mb-4 font-heading">
           Empresas e Instituições que Confiam na nhonga.net
         </h2>
-        <p className="text-left text-gray-600 mb-12 font-body">
+        <p className="text-left text-gray-600 dark:text-gray-300 mb-12 font-body">
           Conectando os melhores talentos com as principais organizações de Moçambique
         </p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
