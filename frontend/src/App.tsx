@@ -5,7 +5,7 @@ import { Publicacoes } from './components/templates/Publicacoes';
 import { SobreNos } from './components/templates/SobreNos';
 import { Auth } from './pages/public/Auth';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { useState, useEffect } from 'react';
 
@@ -14,7 +14,6 @@ function AppContent() {
   const [activePage, setActivePage] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isTopHeaderVisible, setIsTopHeaderVisible] = useState(false);
-  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +62,7 @@ function AppContent() {
             <TopHeader activeTab={activeTab} setActiveTab={setActiveTab} onTabClick={handleTabNavigation} />
           </div>
           <div className={`transition-all duration-300 ease-out ${isScrolled ? 'fixed top-0 left-0 right-0 z-50 shadow-lg' : 'relative'}`}>
-            <Header activePage={activePage} setActivePage={handlePageChange} toggleTopHeader={() => setIsTopHeaderVisible(!isTopHeaderVisible)} isTopHeaderVisible={isTopHeaderVisible} isScrolled={isScrolled} />
+            <Header activePage={activePage} setActivePage={handlePageChange} toggleTopHeader={() => setIsTopHeaderVisible(!isTopHeaderVisible)} isTopHeaderVisible={isTopHeaderVisible} />
           </div>
           {isScrolled && isTopHeaderVisible && (
             <div className="fixed top-10 left-0 right-0 z-40 transition-all duration-300 ease-out">

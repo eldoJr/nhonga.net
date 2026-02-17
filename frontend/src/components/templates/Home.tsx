@@ -1,4 +1,4 @@
-import { HeroSection } from '../organisms/HeroSection';
+import { HeroSection } from '../organisms/heroSection';
 import { ValueProposition } from '../layout/ValueProposition';
 import { SocialProof } from '../layout/SocialProof';
 import { CaseStudies } from '../layout/CaseStudies';

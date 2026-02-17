@@ -1,4 +1,4 @@
-import { Building2, MapPin, Users, TrendingUp } from 'lucide-react';
+import { MapPin, Users, TrendingUp } from 'lucide-react';
 import { button as Button } from '../atoms/button';
 
 export const companyCards = () => {
