@@ -1,1 +1,45 @@
-import { colors } from '../colors';\n\nexport const lightTheme = {\n  colors: {\n    background: colors.white,\n    surface: colors.nhonga[50],\n    surfaceHover: colors.nhonga[100],\n    primary: colors.nhonga[500],\n    primaryHover: colors.nhonga[600],\n    secondary: colors.nhonga[700],\n    text: {\n      primary: colors.nhonga[900],\n      secondary: colors.nhonga[700],\n      muted: colors.nhonga[600]\n    },\n    border: colors.nhonga[200],\n    success: colors.nhonga[600],\n    warning: '#F59E0B',\n    error: '#EF4444',\n    info: '#3B82F6'\n  }\n};\n\nexport const darkTheme = {\n  colors: {\n    background: colors.nhonga[1000],\n    surface: colors.nhonga[950],\n    surfaceHover: colors.nhonga[900],\n    primary: colors.nhonga[400],\n    primaryHover: colors.nhonga[300],\n    secondary: colors.nhonga[500],\n    text: {\n      primary: colors.nhonga[50],\n      secondary: colors.nhonga[100],\n      muted: colors.nhonga[200]\n    },\n    border: colors.nhonga[800],\n    success: colors.nhonga[400],\n    warning: '#FBBF24',\n    error: '#F87171',\n    info: '#60A5FA'\n  }\n};\n\nexport type Theme = typeof lightTheme;
+import { colors } from '../colors';
+
+export const lightTheme = {
+  colors: {
+    background: colors.white,
+    surface: colors.nhonga[50],
+    surfaceHover: colors.nhonga[100],
+    primary: colors.nhonga[500],
+    primaryHover: colors.nhonga[600],
+    secondary: colors.nhonga[700],
+    text: {
+      primary: colors.nhonga[900],
+      secondary: colors.nhonga[700],
+      muted: colors.nhonga[600]
+    },
+    border: colors.nhonga[200],
+    success: colors.nhonga[600],
+    warning: '#F59E0B',
+    error: '#EF4444',
+    info: '#3B82F6'
+  }
+};
+
+export const darkTheme = {
+  colors: {
+    background: colors.nhonga[1000],
+    surface: colors.nhonga[950],
+    surfaceHover: colors.nhonga[900],
+    primary: colors.nhonga[400],
+    primaryHover: colors.nhonga[300],
+    secondary: colors.nhonga[500],
+    text: {
+      primary: colors.nhonga[50],
+      secondary: colors.nhonga[100],
+      muted: colors.nhonga[200]
+    },
+    border: colors.nhonga[800],
+    success: colors.nhonga[400],
+    warning: '#FBBF24',
+    error: '#F87171',
+    info: '#60A5FA'
+  }
+};
+
+export type Theme = typeof lightTheme;

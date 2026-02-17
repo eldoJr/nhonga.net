@@ -42,9 +42,23 @@ export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
     setError('');
     
     try {
+      // Static admin login
+      if (loginData.email === 'admin@gmail.com' && loginData.password === 'admin123') {
+        const adminToken = btoa(JSON.stringify({
+          userId: 'admin',
+          email: 'admin@gmail.com',
+          username: 'admin',
+          firstName: 'Admin',
+          lastName: 'User',
+          accountType: 'INDIVIDUAL'
+        }));
+        localStorage.setItem('accessToken', `header.${adminToken}.signature`);
+        window.location.href = '/publicacoes';
+        return;
+      }
+
       await login(loginData.email, loginData.password);
       
-      // Redirect to publicacoes page
       if (onLoginSuccess) {
         onLoginSuccess();
       } else {
