@@ -32,7 +32,6 @@ export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
   const [tempData, setTempData] = useState<any>(null);
   const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
   const [resetEmail, setResetEmail] = useState('');
-  const [resetToken, setResetToken] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
@@ -88,7 +87,7 @@ export const Auth = ({ initialView = 'login', onLoginSuccess }: AuthProps) => {
     setError('');
     
     try {
-      const result = await authAPI.register({
+      await authAPI.register({
         firstName: registerData.firstName,
         lastName: registerData.lastName,
         email: registerData.email,

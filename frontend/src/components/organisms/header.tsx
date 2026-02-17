@@ -11,10 +11,9 @@ interface HeaderProps {
   setActivePage: (page: string) => void;
   toggleTopHeader?: () => void;
   isTopHeaderVisible?: boolean;
-  isScrolled?: boolean;
 }
 
-export const Header = ({ activePage, setActivePage, toggleTopHeader, isTopHeaderVisible, isScrolled }: HeaderProps) => {
+export const Header = ({ activePage, setActivePage, toggleTopHeader, isTopHeaderVisible }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme, effectiveTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);

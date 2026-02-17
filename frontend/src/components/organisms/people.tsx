@@ -1,4 +1,4 @@
-import { UserPlus, Users } from 'lucide-react';
+import { UserPlus } from 'lucide-react';
 import { button as Button } from '../atoms/button';
 
 export const peopleYouMayKnow = () => {

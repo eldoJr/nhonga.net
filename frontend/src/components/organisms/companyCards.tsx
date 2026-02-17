@@ -101,9 +101,9 @@ export const companyCards = () => {
     }
   ];
 
-  const renderCompanyGrid = (companies) => (
+  const renderCompanyGrid = (companies: typeof allCompanies) => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-x divide-nhonga-200">
-      {companies.map((company, index) => (
+      {companies.map((company, index: number) => (
         <div key={index} className="px-6 first:pl-0 last:pr-0">
           <div className="flex flex-col h-full">
             <div className="mb-4">

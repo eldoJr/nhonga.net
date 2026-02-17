@@ -1,7 +1,6 @@
-import { Search, Users, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useState } from 'react';
 import { button as Button } from '../../components/atoms/button';
-import { networkingCards } from '../../components/organisms/networkingCards';
 import { companyCards } from '../../components/organisms/companyCards';
 import { netSidebar } from '../../components/organisms/netSidebar';
 import { invitations } from '../../components/organisms/invitations';

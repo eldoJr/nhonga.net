@@ -1,4 +1,4 @@
-import { UserPlus, X, Check } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 import { button as Button } from '../atoms/button';
 
 export const invitations = () => {

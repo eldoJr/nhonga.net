@@ -1,4 +1,4 @@
-import { Search, MapPin, Briefcase, Clock, Building2, DollarSign, Filter, X } from 'lucide-react';
+import { Search, MapPin, Filter, X } from 'lucide-react';
 import { useState } from 'react';
 import { button as Button } from '../../components/atoms/button';
 import { jobs } from '../../components/organisms/jobs';
