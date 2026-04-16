@@ -1,47 +1,43 @@
-import type { ReactNode } from 'react';
+import { type ButtonHTMLAttributes } from 'react'
+import { clsx } from 'clsx'
 
-interface ButtonProps {
-  children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
-  onClick?: () => void;
-  className?: string;
-  disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
+  size?: 'sm' | 'md' | 'lg'
 }
 
-export const button = ({ 
-  children, 
-  variant = 'primary', 
-  size = 'md', 
-  onClick, 
+const variants = {
+  primary: 'bg-nhonga-500 text-white hover:bg-nhonga-600 active:bg-nhonga-700',
+  secondary: 'bg-nhonga-100 text-nhonga-800 hover:bg-nhonga-200 active:bg-nhonga-300',
+  outline: 'border border-nhonga-500 text-nhonga-700 hover:bg-nhonga-50 active:bg-nhonga-100',
+  ghost: 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800',
+}
+
+const sizes = {
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-4 py-2 text-sm',
+  lg: 'px-6 py-2.5 text-base',
+}
+
+export default function Button({
+  variant = 'primary',
+  size = 'md',
   className = '',
-  disabled = false,
-  type = 'button'
-}: ButtonProps) => {
-  const baseClasses = 'font-montserrat font-medium rounded-md transition-colors';
-  
-  const variants = {
-    primary: 'bg-primary hover:bg-nhonga-600 text-white disabled:opacity-50 disabled:cursor-not-allowed',
-    secondary: 'bg-secondary hover:bg-nhonga-800 text-white disabled:opacity-50 disabled:cursor-not-allowed',
-    ghost: 'bg-transparent hover:bg-nhonga-50 text-nhonga-700 disabled:opacity-50 disabled:cursor-not-allowed',
-    outline: 'border border-nhonga-300 hover:border-nhonga-500 text-nhonga-700 hover:bg-nhonga-50 disabled:opacity-50 disabled:cursor-not-allowed'
-  };
-  
-  const sizes = {
-    sm: 'px-3 py-2 text-sm',
-    md: 'px-4 py-2.5 text-sm',
-    lg: 'px-6 py-3 text-base'
-  };
-  
+  children,
+  ...props
+}: ButtonProps) {
   return (
     <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`}
+      className={clsx(
+        'inline-flex items-center justify-center font-semibold rounded-lg',
+        'transition-colors duration-200 cursor-pointer',
+        variants[variant],
+        sizes[size],
+        className,
+      )}
+      {...props}
     >
       {children}
     </button>
-  );
-};
+  )
+}

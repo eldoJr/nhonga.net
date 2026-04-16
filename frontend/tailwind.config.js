@@ -22,17 +22,14 @@ export default {
           850: '#245C32',
           900: '#1A4826',
           950: '#103519',
-          1000: '#06210D',
-          1500: '#001012',
         },
         primary: '#6AE589',
         secondary: '#429757'
       },
       fontFamily: {
-        'gt-walsheim': ['GT Walsheim', 'system-ui', '-apple-system', 'sans-serif'],
         'montserrat': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
-        'sans': ['GT Walsheim', 'system-ui', '-apple-system', 'sans-serif'],
-        'heading': ['GT Walsheim', 'system-ui', '-apple-system', 'sans-serif'],
+        'sans': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
+        'heading': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
         'body': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif']
       }
     },
