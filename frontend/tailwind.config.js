@@ -31,7 +31,21 @@ export default {
         'sans': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
         'heading': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
         'body': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif']
-      }
+      },
+      keyframes: {
+        'scroll-left': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'scroll-right': {
+          from: { transform: 'translateX(calc(-100% - var(--gap)))' },
+          to: { transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        'scroll-left': 'scroll-left var(--duration, 25s) linear infinite',
+        'scroll-right': 'scroll-right var(--duration, 25s) linear infinite',
+      },
     },
   },
   plugins: [],
