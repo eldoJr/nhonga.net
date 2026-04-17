@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { clsx } from 'clsx'
 
 interface NavLinkProps {
@@ -17,8 +18,8 @@ export default function NavLink({
   onClick,
 }: NavLinkProps) {
   return (
-    <a
-      href={href}
+    <Link
+      to={href}
       onClick={onClick}
       className={clsx(
         'relative px-1 py-2 text-xs font-semibold tracking-wider uppercase transition-colors',
@@ -36,6 +37,6 @@ export default function NavLink({
           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
         />
       )}
-    </a>
+    </Link>
   )
 }

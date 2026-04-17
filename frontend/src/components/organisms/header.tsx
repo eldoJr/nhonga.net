@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Logo from '../atoms/logo'
 import Avatar from '../atoms/avatar'
@@ -7,15 +8,16 @@ import NavLink from '../molecules/navLink'
 import Dropdown, { DropdownItem } from '../molecules/dropdown'
 
 const navItems = [
-  { label: 'Explore', href: '#', active: true },
-  { label: 'Academic', href: '#' },
-  { label: 'Jobs', href: '#' },
-  { label: 'Newsletter', href: '#' },
-  { label: 'Networking', href: '#' },
+  { label: 'Explore', href: '/' },
+  { label: 'Academic', href: '/academic' },
+  { label: 'Jobs', href: '/jobs' },
+  { label: 'Newsletter', href: '/newsletter' },
+  { label: 'Networking', href: '/networking' },
 ]
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
   const isAuthenticated = false // TODO: replace with real auth state
 
   useEffect(() => {
@@ -88,7 +90,7 @@ export default function Header() {
                 key={item.label}
                 label={item.label}
                 href={item.href}
-                active={item.active}
+                active={location.pathname === item.href}
               />
             ))}
           </nav>
