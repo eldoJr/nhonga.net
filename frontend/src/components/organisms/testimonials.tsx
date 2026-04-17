@@ -2,6 +2,7 @@ import { type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { clsx } from 'clsx'
 import TestimonialCard from '../molecules/testimonialCard'
+import DotPattern from '../atoms/dotPattern'
 
 /* ── Infinite scroll row ── */
 
@@ -23,7 +24,7 @@ function ScrollRow({
   return (
     <div
       className={clsx(
-        'group relative flex w-full overflow-hidden [--gap:12px] [--duration:30s]',
+        'pause-on-hover relative flex w-full overflow-hidden [--gap:12px] [--duration:30s]',
         className,
       )}
     >
@@ -33,7 +34,7 @@ function ScrollRow({
           className={clsx(
             'flex shrink-0 gap-[--gap]',
             reverse ? 'animate-scroll-right' : 'animate-scroll-left',
-            pauseOnHover && '[.group:hover_&]:paused',
+            pauseOnHover && 'scroll-animated',
           )}
           style={{ animationPlayState: 'running' }}
         >
@@ -42,7 +43,7 @@ function ScrollRow({
       ))}
 
       {/* Edge fade masks */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-white via-transparent to-white dark:from-gray-950 dark:to-gray-950" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-gray-50/95 via-transparent to-gray-50/95 dark:from-gray-900/95 dark:to-gray-900/95" />
     </div>
   )
 }
@@ -104,7 +105,8 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-6 py-20">
+    <section className="w-full bg-gray-50/70 dark:bg-gray-900/50">
+      <div className="max-w-[1250px] mx-auto px-6 py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -138,6 +140,7 @@ export default function Testimonials() {
             <TestimonialCard key={t.handle + '-3'} {...t} />
           ))}
         </ScrollRow>
+      </div>
       </div>
     </section>
   )

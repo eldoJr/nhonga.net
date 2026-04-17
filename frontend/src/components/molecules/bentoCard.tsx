@@ -31,7 +31,7 @@ export default function BentoCard({
       className={clsx(
         'group relative rounded-2xl overflow-hidden cursor-pointer',
         'bg-white/60 dark:bg-white/5 backdrop-blur-xl',
-        'border border-white/40 dark:border-white/10',
+        'border border-nhonga-200/50 dark:border-nhonga-800/40',
         'shadow-[0_8px_32px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)]',
         'transition-all duration-300',
         'hover:shadow-xl hover:border-nhonga-200/50 dark:hover:border-nhonga-500/20',
@@ -48,7 +48,8 @@ export default function BentoCard({
 
       {/* Text content */}
       <div className="px-6 pb-6 pt-5 mt-auto">
-        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
+          <span className="inline-block w-[3px] h-5 rounded-full bg-nhonga-500 shrink-0" />
           {title}
         </h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">

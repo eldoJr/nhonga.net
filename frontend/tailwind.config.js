@@ -41,10 +41,18 @@ export default {
           from: { transform: 'translateX(calc(-100% - var(--gap)))' },
           to: { transform: 'translateX(0)' },
         },
+        'orb-trace': {
+          '0%':   { top: '0%',   left: '0%' },
+          '25%':  { top: '0%',   left: '100%' },
+          '50%':  { top: '100%', left: '100%' },
+          '75%':  { top: '100%', left: '0%' },
+          '100%': { top: '0%',   left: '0%' },
+        },
       },
       animation: {
         'scroll-left': 'scroll-left var(--duration, 25s) linear infinite',
         'scroll-right': 'scroll-right var(--duration, 25s) linear infinite',
+        'orb-trace': 'orb-trace 10s linear infinite',
       },
     },
   },

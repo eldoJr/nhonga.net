@@ -73,8 +73,11 @@ export default function Header() {
           style={{ borderRadius: 'inherit' }}
         />
 
-        {/* Content */}
-        <div className="relative z-10 mx-auto flex items-center px-6 h-16 max-w-[1400px]">
+        <motion.div
+          animate={{ paddingLeft: scrolled ? 8 : 24, paddingRight: scrolled ? 8 : 24 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className="relative z-10 mx-auto flex items-center h-16 max-w-[1400px]"
+        >
           <div className="flex items-center shrink-0">
             <Logo width={110} height={32} />
           </div>
@@ -119,7 +122,7 @@ export default function Header() {
               </Button>
             )}
           </div>
-        </div>
+        </motion.div>
       </motion.header>
     </div>
   )
