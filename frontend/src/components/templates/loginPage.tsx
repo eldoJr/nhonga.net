@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HiEye, HiEyeSlash } from 'react-icons/hi2'
 import Logo from '../atoms/logo'
@@ -7,6 +7,20 @@ import Button from '../atoms/button'
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email === 'admin' && password === 'admin123') {
+      localStorage.setItem('nhonga_auth', 'true')
+      navigate('/app')
+    } else {
+      setError('Invalid credentials')
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center px-6 py-12">
@@ -25,13 +39,16 @@ export default function LoginPage() {
         </h1>
 
         {/* Form */}
-        <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-          <input type="email" placeholder="Enter Email" required className="auth-input" />
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          <input type="text" placeholder="Username" required value={email} onChange={(e) => setEmail(e.target.value)} className="auth-input" />
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="auth-input pr-12"
             />
             <button
