@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, type ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 import { HiChevronDown } from 'react-icons/hi2'
 import { clsx } from 'clsx'
 
@@ -32,7 +33,7 @@ export default function Dropdown({ trigger, children, className = '' }: Dropdown
         {trigger}
         <HiChevronDown
           className={clsx(
-            'w-4 h-4 text-gray-500 transition-transform',
+            'w-3.5 h-3.5 text-gray-400 transition-transform duration-200',
             open && 'rotate-180',
           )}
         />
@@ -40,13 +41,18 @@ export default function Dropdown({ trigger, children, className = '' }: Dropdown
       {open && (
         <div
           className={clsx(
-            'absolute top-full right-0 mt-2 min-w-[180px] z-50',
-            'bg-white dark:bg-gray-800 rounded-lg shadow-lg',
+            'absolute top-full right-0 mt-2 min-w-[160px] z-50',
+            'bg-white dark:bg-gray-800 rounded-xl shadow-lg',
             'border border-gray-100 dark:border-gray-700',
-            'py-1',
+            'py-1.5',
           )}
         >
-          {children}
+          {typeof children === 'object' && Array.isArray(children)
+            ? children.map((child, i) =>
+                child ? <div key={i} onClick={() => setOpen(false)}>{child}</div> : null,
+              )
+            : <div onClick={() => setOpen(false)}>{children}</div>
+          }
         </div>
       )}
     </div>
@@ -55,23 +61,30 @@ export default function Dropdown({ trigger, children, className = '' }: Dropdown
 
 interface DropdownItemProps {
   children: ReactNode
+  href?: string
   onClick?: () => void
   className?: string
 }
 
-export function DropdownItem({ children, onClick, className = '' }: DropdownItemProps) {
+export function DropdownItem({ children, href, onClick, className = '' }: DropdownItemProps) {
+  const classes = clsx(
+    'w-full text-left px-4 py-1.5 text-xs cursor-pointer block',
+    'text-gray-600 dark:text-gray-300',
+    'hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white',
+    'transition-colors',
+    className,
+  )
+
+  if (href) {
+    return (
+      <Link to={href} className={classes} onClick={onClick}>
+        {children}
+      </Link>
+    )
+  }
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={clsx(
-        'w-full text-left px-4 py-2 text-sm cursor-pointer',
-        'text-gray-700 dark:text-gray-200',
-        'hover:bg-gray-50 dark:hover:bg-gray-700',
-        'transition-colors',
-        className,
-      )}
-    >
+    <button type="button" onClick={onClick} className={classes}>
       {children}
     </button>
   )

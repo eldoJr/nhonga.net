@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Logo from '../atoms/logo'
 import Avatar from '../atoms/avatar'
@@ -39,7 +39,7 @@ export default function Header() {
           paddingRight: scrolled ? 24 : 0,
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative w-full overflow-hidden"
+        className="relative w-full"
       >
         {/* Glass background */}
         <motion.div
@@ -47,7 +47,7 @@ export default function Header() {
             opacity: scrolled ? 1 : 0,
           }}
           transition={{ duration: 0.3 }}
-          className="absolute inset-0 backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 shadow-lg border border-white/20 dark:border-gray-700/30"
+          className="absolute inset-0 backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 shadow-lg border border-white/20 dark:border-gray-700/30 overflow-hidden"
           style={{ borderRadius: 'inherit' }}
         />
 
@@ -61,7 +61,7 @@ export default function Header() {
             opacity: { duration: 0.3 },
             x: { duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
           }}
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none overflow-hidden"
           style={{ borderRadius: 'inherit' }}
         >
           <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-nhonga-400/30 via-nhonga-300/10 to-transparent blur-2xl" />
@@ -71,7 +71,7 @@ export default function Header() {
         <motion.div
           animate={{ opacity: scrolled ? 0 : 1 }}
           transition={{ duration: 0.2 }}
-          className="absolute inset-0 bg-white dark:bg-gray-900"
+          className="absolute inset-0 bg-white dark:bg-gray-900 overflow-hidden"
           style={{ borderRadius: 'inherit' }}
         />
 
@@ -105,9 +105,10 @@ export default function Header() {
                 </span>
               }
             >
-              <DropdownItem>Post a Job</DropdownItem>
-              <DropdownItem>Find Talent</DropdownItem>
-              <DropdownItem>Pricing</DropdownItem>
+              <DropdownItem href="/hire/my-jobs">My Jobs</DropdownItem>
+              <DropdownItem href="/hire/freelancers">Freelancers</DropdownItem>
+              <DropdownItem href="/hire/about">Hiring on Nhonga</DropdownItem>
+              <DropdownItem href="/hire/create">Create a New Job</DropdownItem>
             </Dropdown>
 
             {isAuthenticated ? (
@@ -119,9 +120,11 @@ export default function Header() {
                 <DropdownItem>Sign Out</DropdownItem>
               </Dropdown>
             ) : (
-              <Button variant="primary" size="sm">
-                Sign In
-              </Button>
+              <Link to="/login">
+                <Button variant="primary" size="sm">
+                  Sign In
+                </Button>
+              </Link>
             )}
           </div>
         </motion.div>

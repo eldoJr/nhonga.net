@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    overflow-x: hidden;
+  }
+
   @font-face {
     font-family: 'Montserrat';
     src: url('./assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
@@ -71,5 +75,9 @@
 @layer utilities {
   .pause-on-hover:hover .scroll-animated {
     animation-play-state: paused !important;
+  }
+
+  .auth-input {
+    @apply w-full px-5 py-3.5 rounded-xl bg-gray-100/80 dark:bg-white/10 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-white/40 border border-gray-200/60 dark:border-white/15 outline-none focus:border-nhonga-400 focus:bg-white dark:focus:bg-white/15 transition-all;
   }
 }
