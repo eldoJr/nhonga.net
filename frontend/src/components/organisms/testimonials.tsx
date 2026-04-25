@@ -42,7 +42,7 @@ function ScrollRow({
       ))}
 
       {/* Edge fade masks */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-gray-50/95 via-transparent to-gray-50/95 dark:from-gray-900/95 dark:to-gray-900/95" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-gray-50 via-transparent to-gray-50 dark:from-gray-900 dark:via-transparent dark:to-gray-900" />
     </div>
   )
 }
@@ -104,7 +104,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="w-full bg-gray-50/70 dark:bg-gray-900/50">
+    <section className="w-full bg-gray-50/70 dark:bg-gray-900">
       <div className="max-w-[1250px] mx-auto px-6 py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { HiOutlineSun } from 'react-icons/hi2'
 import Logo from '../atoms/logo'
 import Avatar from '../atoms/avatar'
 import Button from '../atoms/button'
@@ -71,7 +72,7 @@ export default function Header() {
         <motion.div
           animate={{ opacity: scrolled ? 0 : 1 }}
           transition={{ duration: 0.2 }}
-          className="absolute inset-0 bg-white dark:bg-gray-900 overflow-hidden"
+          className="absolute inset-0 bg-white dark:bg-transparent overflow-hidden"
           style={{ borderRadius: 'inherit' }}
         />
 
@@ -80,9 +81,18 @@ export default function Header() {
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           className="relative z-10 mx-auto flex items-center h-16 max-w-[1400px]"
         >
-          <div className="flex items-center shrink-0">
-            <Logo width={110} height={32} />
-          </div>
+          <a href="/" className="flex items-center shrink-0">
+            <div className="dark:hidden">
+              <Logo width={110} height={32} />
+            </div>
+            <img
+              src="/logo-w.png"
+              alt="Nhonga"
+              width={110}
+              height={32}
+              className="hidden dark:block"
+            />
+          </a>
 
           <nav className="hidden md:flex items-center gap-6 h-full ml-10">
             {navItems.map((item) => (
@@ -110,6 +120,23 @@ export default function Header() {
               <DropdownItem href="/hire/about">Hiring on Nhonga</DropdownItem>
               <DropdownItem href="/hire/create">Create a New Job</DropdownItem>
             </Dropdown>
+
+            {/* Theme toggle */}
+            <button
+              onClick={() => {
+                const next = !document.documentElement.classList.contains('dark')
+                document.documentElement.classList.toggle('dark', next)
+                localStorage.setItem('nhonga_theme', next ? 'dark' : 'light')
+              }}
+              className="relative p-2 rounded-xl transition-colors text-gray-500 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/10 hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer"
+            >
+              <div className="relative w-[18px] h-[18px]">
+                <HiOutlineSun className="w-[18px] h-[18px]" />
+                <div className="absolute inset-0 flex items-center justify-center transition-opacity dark:opacity-100 opacity-0">
+                  <div className="w-[22px] h-[1.5px] bg-current rotate-45 rounded-full" />
+                </div>
+              </div>
+            </button>
 
             {isAuthenticated ? (
               <Dropdown

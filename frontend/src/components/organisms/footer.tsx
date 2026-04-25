@@ -13,7 +13,16 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-10">
           {/* Brand */}
           <div className="max-w-xs">
-            <Logo width={100} height={30} className="mb-4" />
+            <div className="dark:hidden mb-4">
+              <Logo width={100} height={30} />
+            </div>
+            <img
+              src="/logo-w.png"
+              alt="Nhonga"
+              width={100}
+              height={30}
+              className="hidden dark:block mb-4"
+            />
             <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
               Connecting Mozambique's best professionals with the opportunities they deserve.
             </p>

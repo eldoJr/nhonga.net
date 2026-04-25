@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { HiEye, HiEyeSlash } from 'react-icons/hi2'
+import { HiEye, HiEyeSlash, HiOutlineSun } from 'react-icons/hi2'
 import Logo from '../atoms/logo'
 import Button from '../atoms/button'
 
@@ -23,9 +23,26 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center px-6 py-12">
+    <div className="relative min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center px-6 py-12">
+      <button
+        onClick={() => {
+          const next = !document.documentElement.classList.contains('dark')
+          document.documentElement.classList.toggle('dark', next)
+          localStorage.setItem('nhonga_theme', next ? 'dark' : 'light')
+        }}
+        className="absolute top-6 right-6 p-2 rounded-xl transition-colors text-gray-500 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer"
+      >
+        <div className="relative w-[18px] h-[18px]">
+          <HiOutlineSun className="w-[18px] h-[18px]" />
+          <div className="absolute inset-0 flex items-center justify-center transition-opacity dark:opacity-100 opacity-0">
+            <div className="w-[22px] h-[1.5px] bg-current rotate-45 rounded-full" />
+          </div>
+        </div>
+      </button>
+
       <Link to="/" className="mb-10">
-        <Logo width={120} height={36} />
+        <div className="dark:hidden"><Logo width={120} height={36} /></div>
+        <img src="/logo-w.png" alt="Nhonga" width={120} height={36} className="hidden dark:block" />
       </Link>
 
       <motion.div

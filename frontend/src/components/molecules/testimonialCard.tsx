@@ -19,14 +19,14 @@ export default function TestimonialCard({
     <div
       className={clsx(
         'mx-2 flex h-32 w-80 shrink-0 cursor-pointer overflow-hidden rounded-xl',
-        'border border-gray-200/60 dark:border-gray-800/60 p-3',
+        'bg-white dark:bg-gray-800 border border-gray-200/60 dark:border-gray-700 p-3',
         'transition-all duration-300',
-        'hover:border-nhonga-400 hover:shadow-[0_0_12px_rgba(106,229,137,0.15)]',
+        'hover:border-nhonga-400 dark:hover:border-nhonga-500 hover:shadow-[0_0_12px_rgba(106,229,137,0.15)]',
         className,
       )}
     >
       <div className="flex items-start gap-3">
-        <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border-2 border-gray-100">
+        <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border-2 border-gray-100 dark:border-gray-700">
           <img
             src={image}
             alt={name}

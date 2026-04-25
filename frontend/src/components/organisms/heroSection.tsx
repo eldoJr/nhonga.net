@@ -2,13 +2,13 @@ import heroImg from '../../assets/images/hero.png'
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-8 pb-0 overflow-hidden bg-white">
+    <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-8 pb-0 overflow-hidden bg-white dark:bg-gray-950">
       {/* Main layered section — bottom aligns with hero image bottom */}
       <div className="relative flex items-end justify-center mt-4">
 
         {/* Subtitle */}
         <div className="absolute left-12 md:left-16 top-[35%] z-30 max-w-[220px] md:max-w-xs">
-          <h1 className="text-2xl md:text-3xl font-normal leading-tight text-gray-900">
+          <h1 className="text-2xl md:text-3xl font-normal leading-tight text-gray-900 dark:text-gray-100">
             The World&rsquo;s Best Professionals Are On
           </h1>
         </div>
@@ -18,7 +18,7 @@ export default function HeroSection() {
           className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 translate-y-[10%]"
           aria-hidden="true"
         >
-          <span className="font-montserrat font-bold text-[120px] md:text-[190px] lg:text-[250px] tracking-normal text-nhonga-400 leading-[108%] whitespace-nowrap">
+          <span className="font-montserrat font-bold text-[120px] md:text-[190px] lg:text-[250px] tracking-normal text-nhonga-400 dark:text-nhonga-500 leading-[108%] whitespace-nowrap">
             NHONGA
           </span>
         </div>
@@ -38,7 +38,7 @@ export default function HeroSection() {
           aria-hidden="true"
         >
           <span className="font-montserrat font-bold text-[120px] md:text-[190px] lg:text-[250px] tracking-normal leading-[108%] whitespace-nowrap">
-            <span className="text-nhonga-400">NHON</span>
+            <span className="text-nhonga-400 dark:text-nhonga-500">NHON</span>
             <span className="text-transparent">GA</span>
           </span>
         </div>
@@ -64,7 +64,7 @@ export default function HeroSection() {
           <svg className="w-full h-full" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
             <defs>
               <pattern id="hero-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="1.2" className="fill-nhonga-400/40" />
+                <circle cx="10" cy="10" r="1.2" className="fill-nhonga-400/40 dark:fill-nhonga-500/30" />
               </pattern>
               <linearGradient id="dots-fade" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="white" stopOpacity="0" />
