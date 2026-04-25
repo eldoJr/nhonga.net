@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="frontend/public/icon-b.svg" alt="Nhonga" width="64" />
+  <img src="frontend/public/icon-w.svg" alt="Nhonga" width="64" />
   <h1>nhonga.net</h1>
   <p><strong>Mozambique's Professional & Opportunity Platform</strong></p>
   <p>Connecting talents, services, businesses, and academic opportunities across Mozambique.</p>
