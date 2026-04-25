@@ -11,7 +11,7 @@ interface WidgetCardProps {
 export default function WidgetCard({ title, action, children, className }: WidgetCardProps) {
   return (
     <div className={clsx(
-      'rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/70 dark:border-gray-800/70 overflow-hidden',
+      'rounded-2xl overflow-hidden',
       className,
     )}>
       <div className="flex items-center justify-between px-4 pt-4 pb-2">

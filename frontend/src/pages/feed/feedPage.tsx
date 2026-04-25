@@ -6,7 +6,6 @@ import {
   HiOutlineCalendar,
   HiOutlineMapPin,
   HiOutlineArrowRight,
-  HiOutlineAcademicCap,
   HiOutlineUserPlus,
 } from 'react-icons/hi2'
 import Avatar from '../../components/atoms/avatar'
@@ -66,11 +65,6 @@ const suggestedPeople = [
   { name: 'Lucia Chissano', headline: 'Marketing at Standard Bank', avatar: 'https://i.pravatar.cc/100?img=16' },
 ]
 
-const scholarships = [
-  { title: 'Chevening Scholarship 2026', deadline: '15 Nov 2025', tag: 'Full Funding' },
-  { title: 'DAAD Research Grants', deadline: '30 Oct 2025', tag: 'Research' },
-]
-
 // ── Component ──
 
 export default function FeedPage() {
@@ -104,30 +98,6 @@ export default function FeedPage() {
 
       {/* Right sidebar */}
       <div className="hidden lg:flex flex-col gap-4 w-[280px] shrink-0">
-        {/* Profile card */}
-        <div className="rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/70 dark:border-gray-800/70 overflow-hidden">
-          <div className="h-16 bg-gradient-to-r from-nhonga-400 to-nhonga-600" />
-          <div className="px-4 pb-4 -mt-6">
-            <Avatar name="A" size="lg" showStatus className="ring-3 ring-white dark:ring-gray-900" />
-            <p className="text-[14px] font-semibold text-gray-900 dark:text-white mt-2">Admin</p>
-            <p className="text-[11px] text-gray-400 dark:text-gray-500">Professional on Nhonga</p>
-            <div className="flex items-center gap-4 mt-3 pt-3 border-t border-gray-100 dark:border-gray-800/50">
-              <div className="text-center">
-                <p className="text-[14px] font-bold text-gray-900 dark:text-white">128</p>
-                <p className="text-[10px] text-gray-400">Connections</p>
-              </div>
-              <div className="text-center">
-                <p className="text-[14px] font-bold text-gray-900 dark:text-white">24</p>
-                <p className="text-[10px] text-gray-400">Profile views</p>
-              </div>
-              <div className="text-center">
-                <p className="text-[14px] font-bold text-gray-900 dark:text-white">12</p>
-                <p className="text-[10px] text-gray-400">Posts</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Trending jobs */}
         <WidgetCard
           title="Trending Jobs"
@@ -182,49 +152,7 @@ export default function FeedPage() {
           </div>
         </WidgetCard>
 
-        {/* Scholarships */}
-        <WidgetCard
-          title="Upcoming Scholarships"
-          action={
-            <Link to="/app/academic" className="text-[11px] font-semibold text-nhonga-600 hover:text-nhonga-700 transition-colors flex items-center gap-0.5">
-              Browse <HiOutlineArrowRight className="w-3 h-3" />
-            </Link>
-          }
-        >
-          <div className="space-y-3">
-            {scholarships.map((s) => (
-              <div key={s.title} className="group cursor-pointer">
-                <div className="flex items-start gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-nhonga-50 dark:bg-nhonga-950/30 flex items-center justify-center shrink-0 mt-0.5">
-                    <HiOutlineAcademicCap className="w-4 h-4 text-nhonga-600 dark:text-nhonga-400" />
-                  </div>
-                  <div>
-                    <p className="text-[12px] font-semibold text-gray-800 dark:text-gray-200 group-hover:text-nhonga-600 dark:group-hover:text-nhonga-400 transition-colors">
-                      {s.title}
-                    </p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-[10px] text-gray-400">Deadline: {s.deadline}</span>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 font-medium">
-                        {s.tag}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </WidgetCard>
-
         {/* Footer links */}
-        <div className="px-2 py-3 text-[10px] text-gray-400 dark:text-gray-600 space-y-1">
-          <div className="flex flex-wrap gap-x-3 gap-y-1">
-            <a href="#" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">About</a>
-            <a href="#" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">Help</a>
-            <a href="#" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">Privacy</a>
-            <a href="#" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">Terms</a>
-          </div>
-          <p>Nhonga © 2025</p>
-        </div>
       </div>
     </div>
   )

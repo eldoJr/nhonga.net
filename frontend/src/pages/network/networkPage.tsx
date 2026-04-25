@@ -48,11 +48,33 @@ export default function NetworkPage() {
 
   const data = activeTab === 'Connections' ? connections
     : activeTab === 'Discover' ? discover
-    : invitations
+      : invitations
 
   return (
     <div className="flex gap-6">
       <div className="flex-1 min-w-0 space-y-4">
+        {/* Network stats — horizontal cards */}
+        <div className="grid grid-cols-4 gap-3">
+          {[
+            { value: '128', label: 'Connections', trend: '+12 this month', color: 'text-nhonga-600', bg: 'bg-nhonga-100 dark:bg-nhonga-950/40' },
+            { value: '2', label: 'Invitations', trend: 'Pending', color: 'text-amber-500', bg: 'bg-amber-100 dark:bg-amber-950/40' },
+            { value: '24', label: 'Profile Views', trend: 'Last 30 days', color: 'text-blue-500', bg: 'bg-blue-100 dark:bg-blue-950/40' },
+            { value: '67%', label: 'Response Rate', trend: 'Above average', color: 'text-purple-500', bg: 'bg-purple-100 dark:bg-purple-950/40' },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className={clsx(
+                'group rounded-2xl border border-gray-200/70 dark:border-gray-800/70 p-4 hover:border-nhonga-300/60 dark:hover:border-nhonga-700/60 transition-all cursor-pointer',
+                stat.bg,
+              )}
+            >
+              <p className={clsx('text-2xl font-bold', stat.color)}>{stat.value}</p>
+              <p className="text-[12px] font-semibold text-gray-800 dark:text-gray-200 mt-1">{stat.label}</p>
+              <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5">{stat.trend}</p>
+            </div>
+          ))}
+        </div>
+
         {/* Search */}
         <div className="relative">
           <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -90,38 +112,34 @@ export default function NetworkPage() {
 
         <p className="text-[12px] text-gray-400 dark:text-gray-500">{data.length} people</p>
 
-        {/* People grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {/* People list */}
+        <div className="space-y-1 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/70 dark:border-gray-800/70 p-2">
           {data.map((person) => (
             <div
               key={person.id}
-              className="group rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/70 dark:border-gray-800/70 p-4 hover:border-nhonga-300 dark:hover:border-nhonga-700 transition-all"
+              className="group flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors"
             >
-              <div className="flex items-start gap-3">
-                <Avatar name={person.name} src={person.avatar} size="md" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-semibold text-gray-900 dark:text-white truncate">{person.name}</p>
-                  <p className="text-[11px] text-gray-400 dark:text-gray-500 truncate">{person.headline}</p>
-                  <p className="text-[10px] text-gray-400 mt-1">{person.mutual} mutual connections</p>
-                </div>
+              <Avatar name={person.name} src={person.avatar} size="md" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[13px] font-semibold text-gray-900 dark:text-white truncate">{person.name}</p>
+                <p className="text-[11px] text-gray-400 dark:text-gray-500 truncate">{person.headline}</p>
               </div>
-
-              <div className="flex items-center gap-2 mt-3">
+              <div className="flex items-center gap-2 shrink-0">
                 {activeTab === 'Invitations' ? (
                   <>
-                    <button className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold bg-nhonga-500 text-white hover:bg-nhonga-600 transition-colors cursor-pointer">
+                    <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-nhonga-500 text-white hover:bg-nhonga-600 transition-colors cursor-pointer">
                       <HiOutlineCheck className="w-3.5 h-3.5" /> Accept
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold border border-gray-200 dark:border-gray-700 text-gray-500 hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer">
+                    <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/[0.04] transition-colors cursor-pointer">
                       <HiOutlineXMark className="w-3.5 h-3.5" /> Ignore
                     </button>
                   </>
                 ) : activeTab === 'Discover' ? (
-                  <button className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold border border-nhonga-500 text-nhonga-600 dark:text-nhonga-400 hover:bg-nhonga-50 dark:hover:bg-nhonga-950/20 transition-colors cursor-pointer">
+                  <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold border border-nhonga-500/50 text-nhonga-600 dark:text-nhonga-400 hover:bg-nhonga-50 dark:hover:bg-nhonga-950/20 transition-colors cursor-pointer">
                     <HiOutlineUserPlus className="w-3.5 h-3.5" /> Connect
                   </button>
                 ) : (
-                  <button className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold border border-gray-200 dark:border-gray-700 text-gray-500 hover:border-nhonga-400 hover:text-nhonga-600 dark:hover:text-nhonga-400 transition-colors cursor-pointer">
+                  <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-gray-500 hover:text-nhonga-600 dark:hover:text-nhonga-400 hover:bg-gray-100 dark:hover:bg-white/[0.04] transition-colors cursor-pointer">
                     <HiOutlineChatBubbleLeftRight className="w-3.5 h-3.5" /> Message
                   </button>
                 )}
@@ -133,25 +151,6 @@ export default function NetworkPage() {
 
       {/* Sidebar */}
       <div className="hidden lg:flex flex-col gap-4 w-[280px] shrink-0">
-        {/* Network stats */}
-        <div className="rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/70 dark:border-gray-800/70 p-5">
-          <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-200 mb-3">Your Network</p>
-          <div className="space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[12px] text-gray-500">Connections</span>
-              <span className="text-[13px] font-bold text-gray-900 dark:text-white">128</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-[12px] text-gray-500">Pending invitations</span>
-              <span className="text-[13px] font-bold text-nhonga-600">{invitations.length}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-[12px] text-gray-500">Profile views (30d)</span>
-              <span className="text-[13px] font-bold text-gray-900 dark:text-white">24</span>
-            </div>
-          </div>
-        </div>
-
         {/* Browse by industry */}
         <WidgetCard title="Browse by Industry">
           <div className="space-y-2">

@@ -9,7 +9,6 @@ import {
   HiOutlineTrophy,
   HiOutlineBookmark,
   HiBookmark,
-  HiOutlineArrowUpRight,
 } from 'react-icons/hi2'
 import WidgetCard from '../../components/molecules/widgetCard'
 
@@ -20,60 +19,24 @@ const tabs = [
 ] as const
 
 const scholarships = [
-  {
-    id: 's1', title: 'Chevening Scholarship 2026', institution: 'UK Government', location: 'United Kingdom',
-    deadline: '15 Nov 2025', tags: ['Full Funding', 'Masters'], field: 'All Fields',
-  },
-  {
-    id: 's2', title: 'DAAD Research Grants', institution: 'German Academic Exchange', location: 'Germany',
-    deadline: '30 Oct 2025', tags: ['Research', 'PhD'], field: 'STEM',
-  },
-  {
-    id: 's3', title: 'Bolsa Eduardo Mondlane', institution: 'Governo de Moçambique', location: 'Moçambique',
-    deadline: '28 Feb 2026', tags: ['Full Funding', 'Undergraduate'], field: 'All Fields',
-  },
-  {
-    id: 's4', title: 'Mastercard Foundation Scholars', institution: 'University of Cape Town', location: 'South Africa',
-    deadline: '15 Jan 2026', tags: ['Full Funding', 'Undergraduate'], field: 'All Fields',
-  },
-  {
-    id: 's5', title: 'Fulbright Program', institution: 'US Department of State', location: 'United States',
-    deadline: '01 Dec 2025', tags: ['Full Funding', 'Masters/PhD'], field: 'All Fields',
-  },
+  { id: 's1', title: 'Chevening Scholarship 2026', institution: 'UK Government', location: 'United Kingdom', deadline: '15 Nov 2025', tags: ['Full Funding', 'Masters'], field: 'All Fields' },
+  { id: 's2', title: 'DAAD Research Grants', institution: 'German Academic Exchange', location: 'Germany', deadline: '30 Oct 2025', tags: ['Research', 'PhD'], field: 'STEM' },
+  { id: 's3', title: 'Bolsa Eduardo Mondlane', institution: 'Governo de Moçambique', location: 'Moçambique', deadline: '28 Feb 2026', tags: ['Full Funding', 'Undergraduate'], field: 'All Fields' },
+  { id: 's4', title: 'Mastercard Foundation Scholars', institution: 'University of Cape Town', location: 'South Africa', deadline: '15 Jan 2026', tags: ['Full Funding', 'Undergraduate'], field: 'All Fields' },
+  { id: 's5', title: 'Fulbright Program', institution: 'US Department of State', location: 'United States', deadline: '01 Dec 2025', tags: ['Full Funding', 'Masters/PhD'], field: 'All Fields' },
 ]
 
 const courses = [
-  {
-    id: 'c1', title: 'Data Science Fundamentals', institution: 'UEM Online', location: 'Online',
-    deadline: 'Ongoing', tags: ['Certificate', 'Free'], field: 'Technology',
-  },
-  {
-    id: 'c2', title: 'Digital Marketing Masterclass', institution: 'Google Africa', location: 'Online',
-    deadline: 'Ongoing', tags: ['Certificate', 'Free'], field: 'Marketing',
-  },
-  {
-    id: 'c3', title: 'Project Management Professional', institution: 'PMI Mozambique', location: 'Maputo',
-    deadline: '20 Dec 2025', tags: ['Professional', 'Paid'], field: 'Management',
-  },
-  {
-    id: 'c4', title: 'AWS Cloud Practitioner', institution: 'Amazon Web Services', location: 'Online',
-    deadline: 'Ongoing', tags: ['Certificate', 'Paid'], field: 'Technology',
-  },
+  { id: 'c1', title: 'Data Science Fundamentals', institution: 'UEM Online', location: 'Online', deadline: 'Ongoing', tags: ['Certificate', 'Free'], field: 'Technology' },
+  { id: 'c2', title: 'Digital Marketing Masterclass', institution: 'Google Africa', location: 'Online', deadline: 'Ongoing', tags: ['Certificate', 'Free'], field: 'Marketing' },
+  { id: 'c3', title: 'Project Management Professional', institution: 'PMI Mozambique', location: 'Maputo', deadline: '20 Dec 2025', tags: ['Professional', 'Paid'], field: 'Management' },
+  { id: 'c4', title: 'AWS Cloud Practitioner', institution: 'Amazon Web Services', location: 'Online', deadline: 'Ongoing', tags: ['Certificate', 'Paid'], field: 'Technology' },
 ]
 
 const competitions = [
-  {
-    id: 'k1', title: 'Mozambique Innovation Challenge', institution: 'INCM', location: 'Maputo',
-    deadline: '30 Nov 2025', tags: ['$10k Prize', 'Startups'], field: 'Innovation',
-  },
-  {
-    id: 'k2', title: 'Africa Code Week Hackathon', institution: 'SAP Africa', location: 'Online',
-    deadline: '15 Oct 2025', tags: ['Coding', 'Teams'], field: 'Technology',
-  },
-  {
-    id: 'k3', title: 'Young African Leaders Essay', institution: 'African Union', location: 'Online',
-    deadline: '01 Jan 2026', tags: ['Essay', 'Leadership'], field: 'Social Sciences',
-  },
+  { id: 'k1', title: 'Mozambique Innovation Challenge', institution: 'INCM', location: 'Maputo', deadline: '30 Nov 2025', tags: ['$10k Prize', 'Startups'], field: 'Innovation' },
+  { id: 'k2', title: 'Africa Code Week Hackathon', institution: 'SAP Africa', location: 'Online', deadline: '15 Oct 2025', tags: ['Coding', 'Teams'], field: 'Technology' },
+  { id: 'k3', title: 'Young African Leaders Essay', institution: 'African Union', location: 'Online', deadline: '01 Jan 2026', tags: ['Essay', 'Leadership'], field: 'Social Sciences' },
 ]
 
 const dataMap = { scholarships, courses, competitions }
@@ -102,6 +65,26 @@ export default function AcademicPage() {
   return (
     <div className="flex gap-6">
       <div className="flex-1 min-w-0 space-y-4">
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { value: scholarships.length, label: 'Scholarships', color: 'text-nhonga-600', bg: 'bg-nhonga-100 dark:bg-nhonga-950/40' },
+            { value: courses.length, label: 'Courses', color: 'text-blue-500', bg: 'bg-blue-100 dark:bg-blue-950/40' },
+            { value: competitions.length, label: 'Competitions', color: 'text-amber-500', bg: 'bg-amber-100 dark:bg-amber-950/40' },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className={clsx(
+                'rounded-2xl border border-gray-200/70 dark:border-gray-800/70 p-4 transition-all cursor-pointer hover:border-nhonga-300/60 dark:hover:border-nhonga-700/60',
+                stat.bg,
+              )}
+            >
+              <p className={clsx('text-2xl font-bold', stat.color)}>{stat.value}</p>
+              <p className="text-[12px] font-semibold text-gray-800 dark:text-gray-200 mt-1">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
         {/* Search */}
         <div className="relative">
           <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -138,42 +121,38 @@ export default function AcademicPage() {
 
         <p className="text-[12px] text-gray-400 dark:text-gray-500">{items.length} results</p>
 
-        {/* Cards */}
-        <div className="space-y-3">
+        {/* List */}
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/70 dark:border-gray-800/70 divide-y divide-gray-100 dark:divide-gray-800/50">
           {items.map((item) => (
             <div
               key={item.id}
-              className="group rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/70 dark:border-gray-800/70 p-5 hover:border-nhonga-300 dark:hover:border-nhonga-700 transition-all cursor-pointer"
+              className="group flex items-center gap-4 px-5 py-4 hover:bg-gray-50/50 dark:hover:bg-white/[0.02] transition-colors cursor-pointer"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-[14px] font-semibold text-gray-900 dark:text-white group-hover:text-nhonga-600 dark:group-hover:text-nhonga-400 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-[12px] text-gray-500 dark:text-gray-400 mt-0.5">{item.institution}</p>
-
-                  <div className="flex flex-wrap items-center gap-3 mt-2.5 text-[11px] text-gray-400 dark:text-gray-500">
-                    <span className="flex items-center gap-1"><HiOutlineMapPin className="w-3.5 h-3.5" />{item.location}</span>
-                    <span className="flex items-center gap-1"><HiOutlineCalendar className="w-3.5 h-3.5" />{item.deadline}</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-white/[0.04] text-[10px] font-medium">{item.field}</span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {item.tags.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-nhonga-50 dark:bg-nhonga-950/20 text-nhonga-700 dark:text-nhonga-400 border border-nhonga-200/40 dark:border-nhonga-800/30">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-[13px] font-semibold text-gray-900 dark:text-white group-hover:text-nhonga-600 dark:group-hover:text-nhonga-400 transition-colors truncate">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">{item.institution}</p>
+                <div className="flex flex-wrap items-center gap-3 mt-1.5 text-[10px] text-gray-400 dark:text-gray-500">
+                  <span className="flex items-center gap-1"><HiOutlineMapPin className="w-3 h-3" />{item.location}</span>
+                  <span className="flex items-center gap-1"><HiOutlineCalendar className="w-3 h-3" />{item.deadline}</span>
                 </div>
-
-                <button
-                  onClick={(e) => { e.stopPropagation(); toggleSave(item.id) }}
-                  className="p-1.5 rounded-lg text-gray-400 hover:text-nhonga-600 transition-colors shrink-0 cursor-pointer"
-                >
-                  {saved.has(item.id) ? <HiBookmark className="w-4 h-4 text-nhonga-600" /> : <HiOutlineBookmark className="w-4 h-4" />}
-                </button>
               </div>
+
+              <div className="flex flex-wrap gap-1 shrink-0 max-w-[140px] justify-end">
+                {item.tags.map((tag) => (
+                  <span key={tag} className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-nhonga-50 dark:bg-nhonga-950/20 text-nhonga-700 dark:text-nhonga-400">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <button
+                onClick={(e) => { e.stopPropagation(); toggleSave(item.id) }}
+                className="p-1.5 rounded-lg text-gray-400 hover:text-nhonga-600 transition-colors shrink-0 cursor-pointer"
+              >
+                {saved.has(item.id) ? <HiBookmark className="w-4 h-4 text-nhonga-600" /> : <HiOutlineBookmark className="w-4 h-4" />}
+              </button>
             </div>
           ))}
         </div>
@@ -181,25 +160,6 @@ export default function AcademicPage() {
 
       {/* Sidebar */}
       <div className="hidden lg:flex flex-col gap-4 w-[280px] shrink-0">
-        {/* Stats */}
-        <div className="rounded-2xl bg-gradient-to-br from-nhonga-500 to-nhonga-600 p-5 text-white">
-          <p className="text-[13px] font-semibold mb-3">Academic Hub</p>
-          <div className="grid grid-cols-3 gap-2">
-            <div className="bg-white/15 rounded-xl p-2.5 text-center">
-              <p className="text-lg font-bold">{scholarships.length}</p>
-              <p className="text-[9px] text-white/70">Scholarships</p>
-            </div>
-            <div className="bg-white/15 rounded-xl p-2.5 text-center">
-              <p className="text-lg font-bold">{courses.length}</p>
-              <p className="text-[9px] text-white/70">Courses</p>
-            </div>
-            <div className="bg-white/15 rounded-xl p-2.5 text-center">
-              <p className="text-lg font-bold">{competitions.length}</p>
-              <p className="text-[9px] text-white/70">Competitions</p>
-            </div>
-          </div>
-        </div>
-
         {/* Upcoming deadlines */}
         <WidgetCard title="Upcoming Deadlines">
           <div className="space-y-3">
@@ -212,8 +172,8 @@ export default function AcademicPage() {
                 <span className={clsx(
                   'text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0',
                   d.daysLeft <= 14
-                    ? 'bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400'
-                    : 'bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400',
+                    ? 'bg-red-100 dark:bg-red-950/30 text-red-600 dark:text-red-400'
+                    : 'bg-amber-100 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400',
                 )}>
                   {d.daysLeft}d left
                 </span>

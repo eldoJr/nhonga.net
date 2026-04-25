@@ -6,8 +6,6 @@ import {
   HiOutlineChatBubbleLeftRight,
   HiOutlineMagnifyingGlass,
   HiOutlineSun,
-  HiOutlineMoon,
-  HiOutlineGlobeAlt,
   HiChevronRight,
   HiChevronLeft,
   HiOutlineUser,
@@ -33,13 +31,9 @@ const routeMeta: Record<string, { label: string; parent?: string }> = {
   '/app/profile': { label: 'Profile' },
   '/app/profile/edit': { label: 'Edit', parent: 'Profile' },
   '/app/settings': { label: 'Settings' },
+  '/app/notifications': { label: 'Notifications' },
+  '/app/explore': { label: 'Explore' },
 }
-
-const languages = [
-  { code: 'pt', label: 'Português', flag: '🇲🇿' },
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-]
 
 function IconBtn({
   children,
@@ -95,34 +89,20 @@ export default function AppHeader() {
   const [search, setSearch] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
-  const [langOpen, setLangOpen] = useState(false)
-  const [lang, setLang] = useState('pt')
   const [avatarOpen, setAvatarOpen] = useState(false)
 
-  const langRef = useRef<HTMLDivElement>(null)
   const avatarRef = useRef<HTMLDivElement>(null)
 
-  useClickOutside(langRef, () => setLangOpen(false))
   useClickOutside(avatarRef, () => setAvatarOpen(false))
 
   const meta = routeMeta[pathname] || { label: 'Workspace' }
-  const currentLang = languages.find((l) => l.code === lang)!
-
   const canGoBack = window.history.length > 1
-  const canGoForward = true // browser doesn't expose forward stack; always enabled visually
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  const toggleTheme = () => {
-    const next = !dark
-    setDark(next)
-    document.documentElement.classList.toggle('dark', next)
-    localStorage.setItem('nhonga_theme', next ? 'dark' : 'light')
-  }
 
   const handleSignOut = () => {
     localStorage.removeItem('nhonga_auth')
@@ -138,9 +118,8 @@ export default function AppHeader() {
         scrolled && 'shadow-[0_4px_12px_-2px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)]',
       )}
     >
-      {/* Left — Nav buttons + Breadcrumb */}
-      <div className="flex items-center gap-2 min-w-0 shrink-0">
-        {/* Back / Forward */}
+      {/* Left — Nav buttons + Breadcrumb (shifted right for sidebar) */}
+      <div className="flex items-center gap-2 min-w-0 shrink-0 ml-8">
         <div className="flex items-center gap-0.5">
           <button
             onClick={() => canGoBack && navigate(-1)}
@@ -156,10 +135,7 @@ export default function AppHeader() {
           </button>
           <button
             onClick={() => navigate(1)}
-            className={clsx(
-              'p-1 rounded-lg transition-colors',
-              'text-gray-500 dark:text-gray-400 hover:bg-white/60 dark:hover:bg-white/[0.06] hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer',
-            )}
+            className="p-1 rounded-lg transition-colors text-gray-500 dark:text-gray-400 hover:bg-white/60 dark:hover:bg-white/[0.06] hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer"
           >
             <HiChevronRight className="w-4 h-4" />
           </button>
@@ -167,7 +143,6 @@ export default function AppHeader() {
 
         <div className="w-px h-4 bg-gray-200 dark:bg-gray-800" />
 
-        {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 min-w-0">
           {meta.parent && (
             <>
@@ -181,7 +156,7 @@ export default function AppHeader() {
         </div>
       </div>
 
-      {/* Center — Search input */}
+      {/* Center — Search */}
       <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
         <div className="relative w-[420px] flex items-center">
           <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
@@ -207,9 +182,8 @@ export default function AppHeader() {
         </div>
       </div>
 
-      {/* Right — Actions */}
+      {/* Right — Actions (no theme toggle) */}
       <div className="flex items-center gap-1 ml-auto shrink-0">
-        {/* Messages */}
         <Link to="/app/messages" className={clsx(
           'relative p-2 rounded-xl transition-colors',
           'text-gray-500 dark:text-gray-400',
@@ -222,61 +196,34 @@ export default function AppHeader() {
           </span>
         </Link>
 
-        {/* Notifications */}
-        <IconBtn badge>
+        <Link to="/app/notifications" className={clsx(
+          'relative p-2 rounded-xl transition-colors',
+          'text-gray-500 dark:text-gray-400',
+          'hover:bg-white/60 dark:hover:bg-white/[0.06]',
+          'hover:text-gray-700 dark:hover:text-gray-200',
+        )}>
           <HiOutlineBell className="w-[18px] h-[18px]" />
-        </IconBtn>
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-nhonga-500 rounded-full ring-2 ring-gray-100 dark:ring-gray-950" />
+        </Link>
 
         <div className="w-px h-5 bg-gray-200 dark:bg-gray-800 mx-1" />
 
         {/* Theme toggle */}
-        <IconBtn onClick={toggleTheme}>
-          {dark ? (
+        <IconBtn onClick={() => {
+          const next = !dark
+          setDark(next)
+          document.documentElement.classList.toggle('dark', next)
+          localStorage.setItem('nhonga_theme', next ? 'dark' : 'light')
+        }}>
+          <div className="relative w-[18px] h-[18px]">
             <HiOutlineSun className="w-[18px] h-[18px]" />
-          ) : (
-            <HiOutlineMoon className="w-[18px] h-[18px]" />
-          )}
+            {dark && <div className="absolute inset-0 flex items-center justify-center"><div className="w-[22px] h-[1.5px] bg-current rotate-45 rounded-full" /></div>}
+          </div>
         </IconBtn>
-
-        {/* Language */}
-        <div ref={langRef} className="relative">
-          <button
-            onClick={() => setLangOpen((v) => !v)}
-            className={clsx(
-              'flex items-center gap-1.5 px-2 py-2 rounded-xl transition-colors cursor-pointer',
-              'text-gray-500 dark:text-gray-400',
-              'hover:bg-white/60 dark:hover:bg-white/[0.06]',
-              'hover:text-gray-700 dark:hover:text-gray-200',
-            )}
-          >
-            <HiOutlineGlobeAlt className="w-[18px] h-[18px]" />
-            <span className="text-[11px] font-semibold uppercase tracking-wide">{currentLang.code}</span>
-          </button>
-
-          {langOpen && (
-            <div className="absolute top-full right-0 mt-2 w-[160px] z-50 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 py-1 overflow-hidden">
-              {languages.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => { setLang(l.code); setLangOpen(false) }}
-                  className={clsx(
-                    'w-full flex items-center gap-2.5 px-3 py-2 text-[12px] transition-colors',
-                    lang === l.code
-                      ? 'bg-nhonga-50 dark:bg-nhonga-950/30 text-nhonga-700 dark:text-nhonga-400 font-semibold'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700',
-                  )}
-                >
-                  <span className="text-base leading-none">{l.flag}</span>
-                  <span>{l.label}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
 
         <div className="w-px h-5 bg-gray-200 dark:bg-gray-800 mx-1" />
 
-        {/* Avatar dropdown */}
+        {/* Avatar */}
         <div ref={avatarRef} className="relative">
           <button
             onClick={() => setAvatarOpen((v) => !v)}
@@ -291,33 +238,17 @@ export default function AppHeader() {
                 <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-200">Admin</p>
                 <p className="text-[11px] text-gray-400 dark:text-gray-500">admin@nhonga.net</p>
               </div>
-
               <div className="py-1">
-                <Link
-                  to="/app/profile"
-                  onClick={() => setAvatarOpen(false)}
-                  className="flex items-center gap-2.5 px-3 py-2 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <HiOutlineUser className="w-4 h-4" />
-                  Profile
+                <Link to="/app/profile" onClick={() => setAvatarOpen(false)} className="flex items-center gap-2.5 px-3 py-2 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <HiOutlineUser className="w-4 h-4" /> Profile
                 </Link>
-                <Link
-                  to="/app/settings"
-                  onClick={() => setAvatarOpen(false)}
-                  className="flex items-center gap-2.5 px-3 py-2 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <HiOutlineCog6Tooth className="w-4 h-4" />
-                  Settings
+                <Link to="/app/settings" onClick={() => setAvatarOpen(false)} className="flex items-center gap-2.5 px-3 py-2 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <HiOutlineCog6Tooth className="w-4 h-4" /> Settings
                 </Link>
               </div>
-
               <div className="border-t border-gray-100 dark:border-gray-700 py-1">
-                <button
-                  onClick={handleSignOut}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 text-[12px] text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                >
-                  <HiOutlineArrowRightOnRectangle className="w-4 h-4" />
-                  Sign out
+                <button onClick={handleSignOut} className="w-full flex items-center gap-2.5 px-3 py-2 text-[12px] text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                  <HiOutlineArrowRightOnRectangle className="w-4 h-4" /> Sign out
                 </button>
               </div>
             </div>

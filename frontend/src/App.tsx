@@ -26,6 +26,8 @@ import FindTalentPage from './pages/freelance/findTalentPage'
 import SettingsPage from './pages/settings/settingsPage'
 import ProfilePage from './pages/profile/profilePage'
 import MessagesPage from './pages/messages/messagesPage'
+import NotificationsPage from './pages/notifications/notificationsPage'
+import ExplorePage from './pages/explore/explorePage'
 
 const authRoutes = ['/register', '/login', '/forgot-password', '/reset-password']
 
@@ -57,6 +59,7 @@ function App() {
       <Routes>
         <Route path="/app" element={<DashboardLayout />}>
           <Route index element={<FeedPage />} />
+          <Route path="explore" element={<ExplorePage />} />
           <Route path="jobs" element={<BrowseJobsPage />} />
           <Route path="jobs/post" element={<PostJobPage />} />
           <Route path="network" element={<NetworkPage />} />
@@ -66,6 +69,7 @@ function App() {
           <Route path="settings" element={<SettingsPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="messages" element={<MessagesPage />} />
+          <Route path="notifications" element={<NotificationsPage />} />
         </Route>
       </Routes>
     )

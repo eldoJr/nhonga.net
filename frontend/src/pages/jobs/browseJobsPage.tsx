@@ -209,29 +209,6 @@ export default function BrowseJobsPage() {
 
       {/* Sidebar */}
       <div className="hidden lg:flex flex-col gap-4 w-[280px] shrink-0">
-        {/* Quick stats */}
-        <div className="rounded-2xl bg-gradient-to-br from-nhonga-500 to-nhonga-600 p-5 text-white">
-          <p className="text-[13px] font-semibold mb-3">Your Job Activity</p>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white/15 rounded-xl p-3 text-center">
-              <p className="text-xl font-bold">5</p>
-              <p className="text-[10px] text-white/70">Applied</p>
-            </div>
-            <div className="bg-white/15 rounded-xl p-3 text-center">
-              <p className="text-xl font-bold">2</p>
-              <p className="text-[10px] text-white/70">Interviews</p>
-            </div>
-            <div className="bg-white/15 rounded-xl p-3 text-center">
-              <p className="text-xl font-bold">12</p>
-              <p className="text-[10px] text-white/70">Saved</p>
-            </div>
-            <div className="bg-white/15 rounded-xl p-3 text-center">
-              <p className="text-xl font-bold">89</p>
-              <p className="text-[10px] text-white/70">Profile views</p>
-            </div>
-          </div>
-        </div>
-
         {/* Top companies */}
         <WidgetCard title="Top Companies Hiring">
           <div className="space-y-3">
