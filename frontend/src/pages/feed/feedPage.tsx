@@ -9,7 +9,6 @@ import {
   HiOutlineUserPlus,
 } from 'react-icons/hi2'
 import Avatar from '../../components/atoms/avatar'
-import Button from '../../components/atoms/button'
 import FeedCard, { type FeedPostData } from '../../components/molecules/feedCard'
 import WidgetCard from '../../components/molecules/widgetCard'
 

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { clsx } from 'clsx'
 import {
   HiOutlineMagnifyingGlass,
@@ -8,11 +7,9 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineBookmark,
   HiBookmark,
-  HiOutlineBuildingOffice2,
   HiOutlineArrowUpRight,
   HiOutlineAdjustmentsHorizontal,
 } from 'react-icons/hi2'
-import Avatar from '../../components/atoms/avatar'
 import WidgetCard from '../../components/molecules/widgetCard'
 
 const tabs = ['All Jobs', 'Full-time', 'Part-time', 'Remote', 'Internship'] as const

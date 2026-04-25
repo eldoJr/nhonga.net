@@ -4,7 +4,6 @@ import { clsx } from 'clsx'
 import {
   HiOutlinePencilSquare,
   HiOutlineMapPin,
-  HiOutlineBriefcase,
   HiOutlineAcademicCap,
   HiOutlineLink,
   HiOutlineCalendar,

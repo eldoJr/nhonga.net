@@ -2,7 +2,6 @@ import { type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { clsx } from 'clsx'
 import TestimonialCard from '../molecules/testimonialCard'
-import DotPattern from '../atoms/dotPattern'
 
 /* ── Infinite scroll row ── */
 

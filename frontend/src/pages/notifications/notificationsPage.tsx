@@ -123,13 +123,11 @@ export default function NotificationsPage() {
                         {filtered.map((n) => {
                             const meta = iconMap[n.type]
                             const Icon = meta.icon
-                            const Wrapper = n.link ? Link : 'div'
-                            const wrapperProps = n.link ? { to: n.link } : {}
 
                             return (
-                                <Wrapper
+                                <Link
                                     key={n.id}
-                                    {...(wrapperProps as Record<string, string>)}
+                                    to={n.link || '#'}
                                     onClick={() => markRead(n.id)}
                                     className={clsx(
                                         'flex items-start gap-3 px-5 py-4 transition-colors cursor-pointer',
@@ -160,7 +158,7 @@ export default function NotificationsPage() {
                                         <span className="text-[10px] text-gray-400">{n.time}</span>
                                         {!n.read && <span className="w-2 h-2 rounded-full bg-nhonga-500 shrink-0" />}
                                     </div>
-                                </Wrapper>
+                                </Link>
                             )
                         })}
                     </div>
