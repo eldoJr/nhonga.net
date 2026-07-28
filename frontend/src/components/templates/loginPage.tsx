@@ -16,7 +16,8 @@ export default function LoginPage() {
     e.preventDefault()
     if (email === 'admin' && password === 'admin123') {
       localStorage.setItem('nhonga_auth', 'true')
-      navigate('/app')
+      localStorage.setItem('nhonga_user', JSON.stringify({ name: 'Admin User', initials: 'AU' }))
+      navigate('/')
     } else {
       setError('Invalid credentials')
     }

@@ -1,7 +1,16 @@
 import { useState, useEffect } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { HiOutlineSun } from 'react-icons/hi2'
+import {
+  HiOutlineSun,
+  HiOutlineUser,
+  HiOutlineBriefcase,
+  HiOutlineCog6Tooth,
+  HiOutlineBookmark,
+  HiOutlineBell,
+  HiOutlineShieldCheck,
+  HiOutlineArrowRightOnRectangle,
+} from 'react-icons/hi2'
 import Logo from '../atoms/logo'
 import Avatar from '../atoms/avatar'
 import Button from '../atoms/button'
@@ -16,18 +25,38 @@ const navItems = [
   { label: 'Networking', href: '/networking' },
 ]
 
+const userMenuItems = [
+  { label: 'My Profile', href: '/profile', icon: HiOutlineUser },
+  { label: 'My Jobs', href: '/hire/my-jobs', icon: HiOutlineBriefcase },
+  { label: 'Saved Items', href: '/saved', icon: HiOutlineBookmark },
+  { label: 'Notifications', href: '/notifications', icon: HiOutlineBell },
+  { label: 'Account Settings', href: '/settings', icon: HiOutlineCog6Tooth },
+  { label: 'Privacy & Security', href: '/privacy', icon: HiOutlineShieldCheck },
+]
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const [user, setUser] = useState<{ name: string; initials: string } | null>(null)
   const location = useLocation()
-  const isAuthenticated = false // TODO: replace with real auth state
+  const navigate = useNavigate()
 
   useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 10)
-    }
+    function onScroll() { setScrolled(window.scrollY > 10) }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    const raw = localStorage.getItem('nhonga_user')
+    setUser(raw ? JSON.parse(raw) : null)
+  }, [location.pathname])
+
+  function handleSignOut() {
+    localStorage.removeItem('nhonga_auth')
+    localStorage.removeItem('nhonga_user')
+    setUser(null)
+    navigate('/')
+  }
 
   return (
     <div className="sticky top-0 z-50 w-full flex justify-center">
@@ -138,13 +167,32 @@ export default function Header() {
               </div>
             </button>
 
-            {isAuthenticated ? (
+            {user ? (
               <Dropdown
-                trigger={<Avatar name="A" size="md" showStatus />}
+                trigger={<Avatar name={user.initials} size="md" showStatus />}
+                showChevron={false}
               >
-                <DropdownItem>Profile</DropdownItem>
-                <DropdownItem>Settings</DropdownItem>
-                <DropdownItem>Sign Out</DropdownItem>
+                {/* User info header */}
+                <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">{user.name}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Professional Account</p>
+                </div>
+                {userMenuItems.map(({ label, href, icon: Icon }) => (
+                  <DropdownItem key={label} href={href}>
+                    <span className="flex items-center gap-2.5">
+                      <Icon className="w-4 h-4 opacity-60" />
+                      {label}
+                    </span>
+                  </DropdownItem>
+                ))}
+                <div className="border-t border-gray-100 dark:border-gray-700 mt-1 pt-1">
+                  <DropdownItem onClick={handleSignOut}>
+                    <span className="flex items-center gap-2.5 text-red-500 dark:text-red-400">
+                      <HiOutlineArrowRightOnRectangle className="w-4 h-4" />
+                      Sign Out
+                    </span>
+                  </DropdownItem>
+                </div>
               </Dropdown>
             ) : (
               <Link to="/login">
