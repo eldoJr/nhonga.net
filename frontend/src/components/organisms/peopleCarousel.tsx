@@ -45,29 +45,31 @@ export default function PeopleCarousel() {
   }
 
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-6 pb-20">
-      {/* Nav arrows */}
-      <div className="flex items-center justify-end gap-2 mb-6">
-        <button
-          onClick={() => scroll('left')}
-          className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:border-nhonga-400 hover:text-nhonga-600 transition-colors cursor-pointer"
-        >
-          <HiArrowLeft className="w-4 h-4" />
-        </button>
-        <button
-          onClick={() => scroll('right')}
-          className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:border-nhonga-400 hover:text-nhonga-600 transition-colors cursor-pointer"
-        >
-          <HiArrowRight className="w-4 h-4" />
-        </button>
+    <section className="w-full pb-32 overflow-hidden">
+      <div className="max-w-[1250px] mx-auto px-6">
+        {/* Nav arrows */}
+        <div className="flex items-center justify-end gap-2 mb-6">
+          <button
+            onClick={() => scroll('left')}
+            className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:border-nhonga-400 hover:text-nhonga-600 transition-colors cursor-pointer"
+          >
+            <HiArrowLeft className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => scroll('right')}
+            className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:border-nhonga-400 hover:text-nhonga-600 transition-colors cursor-pointer"
+          >
+            <HiArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      {/* Carousel */}
-      <div className="relative -mx-6">
+      {/* Carousel — full width, padded to align with container */}
+      <div className="relative">
         <div
           ref={scrollRef}
-          className="flex gap-5 overflow-x-auto scrollbar-hide scroll-smooth px-6"
-          style={{ scrollbarWidth: 'none' }}
+          className="flex gap-5 overflow-x-auto scroll-smooth"
+          style={{ scrollbarWidth: 'none', paddingLeft: 'max(24px, calc((100vw - 1250px) / 2 + 24px))', paddingRight: 'max(24px, calc((100vw - 1250px) / 2 + 24px))' }}
         >
           {people.map((person, i) => (
             <motion.div
@@ -84,6 +86,15 @@ export default function PeopleCarousel() {
                   alt={person.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2">
+                  <button className="w-[80%] py-2.5 rounded-full bg-nhonga-500 text-white text-sm font-semibold hover:bg-nhonga-600 transition-colors">
+                    See Profile
+                  </button>
+                  <button className="w-[80%] py-2.5 rounded-full border border-white text-white text-sm font-semibold hover:bg-white/10 transition-colors">
+                    Follow
+                  </button>
+                </div>
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                 {person.name}
@@ -96,7 +107,7 @@ export default function PeopleCarousel() {
         </div>
 
         {/* Right fade */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-white via-white/80 to-transparent dark:from-gray-950 dark:via-gray-950/80" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-96 bg-gradient-to-l from-white via-white/80 to-transparent dark:from-gray-950 dark:via-gray-950/80" />
       </div>
     </section>
   )

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Header from './components/organisms/header'
 import Footer from './components/organisms/footer'
 import HomePage from './components/templates/homePage'
+import ExplorePage from './components/templates/explorePage'
 import AcademicPage from './components/templates/academicPage'
 import JobsPage from './components/templates/jobsPage'
 import NetworkingPage from './components/templates/networkingPage'
@@ -17,6 +18,7 @@ import ForgotPasswordPage from './components/templates/forgotPasswordPage'
 import ResetPasswordPage from './components/templates/resetPasswordPage'
 
 const authRoutes = ['/register', '/login', '/forgot-password', '/reset-password']
+const fullscreenRoutes = ['/', '/explore']
 
 function App() {
   const { pathname } = useLocation()
@@ -38,11 +40,12 @@ function App() {
   }
 
   return (
-    <div className={`flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${pathname === '/' ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
+    <div className={`flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${fullscreenRoutes.includes(pathname) ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       <Header />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col">
       <Routes>
         <Route path="/" element={<HomePage className="flex-1 overflow-hidden" />} />
+        <Route path="/explore" element={<ExplorePage className="flex-1 overflow-hidden" />} />
         <Route path="/academic" element={<AcademicPage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/networking" element={<NetworkingPage />} />

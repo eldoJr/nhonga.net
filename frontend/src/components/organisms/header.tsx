@@ -18,7 +18,7 @@ import NavLink from '../molecules/navLink'
 import Dropdown, { DropdownItem } from '../molecules/dropdown'
 
 const navItems = [
-  { label: 'Explore', href: '/' },
+  { label: 'Explore', href: '/explore' },
   { label: 'Academic', href: '/academic' },
   { label: 'Jobs', href: '/jobs' },
   { label: 'Newsletter', href: '/newsletter' },

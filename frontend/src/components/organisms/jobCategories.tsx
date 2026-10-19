@@ -49,7 +49,7 @@ export default function JobCategories() {
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
               whileHover={{ y: -4, transition: { duration: 0.25 } }}
-              className="group flex items-center gap-4 rounded-2xl bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-white/40 dark:border-gray-700/30 p-5 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-nhonga-200/20 hover:border-nhonga-200/50"
+              className="group flex items-center gap-4 rounded-2xl bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-gray-200 dark:border-gray-700 p-5 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-nhonga-200/20 hover:border-nhonga-400 dark:hover:border-nhonga-600"
             >
               <div className="w-11 h-11 rounded-xl bg-nhonga-100/80 dark:bg-nhonga-900/40 flex items-center justify-center text-nhonga-600 dark:text-nhonga-400 shrink-0 group-hover:scale-110 transition-transform duration-300">
                 <c.icon className="w-5 h-5" />

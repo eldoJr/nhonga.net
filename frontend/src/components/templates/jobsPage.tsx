@@ -1,7 +1,6 @@
 import JobsHero from '../organisms/jobsHero'
 import JobsGrid from '../organisms/jobsGrid'
 import JobCategories from '../organisms/jobCategories'
-import TopCompanies from '../organisms/topCompanies'
 import JobStats from '../organisms/jobStats'
 
 export default function JobsPage() {
@@ -10,7 +9,6 @@ export default function JobsPage() {
       <JobsHero />
       <JobsGrid />
       <JobCategories />
-      <TopCompanies />
       <JobStats />
     </>
   )
