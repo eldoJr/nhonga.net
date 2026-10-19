@@ -38,10 +38,11 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
+    <div className={`flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${pathname === '/' ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       <Header />
+      <div className="flex-1 flex flex-col overflow-hidden">
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage className="flex-1 overflow-hidden" />} />
         <Route path="/academic" element={<AcademicPage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/networking" element={<NetworkingPage />} />
@@ -51,6 +52,7 @@ function App() {
         <Route path="/hire/about" element={<HiringAboutPage />} />
         <Route path="/hire/create" element={<CreateJobPage />} />
       </Routes>
+      </div>
       <Footer />
     </div>
   )

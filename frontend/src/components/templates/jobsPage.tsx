@@ -3,7 +3,6 @@ import JobsGrid from '../organisms/jobsGrid'
 import JobCategories from '../organisms/jobCategories'
 import TopCompanies from '../organisms/topCompanies'
 import JobStats from '../organisms/jobStats'
-import CtaSection from '../organisms/ctaSection'
 
 export default function JobsPage() {
   return (
@@ -13,7 +12,6 @@ export default function JobsPage() {
       <JobCategories />
       <TopCompanies />
       <JobStats />
-      <CtaSection />
     </>
   )
 }

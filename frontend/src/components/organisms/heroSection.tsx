@@ -1,10 +1,10 @@
 import heroImg from '../../assets/images/hero.png'
 
-export default function HeroSection() {
+export default function HeroSection({ className = '' }: { className?: string }) {
   return (
-    <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-8 pb-0 overflow-hidden bg-white dark:bg-gray-950">
-      {/* Main layered section — bottom aligns with hero image bottom */}
-      <div className="relative flex items-end justify-center mt-4">
+    <section className={`relative w-full max-w-[1400px] mx-auto px-6 pt-8 pb-0 flex flex-col bg-white dark:bg-gray-950 ${className}`}>
+      {/* Main layered section — image & dot pattern bottom flush with footer top */}
+      <div className="relative flex flex-1 items-end justify-center mt-4">
 
         {/* Subtitle */}
         <div className="absolute left-12 md:left-16 top-[35%] z-30 max-w-[220px] md:max-w-xs">
@@ -44,16 +44,16 @@ export default function HeroSection() {
         </div>
 
         {/* CTA buttons */}
-        <div className="absolute bottom-10 md:bottom-14 left-1/2 -translate-x-1/2 z-30 inline-flex items-stretch bg-nhonga-500/20 backdrop-blur-xl rounded-full overflow-hidden">
+        <div className="absolute bottom-10 md:bottom-14 left-1/2 -translate-x-1/2 z-30 inline-flex items-stretch bg-nhonga-500/20 backdrop-blur-xl rounded-full overflow-hidden p-5 gap-3">
           <a
             href="#"
-            className="flex items-center px-7 py-3.5 text-sm font-semibold text-white bg-nhonga-500 rounded-full m-1 hover:bg-nhonga-600 transition-all duration-200"
+            className="flex items-center px-7 py-3.5 text-sm font-semibold text-white bg-nhonga-500 rounded-full hover:bg-nhonga-600 transition-all duration-200"
           >
             Hire a Professional
           </a>
           <a
             href="#"
-            className="flex items-center px-7 py-3.5 text-sm font-semibold text-white border border-white/30 rounded-full m-1 hover:border-white/60 transition-all duration-200"
+            className="flex items-center px-7 py-3.5 text-sm font-semibold text-white border border-white/30 rounded-full hover:border-white/60 transition-all duration-200"
           >
             Look For a Job
           </a>

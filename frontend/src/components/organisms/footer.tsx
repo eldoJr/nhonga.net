@@ -1,74 +1,36 @@
-import Logo from '../atoms/logo'
+import Dropdown, { DropdownItem } from '../molecules/dropdown'
 
-const links = {
-  Platform: ['Jobs', 'Academic', 'Networking', 'Services'],
-  Company: ['About', 'Careers', 'Blog', 'Press'],
-  Support: ['Help Center', 'Contact', 'Privacy', 'Terms'],
-}
+const sep = <span className="text-gray-300 dark:text-gray-700 select-none">·</span>
+const pipe = <span className="text-gray-300 dark:text-gray-700 select-none">|</span>
 
 export default function Footer() {
   return (
     <footer className="w-full border-t border-gray-100 dark:border-gray-800/60">
-      <div className="max-w-[1250px] mx-auto px-6 py-14">
-        <div className="flex flex-col md:flex-row justify-between gap-10">
-          {/* Brand */}
-          <div className="max-w-xs">
-            <div className="dark:hidden mb-4">
-              <Logo width={100} height={30} />
-            </div>
-            <img
-              src="/logo-w.png"
-              alt="Nhonga"
-              width={100}
-              height={30}
-              className="hidden dark:block mb-4"
-            />
-            <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-              Connecting Mozambique's best professionals with the opportunities they deserve.
-            </p>
-          </div>
+      <div className="max-w-[1250px] mx-auto px-6 h-8 flex items-center gap-3 flex-wrap text-xs text-gray-500 dark:text-gray-400">
 
-          {/* Link columns */}
-          <div className="flex gap-16">
-            {Object.entries(links).map(([title, items]) => (
-              <div key={title}>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4">
-                  {title}
-                </h4>
-                <ul className="flex flex-col gap-2.5">
-                  {items.map((item) => (
-                    <li key={item}>
-                      <a
-                        href="#"
-                        className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                      >
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Dropdown trigger={<span className="hover:text-gray-900 dark:hover:text-white transition-colors">More Nhonga</span>} position="top">
+          <DropdownItem href="/jobs">Jobs</DropdownItem>
+          <DropdownItem href="/academic">Academic</DropdownItem>
+          <DropdownItem href="/networking">Networking</DropdownItem>
+          <DropdownItem href="/services">Services</DropdownItem>
+        </Dropdown>
 
-        {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-gray-100 dark:border-gray-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} Nhonga. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4">
-            {['Twitter', 'LinkedIn', 'Instagram'].map((social) => (
-              <a
-                key={social}
-                href="#"
-                className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-              >
-                {social}
-              </a>
-            ))}
-          </div>
-        </div>
+        {pipe}
+
+        <Dropdown trigger={<span className="hover:text-gray-900 dark:hover:text-white transition-colors">English</span>} position="top">
+          <DropdownItem>Português</DropdownItem>
+          <DropdownItem>English</DropdownItem>
+        </Dropdown>
+
+        {pipe}
+        <a href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Privacy</a>
+        {sep}
+        <a href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Policy</a>
+        {sep}
+        <a href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Cookie preferences</a>
+        {sep}
+        <a href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Share my personal information</a>
+
       </div>
     </footer>
   )
