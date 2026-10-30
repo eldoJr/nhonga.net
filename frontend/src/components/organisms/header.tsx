@@ -20,8 +20,8 @@ import Dropdown, { DropdownItem } from '../molecules/dropdown'
 const navItems = [
   { label: 'Explore', href: '/explore' },
   { label: 'Academic', href: '/academic' },
+  { label: 'Events', href: '/events' },
   { label: 'Jobs', href: '/jobs' },
-  { label: 'Newsletter', href: '/newsletter' },
   { label: 'Networking', href: '/networking' },
 ]
 

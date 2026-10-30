@@ -7,7 +7,7 @@ import ExplorePage from './components/templates/explorePage'
 import AcademicPage from './components/templates/academicPage'
 import JobsPage from './components/templates/jobsPage'
 import NetworkingPage from './components/templates/networkingPage'
-import NewsletterPage from './components/templates/newsletterPage'
+import EventsPage from './components/templates/eventsPage'
 import MyJobsPage from './components/templates/myJobsPage'
 import FreelancersPage from './components/templates/freelancersPage'
 import HiringAboutPage from './components/templates/hiringAboutPage'
@@ -49,7 +49,7 @@ function App() {
         <Route path="/academic" element={<AcademicPage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/networking" element={<NetworkingPage />} />
-        <Route path="/newsletter" element={<NewsletterPage />} />
+        <Route path="/events" element={<EventsPage />} />
         <Route path="/hire/my-jobs" element={<MyJobsPage />} />
         <Route path="/hire/freelancers" element={<FreelancersPage />} />
         <Route path="/hire/about" element={<HiringAboutPage />} />
