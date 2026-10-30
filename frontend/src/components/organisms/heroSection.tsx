@@ -1,83 +1,128 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import heroImg from '../../assets/images/hero.png'
 
 export default function HeroSection({ className = '' }: { className?: string }) {
-  return (
-    <section className={`relative w-full max-w-[1400px] mx-auto px-6 pt-8 pb-0 flex flex-col bg-white dark:bg-gray-950 ${className}`}>
-      {/* Main layered section — image & dot pattern bottom flush with footer top */}
-      <div className="relative flex flex-1 items-end justify-center mt-4">
+  const reduce = useReducedMotion()
 
-        {/* Subtitle */}
-        <div className="absolute left-12 md:left-16 top-[35%] z-30 max-w-[220px] md:max-w-xs">
-          <h1 className="text-2xl md:text-3xl font-normal leading-tight text-gray-900 dark:text-gray-100">
+  return (
+    <section className={`relative w-full max-w-[1400px] mx-auto bg-white dark:bg-gray-950 flex flex-col ${className}`}>
+
+      {/* ── Mobile layout (< sm) ── stacked, image flush to bottom */}
+      <div className="flex sm:hidden flex-col flex-1">
+        <div className="flex flex-col items-center px-5 pt-10 gap-6">
+          <motion.h1
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-2xl font-normal leading-snug text-center text-gray-900 dark:text-gray-100 max-w-[260px]"
+          >
             The World&rsquo;s Best Professionals Are On
-          </h1>
+            <span className="block font-bold text-nhonga-500 mt-1">NHONGA</span>
+          </motion.h1>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="flex flex-col w-full gap-2 bg-nhonga-500/15 backdrop-blur-xl rounded-2xl p-3"
+          >
+            <a href="#" className="flex items-center justify-center py-3 text-sm font-semibold text-white bg-nhonga-500 rounded-xl hover:bg-nhonga-600 transition-colors">
+              Hire a Professional
+            </a>
+            <a href="#" className="flex items-center justify-center py-3 text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-white/20 rounded-xl hover:border-nhonga-400 transition-colors">
+              Look For a Job
+            </a>
+          </motion.div>
         </div>
 
-        {/* NHONGA behind image */}
+        {/* Image flush to bottom */}
+        <div className="flex-1 flex items-end justify-center">
+          <motion.img
+            src={heroImg}
+            alt="Professional on Nhonga"
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="w-full max-w-[320px] object-contain object-bottom"
+          />
+        </div>
+      </div>
+
+      {/* ── Tablet + Desktop layout (≥ sm) ── layered composition */}
+      <div
+        className="hidden sm:flex relative items-end justify-center flex-1"
+      >
+        {/* Subtitle */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="absolute left-6 md:left-12 lg:left-16 top-[30%] md:top-[35%] z-30 max-w-[200px] md:max-w-[240px] lg:max-w-xs"
+        >
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-normal leading-tight text-gray-900 dark:text-gray-100">
+            The World&rsquo;s Best Professionals Are On
+          </h1>
+        </motion.div>
+
+        {/* NHONGA behind image — reduced size, shifted up */}
         <div
-          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 translate-y-[10%]"
+          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 translate-y-[12%]"
           aria-hidden="true"
         >
-          <span className="font-montserrat font-bold text-[120px] md:text-[190px] lg:text-[250px] tracking-normal text-nhonga-400 dark:text-nhonga-500 leading-[108%] whitespace-nowrap">
+          <span className="font-montserrat font-bold text-[110px] md:text-[170px] lg:text-[210px] tracking-normal text-nhonga-400 dark:text-nhonga-500 leading-[108%] whitespace-nowrap">
             NHONGA
           </span>
         </div>
 
-        {/* Hero image — defines section height */}
-        <div className="relative z-10 flex justify-center">
+        {/* Hero image — bottom-aligned */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="relative z-10 flex justify-center"
+        >
           <img
             src={heroImg}
             alt="Professional on Nhonga"
-            className="h-[460px] md:h-[570px] lg:h-[660px] w-auto object-contain"
+            className="h-[360px] md:h-[500px] lg:h-[600px] xl:h-[660px] w-auto object-contain"
           />
-        </div>
+        </motion.div>
 
-        {/* NHON in front */}
+        {/* NHON in front of image, GA transparent */}
         <div
-          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-20 translate-y-[10%]"
+          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-20 translate-y-[12%]"
           aria-hidden="true"
         >
-          <span className="font-montserrat font-bold text-[120px] md:text-[190px] lg:text-[250px] tracking-normal leading-[108%] whitespace-nowrap">
+          <span className="font-montserrat font-bold text-[110px] md:text-[170px] lg:text-[210px] tracking-normal leading-[108%] whitespace-nowrap">
             <span className="text-nhonga-400 dark:text-nhonga-500">NHON</span>
             <span className="text-transparent">GA</span>
           </span>
         </div>
 
-        {/* CTA buttons */}
-        <div className="absolute bottom-10 md:bottom-14 left-1/2 -translate-x-1/2 z-30 inline-flex items-stretch bg-nhonga-500/20 backdrop-blur-xl rounded-full overflow-hidden p-5 gap-3">
-          <a
-            href="#"
-            className="flex items-center px-7 py-3.5 text-sm font-semibold text-white bg-nhonga-500 rounded-full hover:bg-nhonga-600 transition-all duration-200"
-          >
-            Hire a Professional
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-7 py-3.5 text-sm font-semibold text-white border border-white/30 rounded-full hover:border-white/60 transition-all duration-200"
-          >
-            Look For a Job
-          </a>
-        </div>
-
-        {/* Dot pattern — fades up from bottom of hero image */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 z-[5] pointer-events-none">
-          <svg className="w-full h-full" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-            <defs>
-              <pattern id="hero-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="1.2" className="fill-nhonga-400/40 dark:fill-nhonga-500/30" />
-              </pattern>
-              <linearGradient id="dots-fade" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="white" stopOpacity="0" />
-                <stop offset="60%" stopColor="white" stopOpacity="1" />
-              </linearGradient>
-              <mask id="dots-mask">
-                <rect width="100%" height="100%" fill="url(#dots-fade)" />
-              </mask>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#hero-dots)" mask="url(#dots-mask)" />
-          </svg>
-        </div>
+        {/* CTA — floats over image, larger container, smaller buttons on lg */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="absolute bottom-8 md:bottom-10 lg:bottom-12 left-0 right-0 z-30 flex justify-center"
+        >
+          <div className="inline-flex items-stretch bg-transparent backdrop-blur-sm border border-nhonga-500/40 rounded-full p-4 md:p-5 lg:p-6 gap-3">
+            <a
+              href="#"
+              className="flex items-center justify-center px-7 md:px-8 lg:px-6 py-3 md:py-3.5 lg:py-2.5 text-sm lg:text-xs font-semibold text-white bg-nhonga-500 rounded-full hover:bg-nhonga-600 transition-colors"
+            >
+              Hire a Professional
+            </a>
+            <a
+              href="#"
+              className="flex items-center justify-center px-7 md:px-8 lg:px-6 py-3 md:py-3.5 lg:py-2.5 text-sm lg:text-xs font-semibold text-white border border-white/30 rounded-full hover:border-white/60 transition-colors"
+            >
+              Look For a Job
+            </a>
+          </div>
+        </motion.div>
       </div>
+
     </section>
   )
 }

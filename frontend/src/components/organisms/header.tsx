@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, Link, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
-  HiOutlineSun,
   HiOutlineUser,
   HiOutlineBriefcase,
   HiOutlineCog6Tooth,
@@ -10,10 +9,11 @@ import {
   HiOutlineBell,
   HiOutlineShieldCheck,
   HiOutlineArrowRightOnRectangle,
+  HiOutlineBars3,
+  HiOutlineXMark,
 } from 'react-icons/hi2'
 import Logo from '../atoms/logo'
 import Avatar from '../atoms/avatar'
-import Button from '../atoms/button'
 import NavLink from '../molecules/navLink'
 import Dropdown, { DropdownItem } from '../molecules/dropdown'
 
@@ -36,6 +36,8 @@ const userMenuItems = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [hireOpen, setHireOpen] = useState(false)
   const [user, setUser] = useState<{ name: string; initials: string } | null>(null)
   const location = useLocation()
   const navigate = useNavigate()
@@ -45,6 +47,10 @@ export default function Header() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [location.pathname])
 
   useEffect(() => {
     const raw = localStorage.getItem('nhonga_user')
@@ -123,7 +129,7 @@ export default function Header() {
             />
           </a>
 
-          <nav className="hidden md:flex items-center gap-6 h-full ml-10">
+          <nav className="hidden lg:flex items-center gap-6 h-full ml-10">
             {navItems.map((item) => (
               <NavLink
                 key={item.label}
@@ -132,11 +138,7 @@ export default function Header() {
                 active={location.pathname === item.href}
               />
             ))}
-          </nav>
-
-          <div className="flex items-center gap-4 ml-auto">
-            <div className="hidden md:block w-px h-6 bg-gray-200 dark:bg-gray-700" />
-
+            <div className="w-px h-4 bg-gray-200 dark:bg-gray-700" />
             <Dropdown
               trigger={
                 <span className="text-xs font-semibold tracking-wider uppercase text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
@@ -149,22 +151,16 @@ export default function Header() {
               <DropdownItem href="/hire/about">Hiring on Nhonga</DropdownItem>
               <DropdownItem href="/hire/create">Create a New Job</DropdownItem>
             </Dropdown>
+          </nav>
 
-            {/* Theme toggle */}
+          <div className="flex items-center gap-4 ml-auto">
+            {/* Mobile menu toggle */}
             <button
-              onClick={() => {
-                const next = !document.documentElement.classList.contains('dark')
-                document.documentElement.classList.toggle('dark', next)
-                localStorage.setItem('nhonga_theme', next ? 'dark' : 'light')
-              }}
-              className="relative p-2 rounded-xl transition-colors text-gray-500 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/10 hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer"
+              onClick={() => setMobileOpen((v) => !v)}
+              className="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              aria-label="Toggle menu"
             >
-              <div className="relative w-[18px] h-[18px]">
-                <HiOutlineSun className="w-[18px] h-[18px]" />
-                <div className="absolute inset-0 flex items-center justify-center transition-opacity dark:opacity-100 opacity-0">
-                  <div className="w-[22px] h-[1.5px] bg-current rotate-45 rounded-full" />
-                </div>
-              </div>
+              {mobileOpen ? <HiOutlineXMark className="w-5 h-5" /> : <HiOutlineBars3 className="w-5 h-5" />}
             </button>
 
             {user ? (
@@ -195,15 +191,100 @@ export default function Header() {
                 </div>
               </Dropdown>
             ) : (
-              <Link to="/login">
-                <Button variant="primary" size="sm">
-                  Sign In
-                </Button>
+              <Link
+                to="/login"
+                className="text-xs font-semibold tracking-wider uppercase text-nhonga-500 hover:text-nhonga-700 dark:hover:text-nhonga-300 transition-colors"
+              >
+                Sign In
               </Link>
             )}
           </div>
         </motion.div>
       </motion.header>
+
+      {/* Mobile nav drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden absolute top-full left-3 right-3 sm:left-4 sm:right-4 mt-2 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/60 dark:border-gray-700/40 shadow-xl z-40"
+          >
+            <nav className="flex flex-col p-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
+                    location.pathname === item.href
+                      ? 'bg-nhonga-500/10 text-nhonga-600 dark:text-nhonga-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+              {/* Hire expandable */}
+              <div className="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
+                <button
+                  onClick={() => setHireOpen((v) => !v)}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+                >
+                  Hire
+                  <motion.span
+                    animate={{ rotate: hireOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-gray-400"
+                  >
+                    ▾
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {hireOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden pl-4"
+                    >
+                      {[
+                        { label: 'My Jobs', href: '/hire/my-jobs' },
+                        { label: 'Freelancers', href: '/hire/freelancers' },
+                        { label: 'Hiring on Nhonga', href: '/hire/about' },
+                        { label: 'Create a New Job', href: '/hire/create' },
+                      ].map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.href}
+                          className="block px-4 py-2.5 rounded-xl text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white transition-colors"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Sign In */}
+              {!user && (
+                <div className="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1 px-2 pb-1">
+                  <Link
+                    to="/login"
+                    className="block w-full text-center px-4 py-3 rounded-xl text-sm font-bold tracking-wider uppercase text-gray-900 dark:text-white hover:bg-nhonga-500/10 hover:text-nhonga-600 dark:hover:text-nhonga-400 transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+              )}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
