@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HiEye, HiEyeSlash, HiOutlineSun } from 'react-icons/hi2'
+import appleIcon from '../../assets/icons/apple.png'
+import googleIcon from '../../assets/icons/google.png'
 import Logo from '../atoms/logo'
 import Button from '../atoms/button'
 
@@ -24,7 +26,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center px-6 py-12">
+    <div className="relative min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
       <button
         onClick={() => {
           const next = !document.documentElement.classList.contains('dark')
@@ -41,7 +43,7 @@ export default function LoginPage() {
         </div>
       </button>
 
-      <Link to="/" className="mb-10">
+      <Link to="/" className="mb-7 sm:mb-10">
         <div className="dark:hidden"><Logo width={120} height={36} /></div>
         <img src="/logo-w.png" alt="Nhonga" width={120} height={36} className="hidden dark:block" />
       </Link>
@@ -52,9 +54,28 @@ export default function LoginPage() {
         transition={{ duration: 0.4 }}
         className="w-full max-w-[480px]"
       >
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white text-center mb-5 sm:mb-6">
           Welcome back
         </h1>
+
+        {/* Social login */}
+        <div className="flex gap-2 sm:gap-3 mb-5 sm:mb-6">
+          <button className="flex flex-1 items-center justify-center gap-1.5 sm:gap-2 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-w-0">
+            <img src={appleIcon} alt="Apple" className="w-5 h-5 shrink-0 object-contain" />
+            <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 truncate">Continue with Apple</span>
+          </button>
+          <button className="flex flex-1 items-center justify-center gap-1.5 sm:gap-2 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-w-0">
+            <img src={googleIcon} alt="Google" className="w-5 h-5 shrink-0 object-contain" />
+            <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 truncate">Continue with Google</span>
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+          <span className="text-xs text-gray-400">or</span>
+          <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+        </div>
 
         {/* Form */}
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -94,6 +115,7 @@ export default function LoginPage() {
         <p className="text-sm text-gray-500 text-center mt-6">
           Don&apos;t have an account? <Link to="/register" className="text-nhonga-600 font-semibold hover:underline">Sign up</Link>.
         </p>
+
       </motion.div>
     </div>
   )

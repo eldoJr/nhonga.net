@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiEye, HiEyeSlash, HiChevronLeft, HiOutlineSun } from 'react-icons/hi2'
+import appleIcon from '../../assets/icons/apple.png'
+import googleIcon from '../../assets/icons/google.png'
 import Logo from '../atoms/logo'
 import Button from '../atoms/button'
 
@@ -17,7 +19,16 @@ export default function RegisterPage() {
   const back = () => setStep((s) => Math.max(s - 1, 0))
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center px-6 py-12">
+    <div className="relative min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
+      {step > 0 && (
+        <button
+          onClick={back}
+          className="absolute top-6 left-6 p-2 rounded-xl transition-colors text-gray-500 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer"
+        >
+          <HiChevronLeft className="w-[18px] h-[18px]" />
+        </button>
+      )}
+
       <button
         onClick={() => {
           const next = !document.documentElement.classList.contains('dark')
@@ -34,13 +45,13 @@ export default function RegisterPage() {
         </div>
       </button>
 
-      <Link to="/" className="mb-10">
+      <Link to="/" className="mb-7 sm:mb-10">
         <div className="dark:hidden"><Logo width={120} height={36} /></div>
         <img src="/logo-w.png" alt="Nhonga" width={120} height={36} className="hidden dark:block" />
       </Link>
 
       {/* Step indicator */}
-      <div className="flex items-center gap-2 mb-10">
+      <div className="flex items-center gap-2 mb-7 sm:mb-10">
         {[0, 1, 2].map((i) => (
           <div
             key={i}
@@ -59,9 +70,28 @@ export default function RegisterPage() {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.25 }}
             >
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white text-center mb-5 sm:mb-6">
                 Create account
               </h1>
+
+              {/* Social login */}
+              <div className="flex gap-2 sm:gap-3 mb-5 sm:mb-6">
+                <button className="flex flex-1 items-center justify-center gap-1.5 sm:gap-2 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-w-0">
+                  <img src={appleIcon} alt="Apple" className="w-5 h-5 shrink-0 object-contain" />
+                  <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 truncate">Continue with Apple</span>
+                </button>
+                <button className="flex flex-1 items-center justify-center gap-1.5 sm:gap-2 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-w-0">
+                  <img src={googleIcon} alt="Google" className="w-5 h-5 shrink-0 object-contain" />
+                  <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 truncate">Continue with Google</span>
+                </button>
+              </div>
+
+              {/* Divider */}
+              <div className="flex items-center gap-3 mb-5 sm:mb-6">
+                <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+                <span className="text-xs text-gray-400">or</span>
+                <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+              </div>
 
               {/* Form */}
               <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); next() }}>
@@ -116,13 +146,10 @@ export default function RegisterPage() {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.25 }}
             >
-              <button onClick={back} className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 mb-6 cursor-pointer">
-                <HiChevronLeft className="w-4 h-4" /> Back
-              </button>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white text-center mb-1 sm:mb-2">
                 Tell us about you
               </h1>
-              <p className="text-sm text-gray-400 text-center mb-8">This helps us personalize your experience.</p>
+              <p className="text-sm text-gray-400 text-center mb-6 sm:mb-8">This helps us personalize your experience.</p>
 
               <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); next() }}>
                 <input type="text" placeholder="Headline (e.g. UX Designer at Nhonga)" className="auth-input" />
@@ -151,13 +178,10 @@ export default function RegisterPage() {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.25 }}
             >
-              <button onClick={back} className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 mb-6 cursor-pointer">
-                <HiChevronLeft className="w-4 h-4" /> Back
-              </button>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white text-center mb-1 sm:mb-2">
                 What interests you?
               </h1>
-              <p className="text-sm text-gray-400 text-center mb-8">Select all that apply. You can change this later.</p>
+              <p className="text-sm text-gray-400 text-center mb-6 sm:mb-8">Select all that apply. You can change this later.</p>
 
               <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
                 <div className="flex flex-wrap gap-3 justify-center">
