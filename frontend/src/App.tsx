@@ -40,12 +40,12 @@ function App() {
   }
 
   return (
-    <div className={`flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${fullscreenRoutes.includes(pathname) ? 'sm:h-screen sm:overflow-hidden' : 'min-h-screen'}`}>
+    <div className={`flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${fullscreenRoutes.includes(pathname) ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       <Header />
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
       <Routes>
-        <Route path="/" element={<HomePage className="flex-1 sm:overflow-hidden" />} />
-        <Route path="/explore" element={<ExplorePage className="flex-1 sm:overflow-hidden" />} />
+        <Route path="/" element={<HomePage className="flex-1 overflow-hidden" />} />
+        <Route path="/explore" element={<ExplorePage className="flex-1 overflow-hidden" />} />
         <Route path="/academic" element={<AcademicPage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/networking" element={<NetworkingPage />} />
