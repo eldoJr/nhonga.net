@@ -1,72 +1,45 @@
 import { motion } from 'framer-motion'
-
-const avatars = [
-  'https://i.pravatar.cc/80?img=3',
-  'https://i.pravatar.cc/80?img=8',
-  'https://i.pravatar.cc/80?img=5',
-  'https://i.pravatar.cc/80?img=12',
-  'https://i.pravatar.cc/80?img=16',
-]
+import { HiArrowRight } from 'react-icons/hi2'
 
 export default function AcademicHero() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-6 pt-16 pb-10">
-      {/* Green accent bar */}
+    <section className="w-full max-w-[1250px] mx-auto px-5 sm:px-6 pt-6 sm:pt-10 pb-6 sm:pb-10">
+      {/* Search bar */}
       <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="w-12 h-1.5 rounded-full bg-nhonga-500 mb-16 origin-left"
-      />
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flex justify-center mb-6 sm:mb-10"
+      >
+        <div className="flex items-center gap-2 w-full max-w-lg bg-[#06210D] rounded-2xl px-2.5 py-1.5">
+          <input
+            type="text"
+            placeholder="Search Nhonga..."
+            className="flex-1 bg-transparent text-sm text-gray-200 placeholder-gray-500 outline-none px-2"
+          />
+          <button className="flex items-center justify-center w-10 h-7 rounded-2xl bg-nhonga-500 hover:bg-nhonga-600 transition-colors shrink-0">
+            <HiArrowRight className="w-4 h-4 text-gray-950" />
+          </button>
+        </div>
+      </motion.div>
 
-      <div className="relative flex flex-col lg:flex-row items-start justify-between gap-10">
-        {/* Left — heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl"
-        >
-          <span className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-            Elevate Ur Level
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl text-gray-900 dark:text-white mt-4 leading-tight">
-            <span className="font-bold">Secure</span>
-            <span className="font-light"> Your Future With</span>
-            <br />
-            <span className="font-bold text-nhonga-500">Nhonga</span>
-          </h1>
-        </motion.div>
-
-        {/* Right — floating social proof badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20, rotate: 2 }}
-          animate={{ opacity: 1, y: 0, rotate: 2 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="shrink-0"
-        >
-          <div className="rounded-2xl bg-nhonga-100/60 dark:bg-nhonga-900/30 border border-nhonga-200/50 dark:border-nhonga-800/40 px-5 py-4 shadow-sm">
-            <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-3">
-              10k + Avaliations on Nhonga
-            </p>
-            <div className="flex items-center">
-              {avatars.map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  className="w-9 h-9 rounded-full border-2 border-white dark:border-gray-900 object-cover"
-                  style={{ marginLeft: i > 0 ? -8 : 0, zIndex: avatars.length - i }}
-                />
-              ))}
-              <span className="w-9 h-9 rounded-full bg-nhonga-500 text-white text-xs font-bold flex items-center justify-center -ml-2 border-2 border-white dark:border-gray-900">
-                +
-              </span>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
+      {/* Heading */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="max-w-3xl"
+      >
+        <span className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+          Elevate Ur Level
+        </span>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mt-3 sm:mt-4 leading-tight">
+          <span className="font-bold">Secure</span>
+          <span className="font-light"> Your Future With</span>
+          <br />
+          <span className="font-bold text-nhonga-500">Nhonga</span>
+        </h1>
+      </motion.div>
     </section>
   )
 }
