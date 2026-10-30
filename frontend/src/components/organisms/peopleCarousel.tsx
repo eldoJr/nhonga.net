@@ -47,19 +47,22 @@ export default function PeopleCarousel() {
   return (
     <section className="w-full pb-32 overflow-hidden">
       <div className="max-w-[1250px] mx-auto px-6">
-        {/* Nav arrows */}
+        {/* Nav row */}
         <div className="flex items-center justify-end gap-2 mb-6">
+          <button className="h-8 px-3 rounded-full bg-[#D9D9D9] text-xs font-medium text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer">
+            Show All
+          </button>
           <button
             onClick={() => scroll('left')}
-            className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:border-nhonga-400 hover:text-nhonga-600 transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-[#D9D9D9] flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer"
           >
-            <HiArrowLeft className="w-4 h-4" />
+            <HiArrowLeft className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => scroll('right')}
-            className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:border-nhonga-400 hover:text-nhonga-600 transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-[#D9D9D9] flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer"
           >
-            <HiArrowRight className="w-4 h-4" />
+            <HiArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
@@ -68,8 +71,8 @@ export default function PeopleCarousel() {
       <div className="relative">
         <div
           ref={scrollRef}
-          className="flex gap-5 overflow-x-auto scroll-smooth"
-          style={{ scrollbarWidth: 'none', paddingLeft: 'max(24px, calc((100vw - 1250px) / 2 + 24px))', paddingRight: 'max(24px, calc((100vw - 1250px) / 2 + 24px))' }}
+          className="flex gap-3 sm:gap-5 overflow-x-auto scroll-smooth"
+          style={{ scrollbarWidth: 'none', paddingLeft: 'max(20px, calc((100vw - 1250px) / 2 + 20px))', paddingRight: 'max(20px, calc((100vw - 1250px) / 2 + 20px))' }}
         >
           {people.map((person, i) => (
             <motion.div
@@ -78,28 +81,27 @@ export default function PeopleCarousel() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group shrink-0 w-[300px] cursor-pointer"
+              className="group shrink-0 w-[200px] sm:w-[260px] lg:w-[300px] cursor-pointer"
             >
-              <div className="relative h-[380px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-4">
+              <div className="relative h-[260px] sm:h-[320px] lg:h-[380px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-3">
                 <img
                   src={person.image}
                   alt={person.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                {/* Hover overlay */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2">
-                  <button className="w-[80%] py-2.5 rounded-full bg-nhonga-500 text-white text-sm font-semibold hover:bg-nhonga-600 transition-colors">
+                  <button className="w-[80%] py-2 rounded-full bg-nhonga-500 text-white text-xs sm:text-sm font-semibold hover:bg-nhonga-600 transition-colors">
                     See Profile
                   </button>
-                  <button className="w-[80%] py-2.5 rounded-full border border-white text-white text-sm font-semibold hover:bg-white/10 transition-colors">
+                  <button className="w-[80%] py-2 rounded-full border border-white text-white text-xs sm:text-sm font-semibold hover:bg-white/10 transition-colors">
                     Follow
                   </button>
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white">
                 {person.name}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                 {person.role}
               </p>
             </motion.div>
@@ -107,7 +109,7 @@ export default function PeopleCarousel() {
         </div>
 
         {/* Right fade */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-96 bg-gradient-to-l from-white via-white/80 to-transparent dark:from-gray-950 dark:via-gray-950/80" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 lg:w-96 bg-gradient-to-l from-white via-white/80 to-transparent dark:from-gray-950 dark:via-gray-950/80" />
       </div>
     </section>
   )
