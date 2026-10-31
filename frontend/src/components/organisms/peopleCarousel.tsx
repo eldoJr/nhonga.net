@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { motion } from 'framer-motion'
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi2'
 
 const people = [
@@ -40,76 +39,58 @@ export default function PeopleCarousel() {
 
   function scroll(dir: 'left' | 'right') {
     if (!scrollRef.current) return
-    const amount = 340
+    const amount = scrollRef.current.offsetWidth * 0.8
     scrollRef.current.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
   }
 
   return (
-    <section className="w-full pb-32 overflow-hidden">
-      <div className="max-w-[1250px] mx-auto px-6">
-        {/* Nav row */}
-        <div className="flex items-center justify-end gap-2 mb-6">
-          <button className="h-8 px-3 rounded-full bg-[#D9D9D9] text-xs font-medium text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer">
-            Show All
-          </button>
-          <button
-            onClick={() => scroll('left')}
-            className="w-8 h-8 rounded-full bg-[#D9D9D9] flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer"
-          >
-            <HiArrowLeft className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={() => scroll('right')}
-            className="w-8 h-8 rounded-full bg-[#D9D9D9] flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer"
-          >
-            <HiArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
+    <section className="w-full pb-10 sm:pb-16 lg:pb-24">
+      {/* Nav row */}
+      <div className="max-w-[1250px] mx-auto px-4 sm:px-6 flex items-center justify-end gap-2 mb-4 sm:mb-6">
+        <button className="h-7 sm:h-8 px-3 rounded-full bg-[#D9D9D9] text-xs font-medium text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer">
+          Show All
+        </button>
+        <button onClick={() => scroll('left')} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D9D9D9] flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer">
+          <HiArrowLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+        </button>
+        <button onClick={() => scroll('right')} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D9D9D9] flex items-center justify-center text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer">
+          <HiArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+        </button>
       </div>
 
-      {/* Carousel — full width, padded to align with container */}
-      <div className="relative">
-        <div
-          ref={scrollRef}
-          className="flex gap-3 sm:gap-5 overflow-x-auto scroll-smooth"
-          style={{ scrollbarWidth: 'none', paddingLeft: 'max(20px, calc((100vw - 1250px) / 2 + 20px))', paddingRight: 'max(20px, calc((100vw - 1250px) / 2 + 20px))' }}
-        >
-          {people.map((person, i) => (
-            <motion.div
-              key={person.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group shrink-0 w-[200px] sm:w-[260px] lg:w-[300px] cursor-pointer"
-            >
-              <div className="relative h-[260px] sm:h-[320px] lg:h-[380px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-3">
-                <img
-                  src={person.image}
-                  alt={person.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2">
-                  <button className="w-[80%] py-2 rounded-full bg-nhonga-500 text-white text-xs sm:text-sm font-semibold hover:bg-nhonga-600 transition-colors">
-                    See Profile
-                  </button>
-                  <button className="w-[80%] py-2 rounded-full border border-white text-white text-xs sm:text-sm font-semibold hover:bg-white/10 transition-colors">
-                    Follow
-                  </button>
-                </div>
+      {/* Carousel */}
+      <div
+        ref={scrollRef}
+        className="flex gap-3 sm:gap-4 lg:gap-5 overflow-x-auto touch-pan-x pl-4 sm:pl-6"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+      >
+        {people.map((person) => (
+          <div key={person.name} className="group shrink-0 w-[44vw] sm:w-[220px] lg:w-[280px] cursor-pointer">
+            <div className="relative h-[56vw] sm:h-[280px] lg:h-[360px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-2">
+              <img
+                src={person.image}
+                alt={person.name}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2">
+                <button className="w-[80%] py-2 rounded-full bg-nhonga-500 text-white text-xs sm:text-sm font-semibold hover:bg-nhonga-600 transition-colors">
+                  See Profile
+                </button>
+                <button className="w-[80%] py-2 rounded-full border border-white text-white text-xs sm:text-sm font-semibold hover:bg-white/10 transition-colors">
+                  Follow
+                </button>
               </div>
-              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white">
-                {person.name}
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                {person.role}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Right fade */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 lg:w-96 bg-gradient-to-l from-white via-white/80 to-transparent dark:from-gray-950 dark:via-gray-950/80" />
+            </div>
+            <h3 className="text-xs sm:text-base lg:text-lg font-bold text-gray-900 dark:text-white truncate">
+              {person.name}
+            </h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
+              {person.role}
+            </p>
+          </div>
+        ))}
+        {/* Spacer to allow last card to scroll into view */}
+        <div className="shrink-0 w-4 sm:w-6" />
       </div>
     </section>
   )

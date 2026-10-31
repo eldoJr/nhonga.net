@@ -31,28 +31,37 @@ export default function EventsHero() {
         </div>
       </motion.div>
 
-      {/* Label + categories */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="flex items-center gap-3"
+        className="flex flex-col gap-4"
       >
-        <span className="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 shrink-0">Categories</span>
-        <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className={`px-4 py-1.5 rounded-full border text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
-                active === cat
-                  ? 'border-nhonga-500 bg-nhonga-500/10 text-nhonga-600 dark:text-nhonga-400'
-                  : 'border-nhonga-500/40 text-gray-600 dark:text-gray-400 hover:border-nhonga-500 hover:text-nhonga-500'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Title */}
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-900 dark:text-white leading-tight">
+          <span className="font-bold">Discover </span>
+          <span className="font-bold text-nhonga-500">Events</span>
+          <span className="font-light"> Happening Near You</span>
+        </h1>
+
+        {/* Categories label + badges on same line */}
+        <div className="flex items-start sm:items-center gap-2 sm:gap-3">
+          <span className="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 shrink-0 pt-1.5 sm:pt-0">Categories</span>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActive(cat)}
+                className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border text-xs font-medium transition-colors cursor-pointer ${
+                  active === cat
+                    ? 'border-nhonga-500 bg-nhonga-500/10 text-nhonga-600 dark:text-nhonga-400'
+                    : 'border-nhonga-500/40 text-gray-600 dark:text-gray-400 hover:border-nhonga-500 hover:text-nhonga-500'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>

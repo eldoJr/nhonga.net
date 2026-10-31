@@ -42,7 +42,7 @@ function App() {
   return (
     <div className={`flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-white ${fullscreenRoutes.includes(pathname) ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       <Header />
-      <div className={fullscreenRoutes.includes(pathname) ? 'flex-1 flex flex-col overflow-hidden' : ''}>
+      <div className={fullscreenRoutes.includes(pathname) ? 'flex-1 flex flex-col overflow-hidden' : 'flex-1'}>
       <Routes>
         <Route path="/" element={<HomePage className="flex-1 overflow-hidden" />} />
         <Route path="/explore" element={<ExplorePage className="flex-1 overflow-hidden" />} />
