@@ -1,28 +1,7 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { HiArrowLeft, HiArrowRight, HiArrowUpRight } from 'react-icons/hi2'
-
-const events = [
-  {
-    title: 'Neko Health Turned a Dreaded Blood Test Into an Experience People Want to Repeat',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=500&fit=crop',
-  },
-  {
-    title: "How Maputo's Creative Scene Is Redefining African Contemporary Art",
-    image: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&h=500&fit=crop',
-  },
-  {
-    title: 'Tech Conferences Are Back — And They Look Nothing Like Before',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=500&fit=crop',
-  },
-  {
-    title: 'Sports Events Driving Youth Engagement Across Mozambique',
-    image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=500&fit=crop',
-  },
-  {
-    title: 'Book Fairs Are Becoming Cultural Landmarks in Emerging Cities',
-    image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=500&fit=crop',
-  },
-]
+import { events } from '../../data/events'
 
 export default function EventsCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -55,8 +34,9 @@ export default function EventsCarousel() {
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
       >
         {events.map((event) => (
-          <div
-            key={event.title}
+          <Link
+            key={event.id}
+            to={`/events/${event.id}`}
             className="group shrink-0 w-[78vw] sm:w-[55vw] lg:w-[580px] cursor-pointer flex flex-col rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-[#F4F4F4] dark:bg-white/5 hover:border-nhonga-300 dark:hover:border-nhonga-700 transition-all duration-300"
           >
             {/* Top: title + arrow */}
@@ -79,7 +59,7 @@ export default function EventsCarousel() {
                 />
               </div>
             </div>
-          </div>
+          </Link>
         ))}
         {/* Spacer */}
         <div className="shrink-0 w-4 sm:w-6" />

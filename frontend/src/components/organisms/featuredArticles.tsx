@@ -27,7 +27,7 @@ const side = [
 
 export default function FeaturedArticles() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-6 pb-20">
+    <section className="w-full max-w-[1250px] mx-auto px-4 sm:px-6 pb-12 sm:pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         {/* Main featured */}
         <motion.div
@@ -38,7 +38,7 @@ export default function FeaturedArticles() {
           whileHover={{ y: -4, transition: { duration: 0.25 } }}
           className="group lg:col-span-3 rounded-2xl overflow-hidden border border-gray-200/60 dark:border-gray-800/60 bg-white/60 dark:bg-white/5 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-nhonga-200/20 hover:border-nhonga-200/50"
         >
-          <div className="relative h-[280px] md:h-[340px] overflow-hidden">
+          <div className="relative aspect-video overflow-hidden">
             <img
               src={featured.image}
               alt={featured.title}
@@ -79,7 +79,7 @@ export default function FeaturedArticles() {
               whileHover={{ y: -4, transition: { duration: 0.25 } }}
               className="group flex-1 rounded-2xl overflow-hidden border border-gray-200/60 dark:border-gray-800/60 bg-white/60 dark:bg-white/5 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-nhonga-200/20 hover:border-nhonga-200/50"
             >
-              <div className="relative h-[140px] overflow-hidden">
+              <div className="relative aspect-video overflow-hidden">
                 <img
                   src={article.image}
                   alt={article.title}

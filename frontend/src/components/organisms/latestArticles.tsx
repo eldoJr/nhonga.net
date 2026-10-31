@@ -44,19 +44,19 @@ const articles = [
 export default function LatestArticles() {
   return (
     <section className="w-full bg-gray-50/70 dark:bg-gray-900/50">
-      <div className="max-w-[1250px] mx-auto px-6 py-20">
+      <div className="max-w-[1250px] mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-12"
         >
           <div>
             <span className="text-sm font-bold text-nhonga-600 tracking-wide">
               Latest
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mt-3">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mt-2 sm:mt-3">
               Fresh reads for your growth
             </h2>
           </div>
@@ -77,7 +77,7 @@ export default function LatestArticles() {
               whileHover={{ y: -4, transition: { duration: 0.25 } }}
               className="group rounded-2xl overflow-hidden bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-white/40 dark:border-gray-700/30 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-nhonga-200/20 hover:border-nhonga-200/50"
             >
-              <div className="relative h-[160px] overflow-hidden">
+              <div className="relative aspect-video overflow-hidden">
                 <img
                   src={a.image}
                   alt={a.title}

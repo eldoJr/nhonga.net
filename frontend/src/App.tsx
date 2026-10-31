@@ -8,6 +8,7 @@ import AcademicPage from './components/templates/academicPage'
 import JobsPage from './components/templates/jobsPage'
 import NetworkingPage from './components/templates/networkingPage'
 import EventsPage from './components/templates/eventsPage'
+import SingleEventPage from './components/templates/singleEventPage'
 import MyJobsPage from './components/templates/myJobsPage'
 import FreelancersPage from './components/templates/freelancersPage'
 import HiringAboutPage from './components/templates/hiringAboutPage'
@@ -50,6 +51,7 @@ function App() {
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/networking" element={<NetworkingPage />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/events/:id" element={<SingleEventPage />} />
         <Route path="/hire/my-jobs" element={<MyJobsPage />} />
         <Route path="/hire/freelancers" element={<FreelancersPage />} />
         <Route path="/hire/about" element={<HiringAboutPage />} />

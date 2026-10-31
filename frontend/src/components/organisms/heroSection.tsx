@@ -26,7 +26,7 @@ export default function HeroSection({ className = '' }: { className?: string }) 
             className="absolute inset-0 flex items-start justify-center select-none pointer-events-none z-0 -pt-2"
             aria-hidden="true"
           >
-            <span className="font-montserrat font-bold text-[72px] tracking-normal text-nhonga-400 dark:text-nhonga-500 leading-[108%] whitespace-nowrap">
+            <span className="font-montserrat font-bold text-[72px] tracking-normal text-nhonga-400 dark:text-nhonga-500 leading-[108%] overflow-hidden">
               NHONGA
             </span>
           </div>
@@ -46,7 +46,7 @@ export default function HeroSection({ className = '' }: { className?: string }) 
             className="absolute inset-0 flex items-start justify-center select-none pointer-events-none z-20 -pt-2"
             aria-hidden="true"
           >
-            <span className="font-montserrat font-bold text-[72px] tracking-normal leading-[108%] whitespace-nowrap">
+            <span className="font-montserrat font-bold text-[72px] tracking-normal leading-[108%] overflow-hidden">
               <span className="text-nhonga-400 dark:text-nhonga-500">NHO</span>
               <span className="text-transparent">NGA</span>
             </span>
@@ -87,10 +87,10 @@ export default function HeroSection({ className = '' }: { className?: string }) 
 
         {/* NHONGA behind image — reduced size, shifted up */}
         <div
-          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 translate-y-[12%]"
+          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 translate-y-[12%] overflow-hidden"
           aria-hidden="true"
         >
-          <span className="font-montserrat font-bold text-[110px] md:text-[170px] lg:text-[210px] tracking-normal text-nhonga-400 dark:text-nhonga-500 leading-[108%] whitespace-nowrap">
+          <span className="font-montserrat font-bold text-[110px] md:text-[170px] lg:text-[210px] tracking-normal text-nhonga-400 dark:text-nhonga-500 leading-[108%]">
             NHONGA
           </span>
         </div>
@@ -111,10 +111,10 @@ export default function HeroSection({ className = '' }: { className?: string }) 
 
         {/* NHON in front of image, GA transparent */}
         <div
-          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-20 translate-y-[12%]"
+          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-20 translate-y-[12%] overflow-hidden"
           aria-hidden="true"
         >
-          <span className="font-montserrat font-bold text-[110px] md:text-[170px] lg:text-[210px] tracking-normal leading-[108%] whitespace-nowrap">
+          <span className="font-montserrat font-bold text-[110px] md:text-[170px] lg:text-[210px] tracking-normal leading-[108%]">
             <span className="text-nhonga-400 dark:text-nhonga-500">NHON</span>
             <span className="text-transparent">GA</span>
           </span>

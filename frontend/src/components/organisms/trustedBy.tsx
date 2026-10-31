@@ -12,7 +12,7 @@ const partners = [
 export default function TrustedBy() {
   return (
     <section className="w-full bg-gray-50/70 dark:bg-gray-900/50">
-      <div className="max-w-[1250px] mx-auto px-6 py-12">
+      <div className="max-w-[1250px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
