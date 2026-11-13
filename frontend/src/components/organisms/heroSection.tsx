@@ -81,7 +81,7 @@ export default function HeroSection({ className = '' }: { className?: string }) 
           className="absolute inset-0 flex items-center justify-center translate-y-[7%] overflow-hidden pointer-events-none"
         >
           <div className="flex flex-col items-start">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-gray-900 dark:text-gray-100 max-w-[300px] md:max-w-[380px] lg:max-w-md mb-1 pointer-events-auto translate-x-[5%] translate-y-[40%]">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight text-gray-900 dark:text-gray-100 max-w-[300px] md:max-w-[380px] lg:max-w-md mb-1 pointer-events-auto translate-x-[5%] translate-y-[40%]">
               The World&rsquo;s Best<br />Professionals Are On
             </h1>
             <span className="font-montserrat font-bold text-[130px] md:text-[195px] lg:text-[240px] tracking-normal leading-[108%] block invisible" aria-hidden="true">

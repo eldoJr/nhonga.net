@@ -25,7 +25,7 @@ export default function NavLink({
         'relative px-1 py-2 text-xs font-semibold tracking-wider uppercase transition-colors',
         active
           ? 'text-nhonga-700 dark:text-nhonga-400'
-          : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white',
+          : 'text-gray-900 hover:text-nhonga-500 dark:text-gray-400 dark:hover:text-white',
         className,
       )}
     >

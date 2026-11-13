@@ -26,6 +26,11 @@ const navItems = [
   { label: 'Networking', href: '/networking' },
 ]
 
+const guestNavItems = [
+  { label: 'Explore', href: '/explore' },
+  { label: 'Jobs', href: '/jobs' },
+]
+
 const hireItems = [
   { label: 'My Jobs', href: '/hire/my-jobs' },
   { label: 'Freelancers', href: '/hire/freelancers' },
@@ -46,8 +51,15 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [hireOpen, setHireOpen] = useState(false)
   const [user, setUser] = useState<{ name: string; initials: string } | null>(null)
+  const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Close drawer on route change
   useEffect(() => { setMobileOpen(false) }, [location.pathname])
@@ -73,7 +85,7 @@ export default function Header() {
   return (
     <>
       <div className="sticky top-0 z-50 w-full">
-        <header className="relative w-full bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800">
+        <header className={`relative w-full bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800 transition-shadow duration-300 ${scrolled ? 'shadow-[0_8px_40px_0_rgba(0,0,0,0.25)]' : 'shadow-[0_2px_8px_0_rgba(0,0,0,0.18),0_1px_0_0_rgba(0,0,0,0.08)]'}`}>
           {/* Header row */}
           <div className="relative z-10 mx-auto flex items-center h-16 max-w-[1400px] px-4 sm:px-6">
             <a href="/" className="flex items-center shrink-0">
@@ -84,8 +96,8 @@ export default function Header() {
             </a>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-6 h-full ml-10">
-              {navItems.map((item) => (
+            <nav className="hidden lg:flex items-center gap-14 h-full ml-10">
+              {(user ? navItems : guestNavItems).map((item) => (
                 <NavLink
                   key={item.label}
                   label={item.label}
@@ -96,7 +108,7 @@ export default function Header() {
               <div className="w-px h-4 bg-gray-200 dark:bg-gray-700" />
               <Dropdown
                 trigger={
-                  <span className="text-xs font-semibold tracking-wider uppercase text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                  <span className="text-xs font-semibold tracking-wider uppercase text-gray-900 hover:text-nhonga-500 dark:text-gray-400 dark:hover:text-white transition-colors">
                     Hire
                   </span>
                 }
@@ -192,7 +204,7 @@ export default function Header() {
 
               {/* Nav links */}
               <nav className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-0.5">
-                {navItems.map((item) => (
+                {(user ? navItems : guestNavItems).map((item) => (
                   <Link
                     key={item.label}
                     to={item.href}
