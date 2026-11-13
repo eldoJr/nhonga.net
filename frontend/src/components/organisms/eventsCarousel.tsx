@@ -15,7 +15,7 @@ export default function EventsCarousel() {
   return (
     <section className="w-full pb-16 sm:pb-20">
       {/* Nav row */}
-      <div className="max-w-[1250px] mx-auto px-4 sm:px-6 flex items-center justify-end gap-2 mb-4 sm:mb-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center justify-end gap-2 mb-4 sm:mb-6">
         <button className="h-7 sm:h-8 px-3 rounded-full bg-[#D9D9D9] text-xs font-medium text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer">
           Show All
         </button>
@@ -30,9 +30,11 @@ export default function EventsCarousel() {
       {/* Carousel */}
       <div
         ref={scrollRef}
-        className="flex gap-3 sm:gap-4 overflow-x-auto touch-pan-x pl-4 sm:pl-6"
+        className="flex gap-3 sm:gap-4 overflow-x-auto touch-pan-x"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
       >
+        {/* Left spacer to align with max-w-[1400px] container */}
+        <div className="shrink-0 w-[max(1.25rem,calc((100vw-1400px)/2))] sm:w-[max(1.5rem,calc((100vw-1400px)/2))]" />
         {events.map((event) => (
           <Link
             key={event.id}
@@ -51,7 +53,7 @@ export default function EventsCarousel() {
 
             {/* Image */}
             <div className="px-3 pb-3">
-              <div className="w-full h-[44vw] sm:h-[28vw] lg:h-[280px] rounded-xl overflow-hidden">
+              <div className="w-full h-[52vw] sm:h-[34vw] lg:h-[340px] rounded-xl overflow-hidden">
                 <img
                   src={event.image}
                   alt={event.title}

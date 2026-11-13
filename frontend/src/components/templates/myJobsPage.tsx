@@ -10,7 +10,7 @@ const myJobs = [
 
 export default function MyJobsPage() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-6 py-16">
+    <section className="w-full max-w-[1400px] mx-auto px-6 py-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

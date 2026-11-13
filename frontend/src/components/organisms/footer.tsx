@@ -18,7 +18,7 @@ const sep = <span className="text-gray-300 dark:text-gray-700 select-none mx-0.5
 export default function Footer() {
   return (
     <footer className="w-full bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800/60">
-      <div className="max-w-[1250px] mx-auto px-5 sm:px-6 py-3 sm:py-0 sm:h-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 text-xs text-gray-500 dark:text-gray-400">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-6 py-3 sm:py-0 sm:h-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 text-xs text-gray-500 dark:text-gray-400">
 
         {/* Left — nav links */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">

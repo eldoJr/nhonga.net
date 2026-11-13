@@ -3,7 +3,7 @@ import { HiArrowRight } from 'react-icons/hi2'
 
 export default function AcademicHero() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-5 sm:px-6 pt-6 sm:pt-10 pb-6 sm:pb-10">
+    <section className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 pt-6 sm:pt-10 pb-6 sm:pb-10">
       {/* Search bar */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
@@ -15,7 +15,7 @@ export default function AcademicHero() {
           <input
             type="text"
             placeholder="Search Nhonga..."
-            className="flex-1 bg-transparent text-sm text-gray-200 placeholder-gray-500 outline-none px-2"
+            className="flex-1 bg-transparent text-sm text-gray-200 placeholder-nhonga-500 outline-none px-2 text-center"
           />
           <button className="flex items-center justify-center w-10 h-7 rounded-2xl bg-nhonga-500 hover:bg-nhonga-600 transition-colors shrink-0">
             <HiArrowRight className="w-4 h-4 text-gray-950" />
@@ -30,7 +30,7 @@ export default function AcademicHero() {
         transition={{ duration: 0.5, delay: 0.1 }}
         className="max-w-3xl"
       >
-        <span className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+        <span className="text-xs font-normal uppercase tracking-widest text-gray-400 dark:text-gray-500">
           Elevate Ur Level
         </span>
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mt-3 sm:mt-4 leading-tight">

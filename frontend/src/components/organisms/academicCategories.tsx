@@ -1,44 +1,22 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { HiBookOpen, HiAcademicCap, HiTrophy, HiBriefcase, HiGift, HiClipboardDocumentList } from 'react-icons/hi2'
 
 const categories = [
-  {
-    icon: HiBookOpen,
-    title: 'Books',
-    description: 'Curated reading lists, textbooks, and resources recommended by top professionals and academics.',
-  },
-  {
-    icon: HiAcademicCap,
-    title: 'Courses',
-    description: 'Online and in-person courses from leading institutions across Mozambique and internationally.',
-  },
-  {
-    icon: HiTrophy,
-    title: 'Competitions',
-    description: 'Academic challenges, hackathons, and competitions to test your skills and win opportunities.',
-  },
-  {
-    icon: HiBriefcase,
-    title: 'Internships',
-    description: 'Hands-on internship opportunities with top companies and organizations across Mozambique.',
-  },
-  {
-    icon: HiGift,
-    title: 'Scholarships Programs',
-    description: 'Funding opportunities, grants, and scholarship programs for students at every level.',
-  },
-  {
-    icon: HiClipboardDocumentList,
-    title: 'Applications',
-    description: 'Track and manage your applications for scholarships, internships, and academic programs.',
-  },
+  { icon: HiBookOpen, title: 'Books', href: '/academic/books' },
+  { icon: HiAcademicCap, title: 'Courses', href: '/academic/courses' },
+  { icon: HiTrophy, title: 'Competitions', href: '/academic/competitions' },
+  { icon: HiBriefcase, title: 'Internships', href: '/academic/internships' },
+  { icon: HiGift, title: 'Scholarships Programs', href: '/academic/scholarships' },
+  { icon: HiClipboardDocumentList, title: 'Applications', href: '/academic/applications' },
 ]
 
 export default function AcademicCategories() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-5 sm:px-6 pb-6 sm:pb-10">
+    <section className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 pb-6 sm:pb-10">
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
         {categories.map((cat, i) => (
+          <Link to={cat.href} key={cat.title}>
           <motion.div
             key={cat.title}
             initial={{ opacity: 0, y: 30 }}
@@ -46,23 +24,20 @@ export default function AcademicCategories() {
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
             whileHover={{ y: -6, transition: { duration: 0.25 } }}
-            className="group relative flex flex-col justify-between rounded-2xl bg-gray-50/80 dark:bg-white/5 border border-gray-200/60 dark:border-gray-800/60 p-5 sm:p-8 cursor-pointer transition-all duration-300 hover:border-nhonga-300 hover:shadow-xl hover:shadow-nhonga-200/20 dark:hover:border-nhonga-700 dark:hover:shadow-nhonga-500/5 overflow-hidden"
+            className="group relative flex flex-col justify-between rounded-2xl bg-gray-50/80 dark:bg-white/5 border border-gray-200/60 dark:border-gray-800/60 p-8 sm:p-12 cursor-pointer transition-all duration-300 hover:border-nhonga-300 hover:shadow-xl hover:shadow-nhonga-200/20 dark:hover:border-nhonga-700 dark:hover:shadow-nhonga-500/5 overflow-hidden"
           >
             {/* Background icon watermark */}
-            <div className="absolute top-6 right-6 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-300 pointer-events-none">
-              <cat.icon className="w-32 h-32" />
+            <div className="absolute top-4 right-4 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-300 pointer-events-none">
+              <cat.icon className="w-24 h-24" />
             </div>
 
-            <div className="relative z-10">
-              <div className="w-12 h-12 rounded-xl bg-nhonga-100/80 dark:bg-nhonga-900/40 flex items-center justify-center text-nhonga-600 dark:text-nhonga-400 mb-5 group-hover:scale-110 transition-transform duration-300">
-                <cat.icon className="w-6 h-6" />
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <div className="w-10 h-10 rounded-xl bg-nhonga-100/80 dark:bg-nhonga-900/40 flex items-center justify-center text-nhonga-600 dark:text-nhonga-400 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <cat.icon className="w-5 h-5" />
               </div>
-              <h3 className="text-base sm:text-xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
                 {cat.title}
               </h3>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed hidden sm:block">
-                {cat.description}
-              </p>
             </div>
 
             <div className="relative z-10 mt-6 flex items-center justify-end">
@@ -71,6 +46,7 @@ export default function AcademicCategories() {
               </span>
             </div>
           </motion.div>
+          </Link>
         ))}
       </div>
     </section>

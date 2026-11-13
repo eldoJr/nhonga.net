@@ -27,7 +27,7 @@ const side = [
 
 export default function FeaturedArticles() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-4 sm:px-6 pb-12 sm:pb-20">
+    <section className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 pb-12 sm:pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         {/* Main featured */}
         <motion.div

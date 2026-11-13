@@ -44,7 +44,7 @@ const articles = [
 export default function LatestArticles() {
   return (
     <section className="w-full bg-gray-50/70 dark:bg-gray-900/50">
-      <div className="max-w-[1250px] mx-auto px-4 sm:px-6 py-12 sm:py-20">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

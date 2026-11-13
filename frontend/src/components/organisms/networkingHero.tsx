@@ -3,7 +3,7 @@ import { HiArrowRight } from 'react-icons/hi2'
 
 export default function NetworkingHero() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-5 sm:px-6 pt-5 sm:pt-8 pb-4 sm:pb-6">
+    <section className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 pt-5 sm:pt-8 pb-4 sm:pb-6">
       {/* Search bar */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}

@@ -24,6 +24,7 @@ const navItems = [
   { label: 'Events', href: '/events' },
   { label: 'Jobs', href: '/jobs' },
   { label: 'Networking', href: '/networking' },
+  { label: 'Newsletter', href: '/newsletter' },
 ]
 
 const guestNavItems = [

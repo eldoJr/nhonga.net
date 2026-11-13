@@ -11,7 +11,7 @@ export default function EventsHero() {
   const [active, setActive] = useState('Culture/Art')
 
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-5 sm:px-6 pt-5 sm:pt-8 pb-4 sm:pb-6">
+    <section className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 pt-5 sm:pt-8 pb-4 sm:pb-6">
       {/* Search bar */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -55,7 +55,7 @@ export default function EventsHero() {
                 className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border text-xs font-medium transition-colors cursor-pointer ${
                   active === cat
                     ? 'border-nhonga-500 bg-nhonga-500/10 text-nhonga-600 dark:text-nhonga-400'
-                    : 'border-nhonga-500/40 text-gray-600 dark:text-gray-400 hover:border-nhonga-500 hover:text-nhonga-500'
+                    : 'border-nhonga-500 text-nhonga-500 dark:text-nhonga-400 hover:bg-nhonga-500 hover:text-white'
                 }`}
               >
                 {cat}

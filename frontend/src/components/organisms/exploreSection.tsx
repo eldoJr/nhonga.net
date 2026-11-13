@@ -2,6 +2,7 @@ import { HiArrowRight } from 'react-icons/hi2'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import exploreImg from '../../assets/images/explore.png'
+import CreatorBanner from '../molecules/creatorBanner'
 
 const avatars = [
   'https://i.pravatar.cc/80?img=3',
@@ -16,12 +17,13 @@ const links = [
   { label: 'Events', href: '/events' },
   { label: 'Jobs', href: '/jobs' },
   { label: 'Networking', href: '/networking' },
+  { label: 'Newsletter', href: '/newsletter' },
 ]
 
 export default function ExploreSection({ className = '' }: { className?: string }) {
   return (
     <section className={`w-full flex-1 flex flex-col bg-white dark:bg-gray-950 overflow-hidden ${className}`}>
-      <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 flex-1 flex flex-col">
+      <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 flex-1 flex flex-col relative">
 
         {/* Search bar */}
         <motion.div
@@ -34,13 +36,18 @@ export default function ExploreSection({ className = '' }: { className?: string 
             <input
               type="text"
               placeholder="Search Nhonga..."
-              className="flex-1 bg-transparent text-sm text-gray-200 placeholder-gray-500 outline-none px-2"
+              className="flex-1 bg-transparent text-sm text-gray-200 placeholder-nhonga-500 outline-none px-2 text-center"
             />
             <button className="flex items-center justify-center w-10 h-7 rounded-2xl bg-nhonga-500 hover:bg-nhonga-600 transition-colors shrink-0">
               <HiArrowRight className="w-4 h-4 text-gray-950" />
             </button>
           </div>
         </motion.div>
+
+        {/* Creator Banner — toast pinned to bottom of section */}
+        <div className="absolute bottom-4 left-5 right-5 sm:left-6 sm:right-6 z-20">
+          <CreatorBanner />
+        </div>
 
         {/* ── Mobile layout (< lg) ── */}
         <div className="flex lg:hidden flex-col flex-1 relative">
@@ -49,7 +56,7 @@ export default function ExploreSection({ className = '' }: { className?: string 
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col gap-4 pb-4"
+            className="flex flex-col gap-4 pb-4 -mt-4"
           >
             <h1 className="text-2xl font-bold leading-tight">
               <span className="text-gray-900 dark:text-white">Create, Work, Earn </span>
@@ -62,7 +69,7 @@ export default function ExploreSection({ className = '' }: { className?: string 
                   <Link
                     key={l.label}
                     to={l.href}
-                    className="px-4 py-1.5 rounded-full border border-nhonga-500/50 text-xs font-medium text-gray-700 dark:text-gray-300 hover:border-nhonga-500 hover:text-nhonga-500 transition-colors"
+                    className="px-4 py-1.5 rounded-full border border-nhonga-500 text-xs font-medium text-nhonga-500 hover:bg-nhonga-500 hover:text-white transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -105,7 +112,7 @@ export default function ExploreSection({ className = '' }: { className?: string 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col gap-8 justify-center self-stretch"
+            className="absolute left-0 top-[30%] z-10 flex flex-col gap-8"
           >
             <h1 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight whitespace-nowrap">
               <span className="text-gray-900 dark:text-white">Create, Work, Earn </span>
@@ -124,7 +131,7 @@ export default function ExploreSection({ className = '' }: { className?: string 
                   >
                     <Link
                       to={l.href}
-                      className="px-5 py-2 rounded-full border border-nhonga-500/50 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-nhonga-500 hover:text-nhonga-500 dark:hover:text-nhonga-400 transition-colors"
+                      className="px-5 py-2 rounded-full border border-nhonga-500 text-sm font-medium text-nhonga-500 dark:text-nhonga-400 hover:bg-nhonga-500 hover:text-white transition-colors"
                     >
                       {l.label}
                     </Link>

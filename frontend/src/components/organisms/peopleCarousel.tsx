@@ -46,7 +46,7 @@ export default function PeopleCarousel() {
   return (
     <section className="w-full pb-10 sm:pb-16 lg:pb-24">
       {/* Nav row */}
-      <div className="max-w-[1250px] mx-auto px-4 sm:px-6 flex items-center justify-end gap-2 mb-4 sm:mb-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center justify-end gap-2 mb-4 sm:mb-6">
         <button className="h-7 sm:h-8 px-3 rounded-full bg-[#D9D9D9] text-xs font-medium text-gray-700 hover:bg-gray-300 transition-colors cursor-pointer">
           Show All
         </button>
@@ -61,9 +61,10 @@ export default function PeopleCarousel() {
       {/* Carousel */}
       <div
         ref={scrollRef}
-        className="flex gap-3 sm:gap-4 lg:gap-5 overflow-x-auto touch-pan-x pl-4 sm:pl-6"
+        className="flex gap-3 sm:gap-4 lg:gap-5 overflow-x-auto touch-pan-x"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
       >
+        <div className="shrink-0 w-[max(1.25rem,calc((100vw-1400px)/2))] sm:w-[max(1.5rem,calc((100vw-1400px)/2))]" />
         {people.map((person) => (
           <div key={person.name} className="group shrink-0 w-[44vw] sm:w-[220px] lg:w-[280px] cursor-pointer">
             <div className="relative h-[56vw] sm:h-[280px] lg:h-[360px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-2">

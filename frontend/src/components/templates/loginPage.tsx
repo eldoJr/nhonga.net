@@ -19,7 +19,7 @@ export default function LoginPage() {
     if (email === 'admin' && password === 'admin123') {
       localStorage.setItem('nhonga_auth', 'true')
       localStorage.setItem('nhonga_user', JSON.stringify({ name: 'Admin User', initials: 'AU' }))
-      navigate('/')
+      navigate('/explore')
     } else {
       setError('Invalid credentials')
     }
@@ -43,9 +43,9 @@ export default function LoginPage() {
         </div>
       </button>
 
-      <Link to="/" className="mb-7 sm:mb-10">
-        <div className="dark:hidden"><Logo width={120} height={36} /></div>
-        <img src="/logo-w.png" alt="Nhonga" width={120} height={36} className="hidden dark:block" />
+      <Link to="/" className="absolute top-5 left-6">
+        <div className="dark:hidden"><Logo width={110} height={32} /></div>
+        <img src="/logo-w.png" alt="Nhonga" width={110} height={32} className="hidden dark:block" />
       </Link>
 
       <motion.div

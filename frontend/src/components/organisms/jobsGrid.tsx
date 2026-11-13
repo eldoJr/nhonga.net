@@ -12,7 +12,7 @@ const jobs = [
 
 export default function JobsGrid() {
   return (
-    <section className="w-full max-w-[1250px] mx-auto px-5 sm:px-6 pb-10">
+    <section className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 pb-10">
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
         {jobs.map((job, i) => (
           <motion.div

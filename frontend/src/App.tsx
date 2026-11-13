@@ -17,6 +17,7 @@ import RegisterPage from './components/templates/registerPage'
 import LoginPage from './components/templates/loginPage'
 import ForgotPasswordPage from './components/templates/forgotPasswordPage'
 import ResetPasswordPage from './components/templates/resetPasswordPage'
+import BooksPage from './components/templates/booksPage'
 
 const authRoutes = ['/register', '/login', '/forgot-password', '/reset-password']
 const fullscreenRoutes = ['/', '/explore']
@@ -56,6 +57,8 @@ function App() {
         <Route path="/hire/freelancers" element={<FreelancersPage />} />
         <Route path="/hire/about" element={<HiringAboutPage />} />
         <Route path="/hire/create" element={<CreateJobPage />} />
+        <Route path="/academic/books" element={<BooksPage />} />
+        <Route path="/newsletter" element={<EventsPage />} />
       </Routes>
       </div>
       <Footer />

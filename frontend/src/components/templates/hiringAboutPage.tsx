@@ -19,7 +19,7 @@ export default function HiringAboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="w-full max-w-[1250px] mx-auto px-6 py-16">
+      <section className="w-full max-w-[1400px] mx-auto px-6 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export default function HiringAboutPage() {
 
       {/* Benefits */}
       <section className="w-full bg-gray-50/70 dark:bg-gray-900/50">
-        <div className="max-w-[1250px] mx-auto px-6 py-20">
+        <div className="max-w-[1400px] mx-auto px-6 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {benefits.map((b, i) => (
               <motion.div
@@ -64,7 +64,7 @@ export default function HiringAboutPage() {
       </section>
 
       {/* Pricing */}
-      <section className="w-full max-w-[1250px] mx-auto px-6 py-20">
+      <section className="w-full max-w-[1400px] mx-auto px-6 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
