@@ -37,6 +37,8 @@ import AddCourseReviewPage from './components/templates/addCourseReviewPage'
 import AddBookReviewPage from './components/templates/addBookReviewPage'
 import CoursePaymentPage from './components/templates/coursePaymentPage'
 import BookPaymentPage from './components/templates/bookPaymentPage'
+import SingleJobPage from './components/templates/singleJobPage'
+import ApplyJobPage from './components/templates/applyJobPage'
 
 const authRoutes = ['/register', '/login', '/forgot-password', '/reset-password']
 const fullscreenRoutes = ['/', '/explore']
@@ -69,6 +71,8 @@ function App() {
         <Route path="/explore" element={<ExplorePage className="flex-1 overflow-hidden" />} />
         <Route path="/academic" element={<AcademicPage />} />
         <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/jobs/:id" element={<SingleJobPage />} />
+        <Route path="/jobs/:id/apply" element={<ApplyJobPage />} />
         <Route path="/networking" element={<NetworkingPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/events/submit" element={<SubmitEventPage />} />

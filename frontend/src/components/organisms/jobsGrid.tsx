@@ -1,30 +1,26 @@
 import { motion } from 'framer-motion'
 import { HiArrowUpRight } from 'react-icons/hi2'
-
-const jobs = [
-  { company: 'GOLO',               color: '#E8553D', title: 'Creative Director',              description: 'Hiring a Creative Director to shape stories, lead ideas, and drive consistent creativity.' },
-  { company: 'Social Sherpa',      color: '#2D5F4E', title: 'Developer with Ux/Ui Skills',    description: 'We are seeking a highly skilled Full-Stack Developer with strong ux/ui design capabilities.' },
-  { company: 'Markennzoworldwide', color: '#1A1A2E', title: 'Graphic Designer',                description: 'We are seeking a highly creative and detail oriented Senior Graphic Designer & Video Editor.' },
-  { company: 'Drumstick Design',   color: '#D94F4F', title: 'Video Editor Cum Motion Designer',description: 'Looking for a talented Video Editor with motion design skills for creative campaigns.' },
-  { company: 'Genpact',            color: '#0066CC', title: 'Art Director',                    description: 'We are looking for a highly skilled Art Director with 8-12 years of experience.' },
-  { company: 'Insenses',           color: '#E91E8C', title: 'Brand Designer',                  description: 'We are hiring a brand designer for social brand, and experimental touchpoint.' },
-]
+import { useNavigate } from 'react-router-dom'
+import { jobs } from '../../data/jobs'
 
 export default function JobsGrid() {
+  const navigate = useNavigate()
+
   return (
     <section className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 pb-10">
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
         {jobs.map((job, i) => (
           <motion.div
-            key={job.title}
+            key={job.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-30px' }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
             whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            onClick={() => navigate(`/jobs/${job.id}`)}
             className="group flex flex-col justify-between rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-[#F4F4F4] dark:bg-white/5 p-4 sm:p-6 cursor-pointer transition-all duration-300 hover:border-nhonga-300 hover:shadow-lg hover:shadow-nhonga-200/20 dark:hover:border-nhonga-700"
           >
-            {/* Header: logo + company + arrow */}
+            {/* Header */}
             <div>
               <div className="flex items-center justify-between mb-3 sm:mb-5">
                 <div className="flex items-center gap-2">
@@ -46,7 +42,10 @@ export default function JobsGrid() {
 
             {/* Save button */}
             <div className="mt-3 sm:mt-5 flex justify-center">
-              <button className="inline-flex items-center gap-1.5 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full bg-white border border-gray-200 dark:border-gray-700 text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hover:border-nhonga-400 hover:text-nhonga-600 dark:hover:text-nhonga-400 transition-colors cursor-pointer">
+              <button
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1.5 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full bg-white border border-gray-200 dark:border-gray-700 text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 hover:border-nhonga-400 hover:text-nhonga-600 dark:hover:text-nhonga-400 transition-colors cursor-pointer"
+              >
                 Save Job
               </button>
             </div>
