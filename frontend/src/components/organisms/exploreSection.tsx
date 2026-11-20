@@ -44,41 +44,14 @@ export default function ExploreSection({ className = '' }: { className?: string 
           </div>
         </motion.div>
 
-        {/* Creator Banner — toast pinned to bottom of section */}
-        <div className="absolute bottom-4 left-5 right-5 sm:left-6 sm:right-6 z-20">
+        {/* Creator Banner — desktop only, absolute bottom */}
+        <div className="hidden lg:block absolute bottom-4 left-5 right-5 sm:left-6 sm:right-6 z-20">
           <CreatorBanner />
         </div>
 
         {/* ── Mobile layout (< lg) ── */}
         <div className="flex lg:hidden flex-col flex-1 relative">
-          {/* Title + links */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col gap-4 pb-4 -mt-4"
-          >
-            <h1 className="text-2xl font-bold leading-tight">
-              <span className="text-gray-900 dark:text-white">Create, Work, Earn </span>
-              <span className="text-nhonga-500">Nhonga</span>
-            </h1>
-            <div className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500">Explore</span>
-              <nav className="flex flex-row flex-wrap gap-2">
-                {links.map((l) => (
-                  <Link
-                    key={l.label}
-                    to={l.href}
-                    className="px-4 py-1.5 rounded-full border border-nhonga-500 text-xs font-medium text-nhonga-500 hover:bg-nhonga-500 hover:text-white transition-colors"
-                  >
-                    {l.label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          </motion.div>
-
-          {/* Image fills remaining space */}
+          {/* Image fills all remaining space */}
           <div className="relative flex-1 overflow-hidden">
             <motion.img
               src={exploreImg}
@@ -89,9 +62,36 @@ export default function ExploreSection({ className = '' }: { className?: string 
               className="w-full h-full object-cover object-top"
             />
 
-            {/* Avatars card floating over image */}
-            <div className="absolute bottom-4 left-4">
-              <div className="rounded-2xl bg-nhonga-100/70 dark:bg-nhonga-900/50 backdrop-blur-sm border border-nhonga-200/50 dark:border-nhonga-800/40 px-4 py-3 shadow-sm">
+            {/* Title + links overlay — top */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="absolute top-4 left-4 right-4 z-10 flex flex-col gap-3"
+            >
+              <h1 className="text-3xl font-bold leading-tight drop-shadow-sm">
+                <span className="text-gray-900 dark:text-white">Create, Work, Earn </span>
+                <span className="text-nhonga-500">Nhonga</span>
+              </h1>
+              <div className="flex flex-col gap-1.5">
+                <span className="text-xs uppercase tracking-widest text-gray-500 dark:text-white/60">Explore</span>
+                <nav className="flex flex-row flex-wrap gap-2">
+                  {links.map((l) => (
+                    <Link
+                      key={l.label}
+                      to={l.href}
+                      className="px-4 py-1.5 rounded-full border border-nhonga-500 bg-white/60 dark:bg-black/20 backdrop-blur-sm text-xs font-medium text-nhonga-600 dark:text-nhonga-400 hover:bg-nhonga-500 hover:text-white transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </motion.div>
+
+            {/* Avatars card — bottom left */}
+            <div className="absolute bottom-16 left-4 z-10">
+              <div className="rounded-2xl bg-nhonga-100/70 dark:bg-nhonga-900/50 backdrop-blur-sm border border-nhonga-200/50 dark:border-nhonga-800/40 px-3 py-2.5 shadow-sm">
                 <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">10k + Avaliations on Nhonga</p>
                 <div className="flex items-center">
                   {avatars.map((src, i) => (
@@ -100,6 +100,11 @@ export default function ExploreSection({ className = '' }: { className?: string 
                   <span className="w-7 h-7 rounded-full bg-nhonga-500 text-white text-xs font-bold flex items-center justify-center -ml-1.5 border-2 border-white dark:border-gray-900">+</span>
                 </div>
               </div>
+            </div>
+
+            {/* Creator banner — absolute bottom */}
+            <div className="absolute bottom-0 left-0 right-0 z-20 p-3">
+              <CreatorBanner />
             </div>
           </div>
         </div>

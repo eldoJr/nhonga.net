@@ -39,7 +39,7 @@ export default function Avatar({
           src={src}
           alt={name || 'Avatar'}
           className={clsx(
-            'rounded-full object-cover border-2 border-nhonga-500',
+            'rounded-full object-cover',
             sizeMap[size],
           )}
         />
@@ -47,10 +47,10 @@ export default function Avatar({
         <div
           className={clsx(
             'rounded-full flex items-center justify-center',
-            'bg-nhonga-100 text-nhonga-800 font-semibold',
-            'border-2 border-nhonga-500',
+            'font-semibold',
             sizeMap[size],
           )}
+          style={{ backgroundColor: '#6AE589', color: '#06210D' }}
         >
           {getInitial(name)}
         </div>

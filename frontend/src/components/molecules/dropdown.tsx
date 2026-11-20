@@ -60,7 +60,7 @@ export default function Dropdown({
             exit={{ opacity: 0, scale: 0.95, y: isTop ? 6 : -6 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
             className={clsx(
-              'absolute z-50 min-w-[180px]',
+              'absolute z-50 min-w-[240px]',
               'bg-white dark:bg-gray-800 rounded-xl shadow-lg',
               'border border-gray-100 dark:border-gray-700',
               'py-1.5 origin-top',

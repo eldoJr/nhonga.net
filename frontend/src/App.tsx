@@ -29,6 +29,10 @@ import SingleBookPage from './components/templates/singleBookPage'
 import CompetitionsPage from './components/templates/competitionsPage'
 import SingleCompetitionPage from './components/templates/singleCompetitionPage'
 import InternshipsPage from './components/templates/internshipsPage'
+import ScholarshipsPage from './components/templates/scholarshipsPage'
+import ApplicationsPage from './components/templates/applicationsPage'
+import ProfilePage from './components/templates/profilePage'
+import EditProfilePage from './components/templates/editProfilePage'
 import AddCourseReviewPage from './components/templates/addCourseReviewPage'
 import AddBookReviewPage from './components/templates/addBookReviewPage'
 import CoursePaymentPage from './components/templates/coursePaymentPage'
@@ -83,6 +87,10 @@ function App() {
         <Route path="/academic/competitions" element={<CompetitionsPage />} />
         <Route path="/academic/competitions/:id" element={<SingleCompetitionPage />} />
         <Route path="/academic/internships" element={<InternshipsPage />} />
+        <Route path="/academic/scholarships" element={<ScholarshipsPage />} />
+        <Route path="/academic/applications" element={<ApplicationsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/edit" element={<EditProfilePage />} />
         <Route path="/academic/books/:id/pay" element={<BookPaymentPage />} />
         <Route path="/academic/books/:id/reviews" element={<BookReviewsPage />} />
         <Route path="/academic/books/:id/reviews/add" element={<AddBookReviewPage />} />
