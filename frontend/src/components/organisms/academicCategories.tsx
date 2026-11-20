@@ -24,7 +24,7 @@ export default function AcademicCategories() {
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
             whileHover={{ y: -6, transition: { duration: 0.25 } }}
-            className="group relative flex flex-col justify-between rounded-2xl bg-gray-50/80 dark:bg-white/5 border border-gray-200/60 dark:border-gray-800/60 p-6 aspect-square cursor-pointer transition-all duration-300 hover:border-nhonga-300 hover:shadow-xl hover:shadow-nhonga-200/20 dark:hover:border-nhonga-700 dark:hover:shadow-nhonga-500/5 overflow-hidden"
+            className="group relative flex flex-col justify-between rounded-2xl bg-gray-50/80 dark:bg-white/5 border border-gray-200/60 dark:border-gray-800/60 p-6 h-44 sm:h-52 cursor-pointer transition-all duration-300 hover:border-nhonga-300 hover:shadow-xl hover:shadow-nhonga-200/20 dark:hover:border-nhonga-700 dark:hover:shadow-nhonga-500/5 overflow-hidden"
           >
             {/* Background icon watermark */}
             <div className="absolute top-4 right-4 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-300 pointer-events-none">
