@@ -9,7 +9,6 @@ import {
   HiOutlineBell,
   HiOutlineShieldCheck,
   HiOutlineArrowRightOnRectangle,
-  HiOutlineBars3,
   HiOutlineXMark,
   HiChevronDown,
   HiOutlineGlobeAlt,

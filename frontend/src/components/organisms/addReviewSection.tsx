@@ -5,13 +5,13 @@ import { HiArrowRight, HiArrowUpTray, HiStar, HiInformationCircle } from 'react-
 
 interface Props {
   itemTitle: string
-  itemType: string
+  itemType?: string
 }
 
 const inputCls = 'w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none focus:border-nhonga-400 transition-colors'
 const labelCls = 'block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2'
 
-export default function AddReviewSection({ itemTitle, itemType }: Props) {
+export default function AddReviewSection({ itemTitle }: Props) {
   const navigate = useNavigate()
   const [rating, setRating] = useState(4)
   const [hovered, setHovered] = useState(0)

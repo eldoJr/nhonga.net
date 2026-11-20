@@ -27,7 +27,7 @@ export default function BooksSection() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const scrollRef2 = useRef<HTMLDivElement>(null)
 
-  function scroll(ref: React.RefObject<HTMLDivElement>, dir: 'left' | 'right') {
+  function scroll(ref: React.RefObject<HTMLDivElement | null>, dir: 'left' | 'right') {
     if (!ref.current) return
     const amount = ref.current.offsetWidth * 0.8
     ref.current.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
