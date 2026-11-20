@@ -1,23 +1,14 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HiArrowRight, HiArrowLeft, HiPlus } from 'react-icons/hi2'
+import { books } from '../../data/books'
 
 const categories = ['All', 'Fiction', 'Non-Fiction', 'Fantasy', 'Psychology', 'Business', 'Self-Help', 'Art & Design']
 
-const books = [
-  { title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', price: 'MT 450', cover: 'https://covers.openlibrary.org/b/id/10527843-L.jpg' },
-  { title: 'Deep Work', author: 'Cal Newport', genre: 'Self-Help', price: 'MT 380', cover: 'https://covers.openlibrary.org/b/id/8739161-L.jpg' },
-  { title: 'The Lean Startup', author: 'Eric Ries', genre: 'Business', price: 'MT 420', cover: 'https://covers.openlibrary.org/b/id/8739174-L.jpg' },
-  { title: 'Thinking, Fast and Slow', author: 'Daniel Kahneman', genre: 'Psychology', price: 'MT 500', cover: 'https://covers.openlibrary.org/b/id/8739166-L.jpg' },
-  { title: 'Zero to One', author: 'Peter Thiel', genre: 'Business', price: 'MT 390', cover: 'https://covers.openlibrary.org/b/id/8739170-L.jpg' },
-  { title: 'The Alchemist', author: 'Paulo Coelho', genre: 'Fiction', price: 'MT 320', cover: 'https://covers.openlibrary.org/b/id/8739176-L.jpg' },
-  { title: 'Sapiens', author: 'Yuval Noah Harari', genre: 'Non-Fiction', price: 'MT 480', cover: 'https://covers.openlibrary.org/b/id/8739180-L.jpg' },
-  { title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', genre: 'Business', price: 'MT 350', cover: 'https://covers.openlibrary.org/b/id/8739182-L.jpg' },
-]
-
 function BookCard({ book }: { book: typeof books[0] }) {
   return (
-    <div className="group shrink-0 w-[70vw] sm:w-[44vw] lg:w-[300px] cursor-pointer">
+    <Link to={`/academic/books/${book.id}`} className="group shrink-0 w-[70vw] sm:w-[44vw] lg:w-[300px] cursor-pointer">
       <div className="relative h-[44vw] sm:h-[28vw] lg:h-[200px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-2">
         <img
           src={book.cover}
@@ -27,7 +18,7 @@ function BookCard({ book }: { book: typeof books[0] }) {
       </div>
       <h3 className="text-base font-semibold text-gray-900 dark:text-white truncate">{book.title}</h3>
       <p className="text-xs font-medium text-nhonga-500 mt-0.5">{book.price}</p>
-    </div>
+    </Link>
   )
 }
 
@@ -43,7 +34,6 @@ export default function BooksSection() {
   }
 
   const filtered = active === 'All' ? books : books.filter((b) => b.genre === active)
-
   return (
     <>
       {/* Search + Categories */}
@@ -116,7 +106,7 @@ export default function BooksSection() {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
         >
           <div className="shrink-0 w-[max(1.25rem,calc((100vw-1400px)/2))] sm:w-[max(1.5rem,calc((100vw-1400px)/2))]" />
-          {filtered.map((book) => <BookCard key={book.title} book={book} />)}
+          {filtered.map((book) => <BookCard key={book.id} book={book} />)}
           <div className="shrink-0 w-4 sm:w-6" />
         </div>
       </section>
@@ -141,7 +131,7 @@ export default function BooksSection() {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
         >
           <div className="shrink-0 w-[max(1.25rem,calc((100vw-1400px)/2))] sm:w-[max(1.5rem,calc((100vw-1400px)/2))]" />
-          {[...books].reverse().map((book) => <BookCard key={book.title + '-bs'} book={book} />)}
+          {[...books].reverse().map((book) => <BookCard key={book.id + '-bs'} book={book} />)}
           <div className="shrink-0 w-4 sm:w-6" />
         </div>
       </section>

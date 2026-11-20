@@ -1,11 +1,5 @@
-import EventsHero from '../organisms/eventsHero'
-import EventsCarousel from '../organisms/eventsCarousel'
+import EventsSection from '../organisms/eventsSection'
 
 export default function EventsPage() {
-  return (
-    <>
-      <EventsHero />
-      <EventsCarousel />
-    </>
-  )
+  return <EventsSection />
 }
